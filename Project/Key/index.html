@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Encrypted information</title>
+    <meta name="description" content="一个属于Play_Limit(PlayLimitXT)的个人网站;A personal website belonging to Play_Limit(PlayLimitXT).">
+    <meta name="keywords" content="Play_Limit,PlayLimit,LimitXT,PlayLimitXT,个人网站,Personal Website,UP,Blog" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-H1BZQVCCRE');
+    </script>
+</head>
+<body class="dark-theme">
+    <div class="container">
+        <h1>Enter the key to view the encrypted information.</h1>
+        <input type="password" id="keyInput" placeholder="Key...">
+        <button onclick="decrypt()">Confirm</button>
+        <p id="secretText" style="display:none;"></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

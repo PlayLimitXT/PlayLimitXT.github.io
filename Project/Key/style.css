@@ -1,0 +1,53 @@
+body.dark-theme {
+	display: flex;
+	overflow: hidden;
+	margin: 0;
+	height: 100vh;
+	background-color: #1a1a1a;
+	color: #fff;
+	font-family: Arial,sans-serif;
+	justify-content: center;
+	align-items: center
+}
+
+.container {
+	padding: 2rem;
+	width: 100%;
+	max-width: 400px;
+	box-shadow: 0 0 10px rgba(255,255,255,.1);
+	text-align: center
+}
+
+input[type=password] {
+	width: 100%;
+	padding: 1rem;
+	border: none;
+	border-bottom: 2px solid #3cf;
+	background-color: transparent;
+	color: #fff;
+	outline: 0;
+	transition: border-color .3s ease
+}
+
+button {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	margin-top: 1rem;
+	padding: 1rem 2rem;
+	border: none;
+	border-radius: 10px;
+	background-color: #3cf;
+	color: #000;
+	letter-spacing: 1px;
+	font-size: 1.2rem;
+	cursor: pointer;
+	transition: transform .3s ease,box-shadow .3s ease
+}
+
+button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 16px rgba(51,204,255,.3);
+	height: 200%;
+	opacity: 0
+}
