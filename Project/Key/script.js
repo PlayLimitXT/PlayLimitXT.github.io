@@ -7,7 +7,6 @@ function decrypt() {
 	const userKeyHash = CryptoJS.SHA256(userKey)
 		.toString(CryptoJS.enc.Hex);
 	if (userKeyHash === keyHash) {
-		// 解密
 		const decryptedText = CryptoJS.AES.decrypt(
 			encryptedText,
 			CryptoJS.enc.Utf8.parse(userKey), {
