@@ -1,4 +1,8 @@
-let keyHashes = ["d1a6cc870f4743d4830b75462e56855a580bdd514bbefa0ef4e2f418db968b59"];
+let keyHashes = [
+    "d1a6cc870f4743d4830b75462e56855a580bdd514bbefa0ef4e2f418db968b59",
+    "e6dd64117412d80feae8ef881a01472037095f396dd9bb6788c9e2d1dada8867",
+    "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+];
 
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("login-form");
@@ -13,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!keyHashes.includes(hashedKey)) {
       errorMessage.textContent = "Invalid username or password";
       errorMessage.classList.remove("hidden");
+      alert("Invalid username or password");
       return;
     }
     try {
@@ -30,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (error) {
       errorMessage.textContent = "Invalid username or password";
       errorMessage.classList.remove("hidden");
+      alert("Invalid username or password");
     }
   });
 });
