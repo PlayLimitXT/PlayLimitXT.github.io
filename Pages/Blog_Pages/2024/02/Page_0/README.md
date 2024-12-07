@@ -241,6 +241,6 @@ button[type=submit]:hover {
 }
 ```
 
-> 未经作者授权禁止转载
+> 转载请标明原文出处
 >
 > Copyright © 2024 Play_Limit
