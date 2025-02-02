@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟车牌选号系统 - PlayLimitXT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PlayLimitXT(Play_Limit)个人网站中的项目">
+  <meta name="keywords" content="Play_Limit,PlayLimit,LimitXT,PlayLimitXT,个人网站,Personal Website,UP,项目,炫酷,Projects" />
+  <meta name="msapplication-TileImage" content="../../images/favicon.png" />
+  <meta name="author" content="PlayLimitXT,PlayLimitXT@gmail.com">
+  <meta name="copyright" content="Copyright © 2025 Play_Limit">
+  <meta name="revisit-after" content="3 days" >
+  <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #10b981;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            padding: 2rem;
+            display: none;
+        }
+
+        .active-stage {
+            display: block !important;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* 步骤指示器 */
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .step.active {
+            background: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        /* 地区选择样式 */
+        #regionSelection {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        select {
+            padding: 0.8rem 1.2rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        /* 车牌容器 */
+        #plateContainer {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .plate {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prefix {
+            margin-right: 0.5rem;
+            min-width: 45px;
+        }
+
+        .numbers {
+            letter-spacing: 2px;
+        }
+
+        .selected {
+            background: var(--accent-color) !important;
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 按钮容器 */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .action-button {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-steps">
+        <div class="step active" id="step1">1</div>
+        <div class="step" id="step2">2</div>
+        <div class="step" id="step3">3</div>
+    </div>
+
+    <!-- 步骤1：地区选择 -->
+    <div class="container active-stage" id="stage1">
+        <h2 style="text-align: center; color: var(--primary-color);">选择您的地区</h2>
+        <div id="regionSelection">
+            <select id="provinceSelect">
+                <option value="">选择省份</option>
+            </select>
+            <select id="letterSelect">
+                <option value="">选择字母</option>
+            </select>
+        </div>
+        <div class="button-group">
+            <button class="action-button" onclick="startSelection()">开始选号</button>
+        </div>
+    </div>
+
+    <!-- 步骤2：五次选择 -->
+    <div class="container" id="stage2">
+        <h2 style="text-align: center; color: var(--primary-color);">
+            第 <span id="currentRound">1</span>/5 次选择
+        </h2>
+        <div id="plateContainer"></div>
+        <div class="button-group">
+            <button class="action-button" id="stopBtn" onclick="stopJumping()">停止并选择</button>
+        </div>
+    </div>
+
+    <!-- 步骤3：最终选择 -->
+    <div class="container" id="stage3">
+        <h2 style="text-align: center; color: var(--accent-color);">请确认您的最终选择</h2>
+        <div id="finalSelection"></div>
+        <div class="button-group">
+            <button class="action-button" onclick="confirmSelection()">确认最终选择</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStage = 1;
+        let selectedPlates = [];
+        let currentRound = 1;
+        let intervalId;
+        let regionPrefix = '';
+
+        // 初始化省份和字母选项
+        const provinces = ['京','津','冀','晋','蒙','辽','吉','黑','沪','苏',
+                          '浙','皖','闽','赣','鲁','豫','鄂','湘','粤','桂',
+                          '琼','渝','川','贵','云','藏','陕','甘','青','宁','新'];
+        
+        const provinceSelect = document.getElementById('provinceSelect');
+        provinces.forEach(p => {
+            const option = document.createElement('option');
+            option.value = p;
+            option.textContent = p;
+            provinceSelect.appendChild(option);
+        });
+
+        const letterSelect = document.getElementById('letterSelect');
+        for (let i = 65; i <= 90; i++) {
+            const option = document.createElement('option');
+            const letter = String.fromCharCode(i);
+            option.value = letter;
+            option.textContent = letter;
+            letterSelect.appendChild(option);
+        }
+
+        // 生成随机车牌号
+        function generatePlate() {
+            const numbers = Array.from({length: 5}, () => 
+                Math.random() < 0.5 ? 
+                String.fromCharCode(48 + Math.floor(Math.random() * 10)) : 
+                String.fromCharCode(65 + Math.floor(Math.random() * 26))
+            ).join('');
+            
+            return numbers;
+        }
+
+        // 开始选号流程
+        function startSelection() {
+            const province = provinceSelect.value;
+            const letter = letterSelect.value;
+            if (!province || !letter) return alert('请先选择完整的地区信息');
+            
+            regionPrefix = province + letter;
+            currentStage = 2;
+            updateProgress();
+            startNewRound();
+        }
+
+        // 开始新一轮选择
+        function startNewRound() {
+            const container = document.getElementById('plateContainer');
+            container.innerHTML = '';
+            
+            // 生成50个车牌
+            Array.from({length: 50}).forEach(() => {
+                const plate = document.createElement('div');
+                plate.className = 'plate';
+                plate.innerHTML = `
+                    <span class="prefix">${regionPrefix}</span>
+                    <span class="numbers">${generatePlate()}</span>
+                `;
+                container.appendChild(plate);
+            });
+
+            // 开始跳动
+            intervalId = setInterval(() => {
+                container.querySelectorAll('.numbers').forEach(numbers => {
+                    numbers.textContent = generatePlate();
+                });
+            }, 50);
+        }
+
+        // 停止跳动
+        function stopJumping() {
+            clearInterval(intervalId);
+            enableSelection();
+        }
+
+        // 启用选择
+        function enableSelection() {
+            const plates = document.querySelectorAll('.plate');
+            plates.forEach(plate => {
+                plate.onclick = () => selectPlate(plate);
+            });
+        }
+
+        // 选择车牌
+        function selectPlate(selected) {
+            document.querySelectorAll('.plate').forEach(plate => {
+                plate.classList.remove('selected');
+            });
+            selected.classList.add('selected');
+            
+            setTimeout(() => {
+                selectedPlates.push(selected.querySelector('.numbers').textContent);
+                
+                if (currentRound < 5) {
+                    currentRound++;
+                    document.getElementById('currentRound').textContent = currentRound;
+                    startNewRound();
+                } else {
+                    currentStage = 3;
+                    updateProgress();
+                    showFinalSelection();
+                }
+            }, 500);
+        }
+
+        // 显示最终选择
+        function showFinalSelection() {
+            const container = document.getElementById('finalSelection');
+            selectedPlates.forEach((num, index) => {
+                const div = document.createElement('div');
+                div.className = 'plate';
+                div.innerHTML = `
+                    <span class="prefix">${regionPrefix}</span>
+                    <span class="numbers">${num}</span>
+                `;
+                div.onclick = () => {
+                    document.querySelectorAll('#finalSelection .plate')
+                        .forEach(p => p.classList.remove('selected'));
+                    div.classList.add('selected');
+                };
+                container.appendChild(div);
+            });
+        }
+
+        // 确认最终选择
+        function confirmSelection() {
+            const selected = document.querySelector('#finalSelection .selected');
+            if (!selected) return alert('请先选择一个车牌号');
+            alert(`恭喜您选择成功！\n您的车牌号：${regionPrefix}·${selected.querySelector('.numbers').textContent}\n\n模拟车牌选号 by PlayLimitXT`);
+            location.reload();
+        }
+
+        // 更新进度指示
+        function updateProgress() {
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.toggle('active', index + 1 === currentStage);
+            });
+            document.querySelectorAll('.container').forEach(container => {
+                container.classList.remove('active-stage');
+            });
+            document.getElementById(`stage${currentStage}`).classList.add('active-stage');
+        }
+    </script>
+</body>
+</html>
