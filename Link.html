@@ -22,18 +22,193 @@
   <title>Project Link - PlayLimitXT</title>
   
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:"Main"}
-    h2{font-family:"Main"}
-    body{background-color:#111;font-family:Arial,sans-serif;transition:background-color .3s ease}
-    .header{background-color:#222;color:#fff;padding:1rem;text-align:center;font-size:2em;animation:fadeIn 1s ease-in forwards}
-    @keyframes fadeIn{0%{opacity:0}to{opacity:1}}
-    .card-container{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;padding:2rem 0}
-    .card{background-color:#333;border-radius:.5rem;padding:1rem;text-align:center;width:100%;max-width:300px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .3s ease;cursor:pointer}
-    .card:hover{transform:translateY(-5px);box-shadow:0 8px 16px rgba(0,0,0,.2)}
-    .card h2{color:#fff;font-size:1.5em;margin-bottom:.5rem}
-    .card p{color:#aaa;font-size:0.5em}
-    .footer{background-color:#222;color:#555;padding:1rem;text-align:center;font-size:.8em;position:fixed;bottom:0;left:0;right:0}
-    a{text-decoration: none;color: pink;text-shadow: 0 0 5px rgba(255, 105, 180, 0.5), 0 0 10px rgba(255, 65, 105, 0.5),0 0 15px rgba(255, 0, 255, 0.5);}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Main";
+}
+
+h2 {
+  font-family: "Main";
+}
+
+body {
+  background: linear-gradient(135deg, #0a0a1a 0%, #121228 50%, #0d0d21 100%);
+  color: #f0f0f0;
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+  font-family: "Main";
+}
+
+.header {
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.95) 0%, rgba(25, 25, 45, 0.95) 100%);
+  color: #fff;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  font-size: 2.8em;
+  font-weight: 300;
+  letter-spacing: 3px;
+  text-shadow: 0 2px 15px rgba(255, 105, 180, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+  font-family: "Main";
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 4s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  padding: 4rem 2rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.card {
+  background: linear-gradient(145deg, rgba(35, 35, 55, 0.9) 0%, rgba(28, 28, 48, 0.9) 100%);
+  border-radius: 18px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  font-family: "Main";
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ff69b4, transparent);
+  transform: scaleX(0);
+  transition: transform 0.5s ease;
+}
+
+.card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card h2 {
+  color: #fff;
+  font-size: 2em;
+  margin-bottom: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  font-family: "Main";
+}
+
+.card p {
+  color: #bbb;
+  font-size: 1em;
+  opacity: 0.9;
+  margin-top: 0.8rem;
+  font-family: "Main";
+}
+
+.footer {
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.95) 0%, rgba(25, 25, 45, 0.95) 100%);
+  color: #999;
+  padding: 2rem;
+  text-align: center;
+  font-size: 1em;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  font-family: "Main";
+}
+
+a {
+  text-decoration: none;
+  color: #ff69b4;
+  transition: all 0.3s ease;
+  position: relative;
+  font-family: "Main";
+}
+
+a:hover {
+  color: #ff1493;
+  text-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
+}
+
+@media (max-width: 768px) {
+  .header {
+    font-size: 2.2em;
+    padding: 2rem 1rem;
+  }
+  
+  .card-container {
+    grid-template-columns: 1fr;
+    padding: 3rem 1.5rem;
+    gap: 2rem;
+  }
+  
+  .card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .card h2 {
+    font-size: 1.7em;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    font-size: 1.9em;
+    padding: 1.8rem 1rem;
+  }
+  
+  .card h2 {
+    font-size: 1.5em;
+  }
+  
+  .footer {
+    padding: 1.5rem;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -55,6 +230,12 @@
       <a href="./Project/HTML_Runner/index.html">
         <h2>HTML Runner</h2>
         <p>https://PlayLimitXT.github.io/Project/HTML_Runner</p>
+      </a>
+    </div>
+    <div class="card">
+      <a href="./Project/AI/index.html">
+        <h2>AI Chat</h2>
+        <p>https://PlayLimitXT.github.io/Project/AI</p>
       </a>
     </div>
     <div class="card">
