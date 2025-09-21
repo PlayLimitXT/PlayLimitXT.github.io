@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="PlayLimitXT(Play_Limit)个人网站中的项目">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Project Link - PlayLimitXT</title>
+  <meta name="description" content="PlayLimitXT(PLXT)个人网站中的项目">
   <meta name="keywords" content="Play_Limit,PlayLimit,LimitXT,PlayLimitXT,个人网站,Personal Website,UP,项目,炫酷,Projects" />
   <meta name="msapplication-TileImage" content="images/favicon.png" />
   <meta name="author" content="Play_Limit,PlayLimitXT@gmail.com">
@@ -19,256 +20,146 @@
     gtag('js', new Date());
     gtag('config', 'G-H1BZQVCCRE');
   </script>
-  <title>Project Link - PlayLimitXT</title>
-  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Main";
-}
+    :root{
+      --bg-1: #0f0f1c;
+      --bg-2: #1a1a2e;
+      --accent: #ff4da6;
+      --accent-2: #6a5af9;
+      --accent-3: #00d4ff;
+      --glow: rgba(255,77,166,0.25);
+      --muted: #cdd3e6;
+      --radius: 18px;
+      --max-width: 1180px;
+    }
 
-h2 {
-  font-family: "Main";
-}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      color:#f5f7ff;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:48px 20px;
+    }
 
-body {
-  background: linear-gradient(135deg, #0a0a1a 0%, #121228 50%, #0d0d21 100%);
-  color: #f0f0f0;
-  min-height: 100vh;
-  line-height: 1.6;
-  overflow-x: hidden;
-  font-family: "Main";
-}
+    .wrap{width:100%;max-width:var(--max-width);}
 
-.header {
-  background: linear-gradient(135deg, rgba(30, 30, 50, 0.95) 0%, rgba(25, 25, 45, 0.95) 100%);
-  color: #fff;
-  padding: 2.5rem 1rem;
-  text-align: center;
-  font-size: 2.8em;
-  font-weight: 300;
-  letter-spacing: 3px;
-  text-shadow: 0 2px 15px rgba(255, 105, 180, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  position: relative;
-  overflow: hidden;
-  font-family: "Main";
-}
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
+      padding:18px 24px;border-radius:14px;color:white;
+      box-shadow:0 8px 30px rgba(3,6,23,0.6),0 2px 10px var(--glow);
+    }
 
-.header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  animation: shimmer 4s infinite;
-}
+    .brand{display:flex;align-items:center;gap:14px;}
+    .logo{
+      width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;font-weight:700;color:white;font-size:20px;
+      box-shadow:0 6px 20px rgba(106,90,249,0.25);
+    }
+    .title{font-size:20px;font-weight:600;letter-spacing:0.8px;}
+    .subtitle{font-size:12px;color:#f0f0f0;opacity:0.8;margin-top:2px}
 
-@keyframes shimmer {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
-  }
-}
+    .ribbon{font-size:13px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.2);color:white;font-weight:500;}
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:26px;}
 
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2.5rem;
-  padding: 4rem 2rem;
-  max-width: 1300px;
-  margin: 0 auto;
-}
+    .card{
+      position:relative;
+      border-radius:var(--radius);
+      background:linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.25));
+      overflow:hidden;
+      padding:24px;
+      transition:transform .4s cubic-bezier(.2,.9,.2,1),box-shadow .4s;
+      cursor:pointer;
+    }
+    .card::before{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
+      opacity:0.2;
+      transition:opacity .4s;
+    }
+    .card:hover::before{opacity:0.35;}
 
-.card {
-  background: linear-gradient(145deg, rgba(35, 35, 55, 0.9) 0%, rgba(28, 28, 48, 0.9) 100%);
-  border-radius: 18px;
-  padding: 2.5rem 2rem;
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  font-family: "Main";
-}
+    .card a{text-decoration:none;color:inherit;display:block;position:relative;z-index:1}
+    .card h2{font-size:18px;margin-bottom:8px;font-weight:600;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .card p{font-size:13px;color:var(--muted);}
 
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #ff69b4, transparent);
-  transform: scaleX(0);
-  transition: transform 0.5s ease;
-}
+    .card:hover{
+      transform:translateY(-12px) scale(1.03);
+      box-shadow:0 20px 40px rgba(0,0,0,0.6),0 0 20px rgba(255,77,166,0.3);
+    }
 
-.card:hover {
-  transform: translateY(-12px) scale(1.03);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-}
+    .card .shine{
+      content:"";
+      position:absolute;top:0;left:-75%;width:50%;height:100%;
+      background:linear-gradient(120deg,transparent,rgba(255,255,255,0.3),transparent);
+      transform:skewX(-25deg);
+    }
+    .card:hover .shine{
+      animation:shine 1s forwards;
+    }
+    @keyframes shine{
+      0%{left:-75%}
+      100%{left:125%}
+    }
 
-.card:hover::before {
-  transform: scaleX(1);
-}
+    footer{margin-top:36px;padding:18px;border-radius:14px;
+      background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 50%, var(--accent-3) 100%);
+      width:100%;text-align:center;color:white;font-weight:500}
 
-.card h2 {
-  color: #fff;
-  font-size: 2em;
-  margin-bottom: 1.2rem;
-  font-weight: 400;
-  letter-spacing: 1.5px;
-  font-family: "Main";
-}
+    @media (max-width:640px){
+      header{flex-direction:column;align-items:flex-start}
+      .logo{width:48px;height:48px}
+    }
 
-.card p {
-  color: #bbb;
-  font-size: 1em;
-  opacity: 0.9;
-  margin-top: 0.8rem;
-  font-family: "Main";
-}
+    .bg-shape{position:fixed;pointer-events:none;z-index:0;filter:blur(40px);opacity:.35}
+    .bg-a{width:380px;height:380px;left:-60px;top:-40px;background:radial-gradient(circle at 30% 30%, rgba(106,90,249,0.2), transparent 40%)}
+    .bg-b{width:420px;height:420px;right:-80px;bottom:-120px;background:radial-gradient(circle at 70% 70%, rgba(255,77,166,0.18), transparent 40%)}
 
-.footer {
-  background: linear-gradient(135deg, rgba(30, 30, 50, 0.95) 0%, rgba(25, 25, 45, 0.95) 100%);
-  color: #999;
-  padding: 2rem;
-  text-align: center;
-  font-size: 1em;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  position: relative;
-  font-family: "Main";
-}
-
-a {
-  text-decoration: none;
-  color: #ff69b4;
-  transition: all 0.3s ease;
-  position: relative;
-  font-family: "Main";
-}
-
-a:hover {
-  color: #ff1493;
-  text-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
-}
-
-@media (max-width: 768px) {
-  .header {
-    font-size: 2.2em;
-    padding: 2rem 1rem;
-  }
-  
-  .card-container {
-    grid-template-columns: 1fr;
-    padding: 3rem 1.5rem;
-    gap: 2rem;
-  }
-  
-  .card {
-    padding: 2rem 1.5rem;
-  }
-  
-  .card h2 {
-    font-size: 1.7em;
-  }
-}
-
-@media (max-width: 480px) {
-  .header {
-    font-size: 1.9em;
-    padding: 1.8rem 1rem;
-  }
-  
-  .card h2 {
-    font-size: 1.5em;
-  }
-  
-  .footer {
-    padding: 1.5rem;
-  }
-}
-
+    a:focus{outline:2px dashed rgba(255,77,166,0.4);outline-offset:4px}
   </style>
 </head>
 <body>
-  <div class="header">Project Link</div>
-  <div class="card-container">
-    <div class="card">
-      <a href="./index.html">
-        <h2>主页 Home</h2>
-        <p>https://PlayLimitXT.github.io/</p>
-      </a>
-    </div>
-    <div class="card">
-      <a href="./Project/Key/index.html">
-        <h2>Login Page</h2>
-        <p>https://PlayLimitXT.github.io/Project/Key</p>
-      </a>
-    </div>
-    <div class="card">
-      <a href="./Project/HTML_Runner/index.html">
-        <h2>HTML Runner</h2>
-        <p>https://PlayLimitXT.github.io/Project/HTML_Runner</p>
-      </a>
-    </div>
-    <div class="card">
-      <a href="./Project/AI/index.html">
-        <h2>AI Chat</h2>
-        <p>https://PlayLimitXT.github.io/Project/AI</p>
-      </a>
-    </div>
-    <div class="card">
-      <a href="./Project/Rubik's Cube/index.html">
-        <h2>Rubik's Cube</h2>
-        <p>https://PlayLimitXT.github.io/Project/Rubik's Cube</p>
-      </a>
-    </div>
-    <div class="card">
-      <a href="./Project/Cube/index.html">
-        <h2>Rubik's Cube Tools</h2>
-        <p>https://PlayLimitXT.github.io/Project/Cube</p>
-      </a>
-    </div>
-    <div class="card">
-      <a href="./Project/Check-In-System/index.html">
-        <h2>Check-In System</h2>
-        <p>https://PlayLimitXT.github.io/Project/Check-In-System</p>
-      </a>
-    </div>
-    <div class="card">
-      <a href="./Project/Chrome-Dinosaur/index.html">
-        <h2>Chrome Dinosaur Game</h2>
-        <p>https://PlayLimitXT.github.io/Project/Chrome-Dinosaur</p>
-      </a>
-    </div>
-    <div class="card">
-      <a href="./Project/Original_Website/index.html">
-        <h2>Original Website</h2>
-        <p>https://PlayLimitXT.github.io/Project/Original_Website</p>
-      </a>
-    </div>
+  <div class="bg-shape bg-a" aria-hidden></div>
+  <div class="bg-shape bg-b" aria-hidden></div>
+
+  <div class="wrap" role="main">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden>PL</div>
+        <div>
+          <div class="title">Project Link</div>
+          <div class="subtitle">PlayLimitXT · 个人项目索引</div>
+        </div>
+      </div>
+      <div class="ribbon">快速入口 / Quick Links</div>
+    </header>
+
+    <section class="grid" aria-label="Projects list">
+      <article class="card"><span class="shine"></span><a href="./index.html"><h2>主页 Home</h2><p>https://PlayLimitXT.github.io/</p></a></article>
+      <article class="card"><span class="shine"></span><a href="./Project/Key/index.html"><h2>Login Page</h2><p>https://PlayLimitXT.github.io/Project/Key</p></a></article>
+      <article class="card"><span class="shine"></span><a href="./Project/HTML_Runner/index.html"><h2>HTML Runner</h2><p>https://PlayLimitXT.github.io/Project/HTML_Runner</p></a></article>
+      <article class="card"><span class="shine"></span><a href="./Project/AI/index.html"><h2>AI Chat</h2><p>https://PlayLimitXT.github.io/Project/AI</p></a></article>
+      <article class="card"><span class="shine"></span><a href="./Project/Rubik's Cube/index.html"><h2>Rubik's Cube</h2><p>https://PlayLimitXT.github.io/Project/Rubik's Cube</p></a></article>
+      <article class="card"><span class="shine"></span><a href="./Project/Cube/index.html"><h2>Rubik's Cube Tools</h2><p>https://PlayLimitXT.github.io/Project/Cube</p></a></article>
+      <article class="card"><span class="shine"></span><a href="./Project/Check-In-System/index.html"><h2>Check-In System</h2><p>https://PlayLimitXT.github.io/Project/Check-In-System</p></a></article>
+      <article class="card"><span class="shine"></span><a href="./Project/Chrome-Dinosaur/index.html"><h2>Chrome Dinosaur Game</h2><p>https://PlayLimitXT.github.io/Project/Chrome-Dinosaur</p></a></article>
+      <article class="card"><span class="shine"></span><a href="./Project/Original_Website/index.html"><h2>Original Website</h2><p>https://PlayLimitXT.github.io/Project/Original_Website</p></a></article>
+    </section>
+
+    <footer>
+      Copyright © 2025 PlayLimitXT
+    </footer>
   </div>
-  <div class="footer">Copyright © 2025 Play_Limit</div>
 </body>
 </html>
