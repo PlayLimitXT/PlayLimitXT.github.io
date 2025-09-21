@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Play_Limit(PlayLimitXT)个人网站 - HTML运行器">
-  <meta name="keywords" content="Play_Limit,PlayLimit,LimitXT,PlayLimitXT,个人网站,Personal Website,UP,炫酷,HTML,运行器,Runner" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="msapplication-TileImage" content="images/favicon.png" />
-  <meta name="author" content="Play_Limit,PlayLimitXT@gmail.com">
-  <meta name="copyright" content="Copyright © 2024 Play_Limit">
-  <meta name="robots" content="index,follow" />
-  <meta name="revisit-after" content="7 days" >
-  <link href="style.css" rel="stylesheet">
-  <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
-  <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Runner - PLXT</title>
+    <meta name="description" content="HTML Runner by PLXT">
+    <meta name="keywords" content="Play_Limit,PlayLimit,LimitXT,PlayLimitXT,PLXT,个人网站,Personal Website,HTML Runner" />
+    <meta name="msapplication-TileImage" content="../../images/favicon.png" />
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <meta name="copyright" content="Copyright © 2025 Play_Limit">
+    <meta name="robots" content="index,follow" />
+    <meta name="revisit-after" content="7 days" >
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -20,20 +20,406 @@
     gtag('js', new Date());
     gtag('config', 'G-H1BZQVCCRE');
   </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/material-darker.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/edit/closetag.min.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #1e1e1e;
+            --editor-bg: #282c34;
+            --header-bg: #2a2d34;
+            --border-color: #444;
+            --text-color: #d4d4d4;
+            --accent-color: #007acc;
+            --accent-hover-color: #009eff;
+            --button-bg: #3a3d41;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .main-header h1 {
+            font-size: 1.5em;
+            color: var(--accent-color);
+        }
+
+        .main-header .controls button {
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .main-header .controls button:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .main-container {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .editor-pane, .preview-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .editor-pane {
+            background-color: var(--editor-bg);
+        }
+
+        .preview-pane {
+            border-left: 2px solid var(--border-color);
+        }
+
+        .code-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100px; /* 保证移动端有最小高度 */
+        }
+        
+        .code-container-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #33373e;
+            padding: 8px 12px;
+            font-weight: bold;
+        }
+        
+        .code-container-header .buttons button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .code-container-header .buttons button:hover {
+            opacity: 1;
+        }
+
+        .CodeMirror {
+            flex-grow: 1;
+            height: auto;
+            font-size: 14px;
+        }
+        
+        .CodeMirror-gutters {
+            background-color: var(--editor-bg) !important;
+            border-right: 1px solid var(--border-color) !important;
+        }
+        
+        .cm-s-material-darker.CodeMirror {
+             background-color: var(--editor-bg);
+        }
+
+        #preview-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: #fff;
+        }
+
+        /* 页脚样式 */
+        .footer {
+            background-color: var(--header-bg);
+            color: var(--text-color);
+            text-align: center;
+            padding: 12px;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .preview-pane {
+                border-left: none;
+                border-top: 2px solid var(--border-color);
+            }
+            
+            .main-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>HTML Runner - Play_Limit</h1>
-    <textarea id="html-input" placeholder="HTML code..."></textarea>
-    <div class="buttons-container">
-      <button id="copy-btn">Copy</button>
-      <button id="paste-btn">Paste</button>
-      <button id="clear-btn">Empty</button>
-      <button id="run-btn">Run</button>
+
+    <header class="main-header">
+        <h1>HTML Runner</h1>
+        <div class="controls">
+            <button id="open-new-tab">Open in a new tab</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="editor-pane">
+            <div class="code-container">
+                <div class="code-container-header">
+                    <span>HTML</span>
+                    <div class="buttons">
+                        <button class="copy-btn" data-editor="html">Copy</button>
+                        <button class="paste-btn" data-editor="html">Paste</button>
+                        <button class="clear-btn" data-editor="html">Clear</button>
+                    </div>
+                </div>
+                <textarea id="html-code"></textarea>
+            </div>
+            <div class="code-container">
+                <div class="code-container-header">
+                    <span>CSS</span>
+                    <div class="buttons">
+                        <button class="copy-btn" data-editor="css">Copy</button>
+                        <button class="paste-btn" data-editor="css">Paste</button>
+                        <button class="clear-btn" data-editor="css">Clear</button>
+                    </div>
+                </div>
+                <textarea id="css-code"></textarea>
+            </div>
+            <div class="code-container">
+                <div class="code-container-header">
+                    <span>JavaScript</span>
+                    <div class="buttons">
+                        <button class="copy-btn" data-editor="js">Copy</button>
+                        <button class="paste-btn" data-editor="js">Paste</button>
+                        <button class="clear-btn" data-editor="js">Clear</button>
+                    </div>
+                </div>
+                <textarea id="js-code"></textarea>
+            </div>
+        </div>
+        <div class="preview-pane">
+            <iframe id="preview-frame" title="Live Preview"></iframe>
+        </div>
     </div>
-    <iframe id="result-frame" class="hidden run-result"></iframe>
-    <footer>Copyright &copy; 2024 Play_Limit</footer>
-  </div>
-  <script src="script.js"></script>
+
+    <!-- 新增页脚 -->
+    <footer class="footer">
+        Copyright © 2025 <a href="https://github.com/PlayLimitXT" target="_blank">PlayLimitXT</a>. All Rights Reserved.
+    </footer>
+
+    <script>
+        // CodeMirror 编辑器通用配置
+        const editorConfig = {
+            lineNumbers: true,
+            theme: "material-darker",
+            autoCloseTags: true,
+            indentUnit: 4,
+            lineWrapping: true, // 解决换行问题
+            extraKeys: {
+                "Backspace": function(cm) {
+                    // 修复删除换行问题
+                    if (cm.somethingSelected()) {
+                        cm.replaceSelection("");
+                    } else {
+                        const cursor = cm.getCursor();
+                        const line = cm.getLine(cursor.line);
+                        
+                        if (cursor.ch === 0 && cursor.line > 0) {
+                            // 在行首按删除键，合并到上一行
+                            const prevLine = cm.getLine(cursor.line - 1);
+                            const prevLineLength = prevLine.length;
+                            
+                            // 删除当前行
+                            cm.replaceRange(
+                                "",
+                                { line: cursor.line - 1, ch: prevLineLength },
+                                { line: cursor.line, ch: 0 },
+                                "+delete"
+                            );
+                            
+                            // 将光标移动到上一行末尾
+                            cm.setCursor({ line: cursor.line - 1, ch: prevLineLength });
+                        } else {
+                            cm.execCommand("delCharBefore");
+                        }
+                    }
+                }
+            }
+        };
+
+        // 初始化编辑器
+        const htmlEditor = CodeMirror.fromTextArea(document.getElementById('html-code'), {
+            ...editorConfig,
+            mode: 'htmlmixed',
+        });
+
+        const cssEditor = CodeMirror.fromTextArea(document.getElementById('css-code'), {
+            ...editorConfig,
+            mode: 'css',
+        });
+
+        const jsEditor = CodeMirror.fromTextArea(document.getElementById('js-code'), {
+            ...editorConfig,
+            mode: 'javascript',
+        });
+        
+        const editors = {
+            html: htmlEditor,
+            css: cssEditor,
+            js: jsEditor
+        };
+
+        // 设置默认代码
+        htmlEditor.setValue(``);
+        cssEditor.setValue(``);
+        jsEditor.setValue(``);
+
+        const previewFrame = document.getElementById('preview-frame');
+        
+        // 创建源码的函数，注入CSS和JS
+        const createSourceCode = () => {
+            let htmlCode = htmlEditor.getValue();
+            const cssCode = cssEditor.getValue();
+            const jsCode = jsEditor.getValue();
+
+            let processedCode = htmlCode;
+
+            // 检查HTML中是否已包含<style>标签，如果没有，并且CSS编辑区有内容，则注入
+            if (!/<\s*style\s*>/i.test(htmlCode) && cssCode.trim() !== '') {
+                processedCode = processedCode.replace('</head>', `<style>${cssCode}</style></head>`);
+            }
+            
+            // 检查HTML中是否已包含<script>标签，如果没有，并且JS编辑区有内容，则注入
+            if (!/<\s*script\s*>/i.test(htmlCode) && jsCode.trim() !== '') {
+                processedCode = processedCode.replace('</body>', `<script>${jsCode}<\/script></body>`);
+            }
+            
+            return processedCode;
+        }
+
+        // 更新预览窗口函数
+        const updatePreview = () => {
+            previewFrame.srcdoc = createSourceCode();
+        };
+        
+        // 使用 debounce 优化，避免过于频繁的更新
+        let debounceTimeout;
+        const debouncedUpdate = () => {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(updatePreview, 250);
+        };
+
+        // 监听编辑器内容变化
+        htmlEditor.on('change', debouncedUpdate);
+        cssEditor.on('change', debouncedUpdate);
+        jsEditor.on('change', debouncedUpdate);
+
+        // "在新标签页中打开" 功能
+        document.getElementById('open-new-tab').addEventListener('click', () => {
+            const sourceCode = createSourceCode();
+            const blob = new Blob([sourceCode], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+        });
+        
+        // "复制" 功能
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const editorId = button.dataset.editor;
+                const content = editors[editorId].getValue();
+                navigator.clipboard.writeText(content).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => button.textContent = 'Copy', 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            });
+        });
+
+        // "粘贴" 功能
+        document.querySelectorAll('.paste-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                 if (!navigator.clipboard.readText) {
+                    alert('Your browser does not support pasting from the clipboard.');
+                    return;
+                }
+                const editorId = button.dataset.editor;
+                navigator.clipboard.readText().then(text => {
+                    editors[editorId].replaceSelection(text);
+                    button.textContent = 'Pasted!';
+                    setTimeout(() => button.textContent = 'Paste', 2000);
+                }).catch(err => {
+                    console.error('Failed to paste: ', err);
+                    alert('Failed to paste. You may need to grant clipboard permissions to this site.');
+                });
+            });
+        });
+
+        // "清空" 功能
+        document.querySelectorAll('.clear-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const editorId = button.dataset.editor;
+                editors[editorId].setValue('');
+                button.textContent = 'Cleared!';
+                setTimeout(() => button.textContent = 'Clear', 2000);
+                updatePreview(); // 清空后立即更新预览
+            });
+        });
+
+        // 页面加载后立即更新一次预览
+        window.onload = updatePreview;
+
+    </script>
 </body>
 </html>
