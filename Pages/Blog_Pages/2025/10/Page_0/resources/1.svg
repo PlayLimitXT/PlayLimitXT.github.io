@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900">
+  <defs>
+    <linearGradient id="pinkBlueGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6fcf"/>
+      <stop offset="50%" stop-color="#8a7bff"/>
+      <stop offset="100%" stop-color="#4fe0ff"/>
+    </linearGradient>
+
+    <filter id="neonGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="b2"/>
+      <feMerge>
+        <feMergeNode in="b2"/>
+        <feMergeNode in="b1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#0b0f17"/>
+
+  <g transform="translate(450,450)" text-anchor="middle" font-family="Inter, Arial, Helvetica, sans-serif">
+    <text id="line1" x="0" y="-20" font-size="56" font-weight="800"
+          fill="url(#pinkBlueGrad)" filter="url(#neonGlow)">
+      https://PlayLimitXT.github.io/
+    </text>
+
+    <text id="line2" x="0" y="60" font-size="56" font-weight="800"
+          fill="url(#pinkBlueGrad)" filter="url(#neonGlow)" letter-spacing="1px">
+      https://PLXT.pages.dev/
+    </text>
+
+    <text x="0" y="-20" font-size="56" font-weight="800" fill="none" stroke="#fff" stroke-opacity="0.08" stroke-width="1"/>
+    <text x="0" y="60" font-size="56" font-weight="800" fill="none" stroke="#fff" stroke-opacity="0.06" stroke-width="1"/>
+  </g>
+</svg>

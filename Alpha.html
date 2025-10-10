@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin's Page</title>
+    <meta name="description" content="一个属于PlayLimitXT(Play_Limit/PLXT)的个人网站;A personal website belonging to PlayLimitXT">
+    <meta name="keywords" content="Play_Limit,LimitXT,PlayLimitXT,PLXT,个人网站,Personal Website,炫酷,Admin Panel" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msapplication-TileImage" content="images/favicon.png" />
+    <meta name="author" content="PlayLimitXT,PlayLimitXT@gmail.com">
+    <meta name="copyright" content="Copyright © 2025 PlayLimitXT">
+    <meta name="robots" content="index,follow" />
+    <meta name="revisit-after" content="7 days" >
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H1BZQVCCRE');
+  </script>
+    <link rel="preconnect" "https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-1: #0f0f1c;
+            --bg-2: #1a1a2e;
+            --accent: #ff4da6;
+            --accent-2: #6a5af9;
+            --accent-3: #00d4ff;
+            --glow: rgba(255,77,166,0.25);
+            --muted: #cdd3e6;
+            --radius: 18px;
+            --max-width: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+            color: #f5f7ff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            display: flex;
+            justify-content: center;
+        }
+
+        .centered-card {
+            position: relative;
+            border-radius: var(--radius);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.25));
+            overflow: hidden;
+            padding: 48px;
+            transition: transform .4s cubic-bezier(.2, .9, .2, 1), box-shadow .4s;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 15px 40px rgba(3, 6, 23, 0.6), 0 5px 15px var(--glow);
+        }
+
+        .centered-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
+            opacity: 0.2;
+            transition: opacity .4s;
+        }
+
+        .centered-card:hover::before {
+            opacity: 0.35;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .card-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--muted);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .highlight {
+            background: linear-gradient(90deg, var(--accent), var(--accent-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 77, 166, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--muted);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 77, 166, 0.4);
+        }
+
+        .centered-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 77, 166, 0.4);
+        }
+
+        .centered-card .shine {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: skewX(-25deg);
+            z-index: 1;
+        }
+
+        .centered-card:hover .shine {
+            animation: shine 1s forwards;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -75%;
+            }
+            100% {
+                left: 125%;
+            }
+        }
+
+        .bg-shape {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(40px);
+            opacity: .35;
+        }
+
+        .bg-a {
+            width: 380px;
+            height: 380px;
+            left: -60px;
+            top: -40px;
+            background: radial-gradient(circle at 30% 30%, rgba(106, 90, 249, 0.2), transparent 40%);
+        }
+
+        .bg-b {
+            width: 420px;
+            height: 420px;
+            right: -80px;
+            bottom: -120px;
+            background: radial-gradient(circle at 70% 70%, rgba(255, 77, 166, 0.18), transparent 40%);
+        }
+
+        @media (max-width: 768px) {
+            .centered-card {
+                padding: 32px 24px;
+            }
+            
+            .card-title {
+                font-size: 2rem;
+            }
+            
+            .card-text {
+                font-size: 1rem;
+            }
+            
+            .card-footer {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .centered-card {
+                padding: 28px 20px;
+            }
+            
+            .card-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-shape bg-a"></div>
+    <div class="bg-shape bg-b"></div>
+    
+    <div class="container">
+        <div class="centered-card">
+            <div class="shine"></div>
+            <div class="card-content">
+                <h1 class="card-title">Admin's Pages</h1>
+                <p class="card-text">
+                    This is a page designed for <span class="highlight">Administrators</span>.
+                </p>
+                <p class="card-text">
+                    This page will be used to debug and test the website, or serve as an admin panel.
+                </p>
+                <p class="card-text">
+                    Stay tuned.
+                </p>
+                <div class="card-footer">
+                    <button class="btn btn-primary">Got it</button>
+                    <button class="btn btn-secondary">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
