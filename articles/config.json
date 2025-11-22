@@ -1,42 +1,47 @@
 [
   {
+    "title": "Website Redesign",
+    "date": "2025.11.23",
+    "author": "PlayLimitXT",
+    "categoryDisplay": "Development",
+    "image": "articles/Blog_Pages/2025/11/Page_0/resources/0.png",
+    "link": "articles/Blog_Pages/2025/11/Page_0/index.html",
+    "description": "Completely redesign and restructure this website."
+  },
+  {
     "title": "Domain Name of the website",
     "date": "2025.10.10",
     "author": "PlayLimitXT",
-    "category": "community",
-    "categoryDisplay": "Development",
-    "image": "Pages/Blog_Pages/2025/10/Page_0/resources/1.svg",
-    "link": "Pages/Blog_Pages/2025/10/Page_0/index.html",
+    "categoryDisplay": "Statement",
+    "image": "articles/Blog_Pages/2025/10/Page_0/resources/1.svg",
+    "link": "articles/Blog_Pages/2025/10/Page_0/index.html",
     "description": "Statement on the Domain Name of This Website"
   },
   {
     "title": "Updates of the website",
     "date": "2025.9.22",
     "author": "PlayLimitXT",
-    "category": "community",
-    "categoryDisplay": "开发&技术&教程",
-    "image": "Pages/Blog_Pages/2025/09/Page_0/resources/1.png",
-    "link": "Pages/Blog_Pages/2025/09/Page_0/index.html",
+    "categoryDisplay": "Development",
+    "image": "articles/Blog_Pages/2025/09/Page_0/resources/1.png",
+    "link": "articles/Blog_Pages/2025/09/Page_0/index.html",
     "description": "本网站最近的部分更新及项目展示以及相关源码"
   },
   {
     "title": "纯前端实现登录",
     "date": "2024.02.10",
     "author": "Play_Limit",
-    "category": "community",
-    "categoryDisplay": "开发&技术&教程",
-    "image": "Pages/Blog_Pages/2024/02/Page_0/resources/1.png",
-    "link": "Pages/Blog_Pages/2024/02/Page_0/index.html",
+    "categoryDisplay": "Development",
+    "image": "articles/Blog_Pages/2024/02/Page_0/resources/1.png",
+    "link": "articles/Blog_Pages/2024/02/Page_0/index.html",
     "description": "教程: 制作一个纯前端且安全切实可用的登录页面"
   },
   {
     "title": "PlayLimitXT Website",
     "date": "February 10th, 2024",
     "author": "Play_Limit",
-    "category": "community",
     "categoryDisplay": "Development",
     "image": "images/resource/home.png",
     "link": "index.html",
-    "description": "The basic framework of this website has been completed, and it is under construction."
+    "description": "The basic framework of this website has been completed and it is under construction."
   }
 ]
