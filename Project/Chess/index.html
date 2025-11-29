@@ -37,16 +37,13 @@
     <div class="panel panel-ctrl">
         <h2>Game Controls</h2>
         
-        <label style="font-size:0.8rem; color:#aaa;">Play As</label>
-        <div class="btn-group-3">
-            <button id="btnW" onclick="initGame('w')">White</button>
-            <button id="btnR" onclick="initGame('r')">Random</button>
-            <button id="btnB" onclick="initGame('b')">Black</button>
+        <div style="padding:10px; background:rgba(0,0,0,0.25); border-radius:6px; border-left:3px solid var(--accent); margin-top:auto;">
+            <div id="status">Welcome</div>
+            <div id="engineState" style="font-size:0.75rem; color:#94a3b8; margin-top:5px;">Engine: Idle</div>
         </div>
-
-        <label style="font-size:0.8rem; color:#aaa;">AI Level (<span id="eloDisp">1200</span>)</label>
-        <input type="range" id="elo" min="400" max="2800" step="100" value="1200">
-
+        
+        <br />
+        
         <!-- Hint -->
         <div class="btn-group-2">
             <button onclick="nextHintStep()" id="btnHint"><i class="fas fa-lightbulb"></i> <span id="hintText">Hint</span></button>
@@ -56,11 +53,27 @@
             <button onclick="board.flip()"><i class="fas fa-retweet"></i> Flip</button>
             <button onclick="copyPGN()"><i class="fas fa-copy"></i> PGN</button>
         </div>
-
-        <div style="padding:10px; background:rgba(0,0,0,0.25); border-radius:6px; border-left:3px solid var(--accent); margin-top:auto;">
-            <div id="status">Welcome</div>
-            <div id="engineState" style="font-size:0.75rem; color:#94a3b8; margin-top:5px;">Engine: Idle</div>
+        
+        <label style="font-size:0.8rem; color:#aaa;">Play As</label>
+        <div class="btn-group-3">
+            <button id="btnW" onclick="initGame('w')">White</button>
+            <button id="btnR" onclick="initGame('r')">Random</button>
+            <button id="btnB" onclick="initGame('b')">Black</button>
         </div>
+        
+        <!--
+        <label style="font-size:0.8rem; color:#aaa;">AI ELO: <span id="eloDisp">1200</span> </label>
+        <input type="range" id="elo" min="1320" max="3190" step="50" value="1200">
+        -->
+        
+        <label style="font-size:0.8rem; color:#aaa;">AI Level: <span id="levelDisp">3</span> </label>
+        <input type="range" id="level" min="0" max="20" step="1" value="3">
+        
+        <!--
+        <label style="font-size:0.8rem; color:#aaa;">AI Time(ms): <span id="timeDisp">5000</span> </label>
+        <input type="range" id="time" min="500" max="10000" step="100" value="5000">
+        -->
+
     </div>
 
     <!-- Chess -->

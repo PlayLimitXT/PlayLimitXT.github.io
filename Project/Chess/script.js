@@ -5,6 +5,8 @@ let isThinking = false;
 let isAnalyzing = true;
 let playerSide = 'w';
 let currentElo = 1200;
+//let currentTime = 5000;
+let aiLevel = 3;
 let selectedSq = null;
 let snapshotPly = -1;
 let hintState = 0;
@@ -29,11 +31,24 @@ $(document).ready(() => {
     redrawArrows()
   });
   $('#board').on('click', '.square-55d63', onSquareClick);
+  /*
   $('#elo').on('input', function() {
     currentElo = this.value;
     $('#eloDisp').text(currentElo)
   });
+  */
+  $('#level').on('input', function() {
+    aiLevel = this.value;
+    $('#levelDisp').text(aiLevel)
+  });
+  /*
+  $('#time').on('input', function() {
+    currentTime = this.value;
+    $('#timeDisp').text(currentTime)
+  });
+  */
   initGame('w')
+  stockfish.postMessage("setoption name UCI_LimitStrength value false")
 });
 
 function initGame(side) {
@@ -136,10 +151,14 @@ function onSnapEnd() {
 }
 
 function initEngine() {
-  const blob = new Blob([`importScripts('https://cdnjs.cloudflare.com/ajax/libs/stockfish.js/10.0.0/stockfish.js');`], {
-    type: 'application/javascript'
-  });
-  stockfish = new Worker(URL.createObjectURL(blob));
+  try {
+    stockfish = new Worker('https://cdnjs.cloudflare.com/ajax/libs/stockfish.js/10.0.0/stockfish.js');
+  } catch (e) {
+    const blob = new Blob([`importScripts('https://cdnjs.cloudflare.com/ajax/libs/stockfish.js/10.0.0/stockfish.js');`], {
+      type: 'application/javascript'
+    });
+    stockfish = new Worker(URL.createObjectURL(blob));
+  }
   stockfish.postMessage('uci');
   stockfish.onmessage = function(e) {
     const msg = e.data;
@@ -180,15 +199,22 @@ function aiMove() {
   if (game.game_over()) return;
   isThinking = true;
   $('#engineState').text("Thinking...");
-  const depth = Math.floor(currentElo / 200) + 1;
-  stockfish.postMessage('position fen ' + game.fen());
-  stockfish.postMessage('go depth ' + depth + ' movetime 800')
+  //const depth = Math.floor(currentElo / 200) + 1;
+  //const depth = Math.round(1 + (currentElo - 100) / (3000 - 100) * 24);
+  
+  stockfish.postMessage('setoption name Skill Level value ' + aiLevel)
+  //stockfish.postMessage('go depth ' + depth /* + ' movetime ' + currentTime */ )
+  //stockfish.postMessage("setoption name UCI_LimitStrength value false")
+  stockfish.postMessage('position fen ' + game.fen())
+  stockfish.postMessage("go")
 }
 
 function triggerAnalysis() {
   if (!isAnalyzing || game.game_over()) return;
   stockfish.postMessage('position fen ' + game.fen());
-  stockfish.postMessage('go depth 15')
+  stockfish.postMessage('setoption name Skill Level value 20')
+  //stockfish.postMessage("setoption name UCI_LimitStrength value false")
+  stockfish.postMessage('go depth 16')
 }
 
 function parseAnalysis(line) {
@@ -220,8 +246,10 @@ function nextHintStep() {
   if (hintState === 0) {
     hintState = 1;
     updateHintButton();
-    stockfish.postMessage('position fen ' + game.fen());
-    stockfish.postMessage('go depth 15')
+    //stockfish.postMessage("setoption name UCI_LimitStrength value false")
+    stockfish.postMessage('setoption name Skill Level value 20')
+    stockfish.postMessage('position fen ' + game.fen())
+    stockfish.postMessage('go depth 16')
   } else if (hintState === 2) {
     hintState = 3;
     updateHintButton();
