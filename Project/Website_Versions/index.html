@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WebsiteVersions - PlayLimitXT</title>
+  <meta name="description" content="Website_Versions in PlayLimitXT(PLXT) Personal Website">
+  <meta name="keywords" content="PlayLimitXT,PLXT,Play_Limit,Personal Website,UP,Cool,Projects,Versions" />
+  <meta name="msapplication-TileImage" content="../../images/favicon.png" />
+  <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+  <meta name="copyright" content="Copyright © 2026 PLXT">
+  <meta name="revisit-after" content="3 days" >
+  <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+  <link href="css/main.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H1BZQVCCRE');
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #2c3e50;
+  --secondary: #7f8c8d;
+  --light: #f8f9fa;
+  --border: #e0e0e0;
+  --accent: #3498db;
+  --shadow: rgba(0, 0, 0, 0.08);
+  --radius: 8px;
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: var(--light);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bg-shape {
+  position: fixed;
+  z-index: -1;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.bg-a {
+  top: -10%;
+  right: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: linear-gradient(135deg, var(--accent), transparent);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  animation: float 20s infinite alternate;
+}
+
+.bg-b {
+  bottom: -10%;
+  left: -10%;
+  width: 40vw;
+  height: 40vw;
+  background: linear-gradient(45deg, var(--secondary), transparent);
+  border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+  animation: float 25s infinite alternate-reverse;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(30px, 30px) rotate(5deg); }
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+header {
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: var(--secondary);
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin-top: 0.25rem;
+}
+
+.ribbon {
+  background: var(--primary);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  flex-grow: 1;
+  max-width: 400px;
+  transition: var(--transition);
+}
+
+.search-box:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.search-icon {
+  color: var(--secondary);
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+
+#searchInput {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--primary);
+  outline: none;
+}
+
+#searchInput::placeholder {
+  color: var(--secondary);
+  opacity: 0.7;
+}
+
+.sort-controls {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.sort-btn {
+  padding: 0.5rem 1.25rem;
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--secondary);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.sort-btn:hover {
+  background: #f0f0f0;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sort-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.alphabet-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 0 0.5rem;
+}
+
+.letter-btn {
+  padding: 0.4rem 0.8rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--secondary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition);
+  min-width: 40px;
+  text-align: center;
+}
+
+.letter-btn:hover {
+  background: #f8f8f8;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.letter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  min-height: 300px;
+}
+
+.card {
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+  animation: fadeIn 0.5s ease-out;
+  animation-fill-mode: both;
+  opacity: 0;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px var(--shadow);
+  border-color: var(--accent);
+}
+
+.card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+
+.card h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  transition: var(--transition);
+}
+
+.card:hover h2 {
+  color: var(--accent);
+}
+
+.card p {
+  color: var(--secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent);
+  z-index: 1;
+  transition: left 0.6s ease;
+}
+
+.card:hover .shine {
+  left: 100%;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: var(--secondary);
+  font-size: 1.1rem;
+  background: white;
+  border-radius: var(--radius);
+  border: 2px dashed var(--border);
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--secondary);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .wrap {
+    padding: 1.5rem 1rem;
+  }
+  
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-box {
+    max-width: 100%;
+  }
+  
+  .sort-controls {
+    justify-content: center;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .ribbon {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .brand {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .logo {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+  
+  .sort-controls {
+    width: 100%;
+  }
+  
+  .sort-btn {
+    flex-grow: 1;
+    text-align: center;
+  }
+}
+
+  </style>
+  
+</head>
+<body>
+  <div class="bg-shape bg-a" aria-hidden></div>
+  <div class="bg-shape bg-b" aria-hidden></div>
+
+  <div class="wrap" role="main">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden>PLXT</div>
+        <div>
+          <div class="title">Website Versions</div>
+          <div class="subtitle">PlayLimitXT · Website Versions</div>
+        </div>
+      </div>
+      <div class="ribbon">All available versions</div>
+    </header>
+
+    <!-- 控制面板 -->
+    <div class="controls">
+      <div class="search-box">
+        <div class="search-icon">🔍</div>
+        <input type="text" id="searchInput" placeholder="Search...">
+      </div>
+      <div class="sort-controls">
+        <button class="sort-btn" id="sortAsc">A-Z</button>
+        <button class="sort-btn" id="sortDesc">Z-A</button>
+        <button class="sort-btn active" id="sortDefault">Default</button>
+      </div>
+    </div>
+
+    <div class="alphabet-index" id="alphabetIndex">
+      <!-- JavaScript -->
+    </div>
+
+    <!-- 项目网格 -->
+    <section class="grid" id="projectsGrid" aria-label="Projects list">
+      <!-- JavaScript -->
+    </section>
+
+    <footer>
+      Copyright © 2025 PlayLimitXT
+    </footer>
+  </div>
+
+  <script>
+    const projects = [
+      { title: "Earliest imperfect version", url: "./Alpha1.0/index.html", description: "Prepared in late 2022 for testing only." },
+      { title: "The first official version", url: "./V1.0/index.html", description: "Coded and officially released in the second half of 2023, a more polished tech-style personal website that went through many revisions and refinements, was officially used for over a year, and was officially put on hiatus in late 2025" }
+    ];
+
+    const originalProjects = [...projects];
+
+    const projectsGrid = document.getElementById('projectsGrid');
+    const alphabetIndex = document.getElementById('alphabetIndex');
+    const searchInput = document.getElementById('searchInput');
+    const sortAscBtn = document.getElementById('sortAsc');
+    const sortDescBtn = document.getElementById('sortDesc');
+    const sortDefaultBtn = document.getElementById('sortDefault');
+
+    let currentSort = 'default';
+    let currentSearchTerm = '';
+    let currentLetterFilter = '';
+
+    function initPage() {
+      generateAlphabetIndex();
+      renderProjects(originalProjects);
+      
+      searchInput.addEventListener('input', handleSearch);
+      sortAscBtn.addEventListener('click', () => handleSort('asc'));
+      sortDescBtn.addEventListener('click', () => handleSort('desc'));
+      sortDefaultBtn.addEventListener('click', () => handleSort('default'));
+    }
+
+    function generateAlphabetIndex() {
+
+      const firstLetters = new Set();
+      
+      projects.forEach(project => {
+        const firstLetter = project.title.charAt(0).toUpperCase();
+        if (/[A-Z]/.test(firstLetter)) {
+          firstLetters.add(firstLetter);
+        }
+      });
+      
+      const sortedLetters = Array.from(firstLetters).sort();
+      
+      alphabetIndex.innerHTML = '';
+      
+      const allButton = document.createElement('button');
+      allButton.className = 'letter-btn active';
+      allButton.textContent = 'All';
+      allButton.addEventListener('click', () => filterByLetter(''));
+      alphabetIndex.appendChild(allButton);
+      
+      sortedLetters.forEach(letter => {
+        const button = document.createElement('button');
+        button.className = 'letter-btn';
+        button.textContent = letter;
+        button.addEventListener('click', () => filterByLetter(letter));
+        alphabetIndex.appendChild(button);
+      });
+    }
+
+    function filterByLetter(letter) {
+
+      document.querySelectorAll('.letter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      if (letter === '') {
+        document.querySelector('.letter-btn').classList.add('active');
+      } else {
+        const targetBtn = [...document.querySelectorAll('.letter-btn')].find(
+          btn => btn.textContent === letter
+        );
+        if (targetBtn) targetBtn.classList.add('active');
+      }
+      
+      currentLetterFilter = letter;
+      applyFiltersAndSort();
+    }
+
+    function handleSearch() {
+      currentSearchTerm = searchInput.value.toLowerCase().trim();
+
+      currentLetterFilter = '';
+      
+
+      document.querySelectorAll('.letter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector('.letter-btn').classList.add('active');
+      
+      applyFiltersAndSort();
+    }
+
+    function handleSort(sortType) {
+
+      [sortAscBtn, sortDescBtn, sortDefaultBtn].forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      if (sortType === 'asc') sortAscBtn.classList.add('active');
+      else if (sortType === 'desc') sortDescBtn.classList.add('active');
+      else sortDefaultBtn.classList.add('active');
+      
+      currentSort = sortType;
+      applyFiltersAndSort();
+    }
+
+    function applyFiltersAndSort() {
+      let filteredProjects = [...originalProjects];
+      
+      if (currentSearchTerm) {
+        filteredProjects = filteredProjects.filter(project => 
+          project.title.toLowerCase().includes(currentSearchTerm) ||
+          project.description.toLowerCase().includes(currentSearchTerm)
+        );
+      }
+      
+      if (currentLetterFilter) {
+        filteredProjects = filteredProjects.filter(project => 
+          project.title.charAt(0).toUpperCase() === currentLetterFilter
+        );
+      }
+      
+      if (currentSort === 'asc') {
+        filteredProjects.sort((a, b) => a.title.localeCompare(b.title));
+      } else if (currentSort === 'desc') {
+        filteredProjects.sort((a, b) => b.title.localeCompare(a.title));
+      } else if (currentSort === 'default') {
+        filteredProjects.sort((a, b) => {
+          const indexA = originalProjects.findIndex(p => p.url === a.url);
+          const indexB = originalProjects.findIndex(p => p.url === b.url);
+          return indexA - indexB;
+        });
+      }
+      
+      renderProjects(filteredProjects);
+    }
+
+    function renderProjects(projectsToRender) {
+      projectsGrid.innerHTML = '';
+      
+      if (projectsToRender.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.textContent = 'Not found';
+        projectsGrid.appendChild(noResults);
+        return;
+      }
+      
+      projectsToRender.forEach((project, index) => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.style.animationDelay = `${index * 0.05}s`;
+        
+        card.innerHTML = `
+          <span class="shine"></span>
+          <a href="${project.url}" target="_blank">
+            <h2>${project.title}</h2>
+            <p>${project.description}</p>
+          </a>
+        `;
+        
+        projectsGrid.appendChild(card);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initPage);
+  </script>
+</body>
+</html>

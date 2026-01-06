@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <!-- 代码高亮效果 -->
+    <linearGradient id="codeHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f7ff"/>
+      <stop offset="100%" stop-color="#7200ff"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 深色背景 -->
+  <rect width="100%" height="100%" fill="#0a0e17"/>
+  
+  <!-- 背景网格 -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a2233" stroke-width="0.5"/>
+  </pattern>
+  <rect width="100%" height="100%" fill="url(#grid)"/>
+  
+  <!-- 代码编辑器框架 -->
+  <rect x="60" y="120" width="960" height="840" rx="12" fill="#121826" stroke="#1e293b" stroke-width="2"/>
+  
+  <!-- 顶部控制按钮 -->
+  <g transform="translate(70, 135)">
+    <circle cx="12" cy="12" r="7" fill="#ff5f56"/>
+    <circle cx="36" cy="12" r="7" fill="#ffbd2e"/>
+    <circle cx="60" cy="12" r="7" fill="#27c93f"/>
+  </g>
+  
+  <!-- 代码区域背景 -->
+  <rect x="70" y="160" width="940" height="790" rx="6" fill="#0f172a"/>
+  
+  <!-- 行号区域 -->
+  <rect x="70" y="160" width="50" height="790" rx="4" fill="#0d1321" stroke="#1e293b" stroke-width="0.5"/>
+  
+  <!-- 行号 -->
+  <g font-family="monospace" font-size="18" fill="#6272a4">
+    <text x="95" y="220">78</text>
+    <text x="95" y="265">79</text>
+    <text x="95" y="310">80</text>
+    <text x="95" y="355">81</text>
+    <text x="95" y="400">82</text>
+    <text x="95" y="445">83</text>
+    <text x="95" y="490">84</text>
+    <text x="95" y="535">85</text>
+    <text x="95" y="580">86</text>
+    <text x="95" y="625">87</text>
+    <text x="95" y="670">88</text>
+    <text x="95" y="715">89</text>
+    <text x="95" y="760">90</text>
+    <text x="95" y="805">91</text>
+    <text x="95" y="850">92</text>
+    <text x="95" y="895">93</text>
+    <text x="95" y="940">94</text>
+  </g>
+  
+  <!-- 代码内容 -->
+  <g font-family="monospace" font-size="20" letter-spacing="0.5">
+    <!-- 代码行78 -->
+    <text x="140" y="220" fill="#8be9fd">
+      <tspan fill="#ff79c6" dx="0">double</tspan>
+      <tspan fill="#f8f8f2" dx="8"> </tspan>
+      <tspan fill="#50fa7b" dx="0">octaveNoise</tspan>
+      <tspan fill="#f8f8f2" dx="0">(</tspan>
+      <tspan fill="#ff79c6" dx="0">double </tspan>
+      <tspan fill="#f8f8f2" dx="0">x, </tspan>
+      <tspan fill="#ff79c6" dx="0">double </tspan>
+      <tspan fill="#f8f8f2" dx="0">y, </tspan>
+      <tspan fill="#ff79c6" dx="0">int </tspan>
+      <tspan fill="#f8f8f2" dx="0">octaves = </tspan>
+      <tspan fill="#bd93f9" dx="0">4</tspan>
+      <tspan fill="#f8f8f2" dx="0">, </tspan>
+      <tspan fill="#ff79c6" dx="0">double </tspan>
+      <tspan fill="#f8f8f2" dx="0">pers</tspan>
+    </text>
+    
+    <!-- 代码行79 -->
+    <text x="180" y="265" fill="#f8f8f2">
+      <tspan fill="#ff79c6" dx="0">double </tspan>
+      <tspan fill="#f8f8f2" dx="0">amplitude = </tspan>
+      <tspan fill="#bd93f9" dx="0">1.0</tspan>
+      <tspan fill="#f8f8f2" dx="0">;</tspan>
+    </text>
+    
+    <!-- 代码行80 -->
+    <text x="180" y="310" fill="#f8f8f2">
+      <tspan fill="#ff79c6" dx="0">double </tspan>
+      <tspan fill="#f8f8f2" dx="0">frequency = </tspan>
+      <tspan fill="#bd93f9" dx="0">1.0</tspan>
+      <tspan fill="#f8f8f2" dx="0">;</tspan>
+    </text>
+    
+    <!-- 代码行81 -->
+    <text x="180" y="355" fill="#f8f8f2">
+      <tspan fill="#ff79c6" dx="0">double </tspan>
+      <tspan fill="#f8f8f2" dx="0">maxAmp = </tspan>
+      <tspan fill="#bd93f9" dx="0">0.0</tspan>
+      <tspan fill="#f8f8f2" dx="0">;</tspan>
+    </text>
+    
+    <!-- 代码行82 -->
+    <text x="180" y="400" fill="#f8f8f2">
+      <tspan fill="#ff79c6" dx="0">double </tspan>
+      <tspan fill="#f8f8f2" dx="0">total = </tspan>
+      <tspan fill="#bd93f9" dx="0">0.0</tspan>
+      <tspan fill="#f8f8f2" dx="0">;</tspan>
+    </text>
+    
+    <!-- 代码行84 -->
+    <text x="180" y="490" fill="#8be9fd">
+      <tspan>for </tspan>
+      
+      <tspan fill="#f8f8f2" dx="0">(i = </tspan>
+      <tspan fill="#bd93f9" dx="0">0</tspan>
+      <tspan fill="#f8f8f2" dx="0">; i &lt; octaves; ++i) {</tspan>
+    </text>
+    
+    <!-- 代码行85 -->
+    <text x="220" y="535" fill="#f8f8f2">
+      <tspan>total += </tspan>
+      <tspan fill="#50fa7b" dx="0">noise</tspan>
+      <tspan fill="#f8f8f2" dx="0">(x * frequency, y * frequency) * amplitude;</tspan>
+    </text>
+    
+    <!-- 代码行86 -->
+    <text x="220" y="580" fill="#f8f8f2">
+      <tspan>maxAmp += amplitude;</tspan>
+    </text>
+    
+    <!-- 代码行87 -->
+    <text x="220" y="625" fill="#f8f8f2">
+      <tspan>amplitude *= persistence;</tspan>
+    </text>
+    
+    <!-- 代码行88 -->
+    <text x="220" y="670" fill="#f8f8f2">
+      <tspan>frequency *= lacunarity;</tspan>
+    </text>
+    
+    <!-- 代码行89 -->
+    <text x="180" y="715" fill="#f8f8f2">
+      <tspan>}</tspan>
+    </text>
+    
+    <!-- 代码行91 -->
+    <text x="180" y="805" fill="#8be9fd">
+      <tspan>if </tspan>
+      <tspan fill="#f8f8f2" dx="0">(maxAmp &gt; </tspan>
+      <tspan fill="#bd93f9" dx="0">0.0</tspan>
+      <tspan fill="#f8f8f2" dx="0">) total /= maxAmp;</tspan>
+    </text>
+    
+    <!-- 代码行92 -->
+    <text x="180" y="850" fill="#8be9fd">
+      <tspan>return </tspan>
+      <tspan fill="#f8f8f2" dx="0">total;</tspan>
+    </text>
+    
+    <!-- 代码行93 -->
+    <text x="140" y="895" fill="#f8f8f2">
+      <tspan>}</tspan>
+    </text>
+    
+  </g>
+  
+  <!-- 标题 -->
+  <text x="540" y="80" font-family="Arial, sans-serif" font-size="32" fill="url(#codeHighlight)" text-anchor="middle" font-weight="bold">
+    PERLIN NOISE IMPLEMENTATION
+  </text>
+  
+  <!-- 代码运行状态 -->
+  <g transform="translate(70, 970)">
+    <circle cx="12" cy="12" r="5" fill="#00ff00"/>
+    <text x="30" y="17" font-family="monospace" font-size="18" fill="#50fa7b">By PlayLimitXT</text>
+  </g>
+  
+  <!-- 文件标签 -->
+  <rect x="200" y="135" width="250" height="30" rx="15" fill="#1e293b"/>
+  <text x="215" y="155" font-family="monospace" font-size="16" fill="#f8f8f2">noise_generator.cpp</text>
+  
+  <!-- 光标 -->
+  <rect x="880" y="835" width="2" height="22" fill="url(#codeHighlight)"/>
+</svg>
