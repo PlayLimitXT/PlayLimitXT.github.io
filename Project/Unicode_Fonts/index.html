@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FontsGenerator - PlayLimitXT</title>
+  <meta name="description" content="FontsGenerator in PlayLimitXT(PLXT) Website">
+  <meta name="keywords" content="PlayLimitXT,PLXT,Play_Limit,Personal Website,UP,Cool,Projects,Fonts,Generator" />
+  <meta name="msapplication-TileImage" content="../../images/favicon.png" />
+  <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+  <meta name="copyright" content="Copyright © 2026 PLXT">
+  <meta name="revisit-after" content="7 days" >
+  <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+  <link href="css/main.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H1BZQVCCRE');
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --secondary: #3498db;
+            --bg-gradient: radial-gradient(circle at top left, #f8f9fa, #e9ecef);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.6);
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --text-main: #2c3e50;
+            --text-muted: #95a5a6;
+        }
+
+        * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header */
+        header {
+            padding: 40px 20px 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin: 0 0 10px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        p { color: var(--text-muted); margin: 0; font-size: 1.1rem; }
+
+        /* Main Layout */
+        main {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Input Area */
+        .input-sticky {
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .input-container {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .action-btn:hover { background: rgba(231, 76, 60, 0.1); }
+
+        textarea {
+            width: 100%;
+            height: 90px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            font-family: inherit;
+            font-size: 18px;
+            resize: none;
+            background: #fff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+        }
+
+        /* Output List */
+        .font-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-bottom: 50px;
+        }
+
+        .font-card {
+            background: var(--card-bg);
+            padding: 22px;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .font-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+            border-color: var(--secondary);
+        }
+
+        .font-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .font-output {
+            font-size: 1.25rem;
+            word-break: break-word;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        /* Copy Animation Overlay */
+        .copy-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.4rem;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .font-card.copied .copy-overlay {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #2c3e50;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .font-output { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>FontsGenerator</h1>
+    <p>Transform your text into stylish Unicode fonts.</p>
+</header>
+
+<main>
+    <div class="input-sticky">
+        <div class="input-container">
+            <div class="input-header">
+                <span>Input Text</span>
+                <button class="action-btn" onclick="clearText()">Clear</button>
+            </div>
+            <textarea id="inputText" placeholder="Type something here..." spellcheck="false"></textarea>
+        </div>
+    </div>
+
+    <div id="outputContainer" class="font-list">
+        <!-- Fonts will appear here -->
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+            Start typing above to generate unique fonts!
+        </div>
+    </div>
+</main>
+
+<div id="toast" class="toast">
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    </svg>
+    Copied to clipboard
+</div>
+
+<footer>
+    Copyright © 2026 PlayLimitXT
+</footer>
+
+<script>
+    // The source characters we will replace (a-z, A-Z, 0-9)
+    const SOURCE_ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    const fonts = [
+        {
+            name: "Serif (Bold)",
+            map: "𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗"
+        },
+        {
+            name: "Serif (Italic)",
+            map: "𝑎𝑏𝑐𝑑𝑒𝑓𝑔ℎ𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍0123456789"
+        },
+        {
+            name: "Serif (Bold Italic)",
+            map: "𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗"
+        },
+        {
+            name: "Sans (Bold)",
+            map: "𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗"
+        },
+        {
+            name: "Sans (Italic)",
+            map: "𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡0123456789"
+        },
+        {
+            name: "Sans (Bold Italic)",
+            map: "𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵"
+        },
+        {
+            name: "Script (Cursive)",
+            map: "𝒶𝒷𝒸𝒹ℯ𝒻ℊ𝒽𝒾𝒿𝓀𝓁𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵0123456789"
+        },
+        {
+            name: "Script (Bold)",
+            map: "𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗"
+        },
+        {
+            name: "Gothic (Fraktur)",
+            map: "𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ0123456789"
+        },
+        {
+            name: "Gothic (Bold)",
+            map: "𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗"
+        },
+        {
+            name: "Monospace",
+            map: "𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿"
+        },
+        {
+            name: "Double Struck",
+            map: "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡"
+        },
+        {
+            name: "Circles",
+            map: "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ0①②③④⑤⑥⑦⑧⑨"
+        },
+        {
+            name: "Circles Dark",
+            map: "🅐🅑🅒🅓🅔🅕🅖🅗🅘🅙🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩🅐🅑🅒🅓🅔🅕🅖🅗🅘🅙🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩0❶❷❸❹❺❻❼❽❾"
+        },
+        {
+            name: "Squares",
+            map: "⒜⒝⒞⒟⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵🄐🄑🄒🄓🄔🄕🄖🄗🄘🄙🄚🄛🄜🄝🄞🄟🄠🄡🄢🄣🄤🄥🄦🄧🄨🄩0123456789"
+        },
+        {
+            name: "Squares Dark",
+            map: "🅰🅱🅲🅳🅴🅵🅶🅷🅸🅹🅺🅻🅼🅽🅾🅿🆀🆁🆂🆃🆄🆅🆆🆇🆈🆉🅰🅱🅲🅳🅴🅵🅶🅷🅸🅹🅺🅻🅼🅽🅾🅿🆀🆁🆂🆃🆄🆅🆆🆇🆈🆉0123456789"
+        },
+        {
+            name: "Small Caps",
+            map: "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘqʀꜱᴛᴜᴠᴡxʏᴢᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘQʀꜱᴛᴜᴠᴡxʏᴢ0123456789"
+        },
+        {
+            name: "Comic",
+            map: "αв¢∂єƒgнιנкℓмиσρqяѕтυνωχуzΑΒ¢DΕFGΗΙJΚLΜΝΟΡQЯЅΤυνωχΥΖ0123456789"
+        },
+        {
+            name: "Fullwidth",
+            map: "ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ０１２３４５６７８９"
+        },
+        {
+            name: "Parentheses",
+            map: "⒜⒝⒞⒟⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵⒜⒝⒞⒟⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵0⑴⑵⑶⑷⑸⑹⑺⑻⑼"
+        },
+        {
+            name: "Regional (Emoji)",
+            map: "🇦🇧🇨🇩🇪🇫🇬🇭🇮🇯🇰🇱🇲🇳🇴🇵🇶🇷🇸🇹🇺🇻🇼🇽🇾🇿🇦🇧🇨🇩🇪🇫🇬🇭🇮🇯🇰🇱🇲🇳🇴🇵🇶🇷🇸🇹🇺🇻🇼🇽🇾🇿0123456789"
+        },
+        {
+            name: "Currency",
+            map: "₳฿₵ĐɆ₣₲ⱧłJ₭Ⱡ₥₦Ø₱QⱤ₴₮ɄV₩ӾɎⱫ₳฿₵ĐɆ₣₲ⱧłJ₭Ⱡ₥₦Ø₱QⱤ₴₮ɄV₩ӾɎⱫ0123456789"
+        },
+        {
+            name: "Hollow",
+            map: "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡"
+        }
+    ];
+
+    /* Special Transformations using Functions */
+    const specialTransforms = [
+        {
+            name: "Upside Down",
+            fn: (text) => {
+                const map = {
+                    'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ', 'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ', 'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
+                    'A': '∀', 'B': 'q', 'C': 'Ɔ', 'D': 'p', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': 'פ', 'H': 'H', 'I': 'I', 'J': 'ſ', 'K': 'ʞ', 'L': '˥', 'M': 'W', 'N': 'N', 'O': 'O', 'P': 'd', 'Q': 'b', 'R': 'R', 'S': 'S', 'T': '┴', 'U': '∩', 'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z',
+                    '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9', '7': 'ㄥ', '8': '8', '9': '6', '0': '0',
+                    '.': '˙', ',': '\'', '?': '¿', '!': '¡', '"': '„', '&': '⅋', '_': '‾', '(': ')', ')': '(', '[': ']', ']': '[', '{': '}', '}': '{', '<': '>', '>': '<'
+                };
+                return Array.from(text).reverse().map(c => map[c] || c).join('');
+            }
+        },
+        {
+            name: "Mirrored",
+            fn: (text) => {
+                const map = {
+                    'a': 'ɒ', 'b': 'd', 'c': 'ɔ', 'd': 'b', 'e': 'ɘ', 'f': 'Ꮈ', 'g': 'ǫ', 'h': 'ʜ', 'i': 'i', 'j': 'Ⴑ', 'k': 'ʞ', 'l': 'l', 'm': 'm', 'n': 'n', 'o': 'o', 'p': 'q', 'q': 'p', 'r': 'ɿ', 's': 'ƨ', 't': 'ƚ', 'u': 'u', 'v': 'v', 'w': 'w', 'x': 'x', 'y': 'y', 'z': 'ƹ',
+                    'A': 'A', 'B': 'ᙠ', 'C': 'Ɔ', 'D': 'ᗡ', 'E': 'Ǝ', 'F': 'ꟻ', 'G': 'Ꭾ', 'H': 'H', 'I': 'I', 'J': 'Ⴑ', 'K': 'Ʞ', 'L': '⅃', 'M': 'M', 'N': 'Ͷ', 'O': 'O', 'P': 'ꟼ', 'Q': 'Ọ', 'R': 'Я', 'S': 'Ƨ', 'T': 'T', 'U': 'U', 'V': 'V', 'W': 'W', 'X': 'X', 'Y': 'Y', 'Z': 'Ƨ',
+                    '1': '1', '2': 'S', '3': 'Ɛ', '4': 'A', '5': 'Ƨ', '6': 'd', '7': 'Г', '8': '8', '9': 'e', '0': '0'
+                };
+                return Array.from(text).reverse().map(c => map[c] || c).join('');
+            }
+        },
+        {
+            name: "Underline",
+            fn: (text) => Array.from(text).join('\u0332') + '\u0332'
+        },
+        {
+            name: "Strikethrough",
+            fn: (text) => Array.from(text).join('\u0336') + '\u0336'
+        },
+        {
+            name: "Slash Through",
+            fn: (text) => Array.from(text).join('\u0338') + '\u0338'
+        },
+        {
+            name: "Zalgo (Glitch)",
+            fn: (text) => {
+                const marks = ['\u030d', '\u030e', '\u0304', '\u0305', '\u033f', '\u0311', '\u0306', '\u0310', '\u0352', '\u0357', '\u0351', '\u0307', '\u0308', '\u030a', '\u0342', '\u0343', '\u0344', '\u034a', '\u0316', '\u0317', '\u0318', '\u0319', '\u031c', '\u031d', '\u031e', '\u031f', '\u0320', '\u0324', '\u0325', '\u0326', '\u0329'];
+                return Array.from(text).map(c => {
+                    if (c === ' ') return c;
+                    let res = c;
+                    const num = Math.floor(Math.random() * 3);
+                    for(let i=0; i<num; i++) res += marks[Math.floor(Math.random() * marks.length)];
+                    return res;
+                }).join('');
+            }
+        }
+    ];
+
+    // DOM Elements
+    const inputText = document.getElementById('inputText');
+    const outputContainer = document.getElementById('outputContainer');
+    const toast = document.getElementById('toast');
+
+    // Initial state
+    inputText.value = "Hello World";
+    render("Hello World");
+
+    // Events
+    inputText.addEventListener('input', (e) => render(e.target.value));
+
+    function clearText() {
+        inputText.value = "";
+        inputText.focus();
+        render("");
+    }
+
+    function render(text) {
+        outputContainer.innerHTML = "";
+
+        if (!text) {
+            outputContainer.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted);">Start typing above to generate 50+ unique fonts!</div>';
+            return;
+        }
+
+        // 1. Process Mapped Fonts
+        fonts.forEach(font => {
+            // Split font map using Array.from to handle surrogate pairs (emojis, etc) in the map string correctly
+            const mapArray = Array.from(font.map);
+            
+            // Process input text
+            const transformed = Array.from(text).map(char => {
+                const index = SOURCE_ALPHABET.indexOf(char);
+                if (index !== -1 && mapArray[index]) {
+                    return mapArray[index];
+                }
+                return char;
+            }).join('');
+
+            createCard(font.name, transformed);
+        });
+
+        // 2. Process Special Transforms
+        specialTransforms.forEach(font => {
+            try {
+                const transformed = font.fn(text);
+                createCard(font.name, transformed);
+            } catch (e) {
+                console.error("Error generating font", font.name, e);
+            }
+        });
+    }
+
+    function createCard(title, text) {
+        const card = document.createElement('div');
+        card.className = 'font-card';
+        card.innerHTML = `
+            <div class="font-label">${title}</div>
+            <div class="font-output">${text}</div>
+            <div class="copy-overlay">COPIED!</div>
+        `;
+        
+        card.onclick = () => copyToClipboard(text, card);
+        outputContainer.appendChild(card);
+    }
+
+    function copyToClipboard(text, cardElement) {
+        navigator.clipboard.writeText(text).then(() => {
+            // Animation
+            cardElement.classList.add('copied');
+            setTimeout(() => cardElement.classList.remove('copied'), 800);
+            
+            // Toast
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    }
+</script>
+
+</body>
+</html>
