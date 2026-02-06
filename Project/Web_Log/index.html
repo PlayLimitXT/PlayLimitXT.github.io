@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Website logs - PlayLimitXT</title>
+  <meta name="description" content="Website logs in PlayLimitXT(PLXT) Personal Website">
+  <meta name="keywords" content="PlayLimitXT,PLXT,Play_Limit,Personal Website,UP,Cool,Projects,logs,commit,github" />
+  <meta name="msapplication-TileImage" content="../../images/favicon.png" />
+  <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+  <meta name="copyright" content="Copyright © 2026 PLXT">
+  <meta name="revisit-after" content="3 days" >
+  <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+  <link href="css/main.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H1BZQVCCRE');
+  </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --neon-purple: #9d00ff;
+            --dark-bg: #0a0a1a;
+            --card-bg: rgba(20, 20, 40, 0.9);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0ff;
+            --border: rgba(0, 255, 255, 0.2);
+            --gradient: linear-gradient(135deg, var(--neon-pink), var(--neon-blue));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Neon background effect */
+        .neon-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 255, 255, 0.08) 0%, transparent 50%);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .header {
+            padding: 2.5rem 0 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: var(--gradient);
+            border-radius: 1px;
+        }
+        
+        .repo-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--neon-blue);
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 50%;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .repo-info {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .repo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: var(--neon-blue);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        .repo-link:hover {
+            background: rgba(0, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+        }
+        
+        /* Commit Counter */
+        .commit-counter {
+            text-align: center;
+            margin: 2rem 0 2.5rem;
+            padding: 1.2rem;
+            background: rgba(20, 20, 40, 0.4);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .counter-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+        
+        .counter-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        
+        /* Loading Animation */
+        .loading-container {
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .neon-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 255, 255, 0.1);
+            border-top: 3px solid var(--neon-pink);
+            border-radius: 50%;
+            margin: 0 auto 1.2rem;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Timeline Container */
+        .timeline-container {
+            margin: 2.5rem 0;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Timeline center line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 0, 255, 0.5), 
+                rgba(0, 255, 255, 0.5));
+        }
+        
+        /* Year-Month Separator */
+        .separator {
+            position: relative;
+            margin: 2.5rem 0;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .separator-label {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(20, 20, 40, 0.9);
+            color: var(--neon-blue);
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .year-separator .separator-label {
+            font-size: 1.1rem;
+            padding: 8px 25px;
+            background: linear-gradient(90deg, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.2));
+        }
+        
+        .month-separator .separator-label {
+            font-size: 0.95rem;
+            padding: 6px 18px;
+            background: rgba(157, 0, 255, 0.2);
+            border-color: var(--neon-purple);
+        }
+        
+        /* Timeline Items */
+        .timeline-item {
+            position: relative;
+            width: calc(50% - 30px);
+            margin-bottom: 1.8rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            margin-right: auto;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: calc(50% + 30px);
+            margin-left: auto;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            top: 20px;
+            z-index: 2;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-marker {
+            right: -38px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-marker {
+            left: -38px;
+        }
+        
+        /* Commit Card */
+        .commit-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .commit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+        }
+        
+        .commit-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--neon-pink);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .commit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .commit-hash {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--neon-blue);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+        
+        .commit-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        
+        .commit-message {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            color: var(--text-primary);
+        }
+        
+        .commit-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .commit-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .author-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .author-name {
+            font-weight: 500;
+            color: var(--neon-blue);
+            font-size: 0.95rem;
+        }
+        
+        .author-email {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .commit-stats {
+            display: flex;
+            gap: 1rem;
+            padding: 0.6rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .stat-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .stat-badge i {
+            font-size: 0.9rem;
+        }
+        
+        .view-details-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 8px;
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--neon-blue);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        
+        .view-details-btn:hover {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: var(--neon-pink);
+        }
+        
+        /* Error State */
+        .error-state {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .error-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.2rem;
+            color: #ff4444;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 2rem 0 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .repo-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .counter-value {
+                font-size: 2.5rem;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: calc(100% - 50px);
+                left: 0;
+                margin-right: 0;
+                margin-left: 50px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+                margin-left: 50px;
+            }
+            
+            .timeline-marker {
+                left: -38px !important;
+                right: auto !important;
+            }
+            
+            .separator-label {
+                font-size: 0.9rem;
+                padding: 6px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="neon-bg"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="repo-icon">
+                <i class="fab fa-github"></i>
+            </div>
+            <h1>PlayLimitXT Commits</h1>
+            <p class="repo-info">Commit history for playlimitxt.github.io</p>
+            <a href="https://github.com/PlayLimitXT/playlimitxt.github.io" class="repo-link" target="_blank">
+                <i class="fab fa-github"></i>
+                View Repository
+            </a>
+        </div>
+        
+        <div class="commit-counter">
+            <div class="counter-value" id="totalCommits">0</div>
+            <div class="counter-label">Total Commits</div>
+        </div>
+        
+        <div class="loading-container" id="loadingIndicator">
+            <div class="neon-spinner"></div>
+            <p>Loading commit history...</p>
+        </div>
+        
+        <div class="error-state" id="errorContainer" style="display: none;">
+            <div class="error-icon">
+                <i class="fas fa-exclamation"></i>
+            </div>
+            <h3 id="errorTitle">Error Loading Commits</h3>
+            <p id="errorMessage">Unable to fetch commit data from GitHub.</p>
+            <button onclick="loadCommits()" style="margin-top: 1rem; padding: 8px 16px; background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue)); color: white; border: none; border-radius: 6px; cursor: pointer;">
+                <i class="fas fa-redo"></i> Try Again
+            </button>
+        </div>
+        
+        <div class="timeline-container" id="timelineContainer" style="display: none;">
+            <div class="timeline" id="timeline">
+                <!-- Timeline items and separators will be dynamically inserted here -->
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>GitHub Commit Timeline • Data fetched from GitHub API</p>
+            <p>Repository: <strong>PlayLimitXT/playlimitxt.github.io</strong></p>
+        </div>
+    </div>
+    
+    <script>
+        // Configuration
+        const REPO_OWNER = 'PlayLimitXT';
+        const REPO_NAME = 'playlimitxt.github.io';
+        const COMMITS_PER_LOAD = 30;
+        const API_BASE_URL = 'https://api.github.com';
+        
+        // State
+        let isLoading = false;
+        let allCommits = [];
+        let displayedCommits = [];
+        let currentDisplayCount = 0;
+        let totalCommitsCount = 0; // Fixed total count
+        let page = 1;
+        let hasMorePages = true;
+        
+        // DOM Elements
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const errorContainer = document.getElementById('errorContainer');
+        const timelineContainer = document.getElementById('timelineContainer');
+        const timeline = document.getElementById('timeline');
+        const totalCommitsEl = document.getElementById('totalCommits');
+        
+        // Format date to readable string
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) {
+                return 'Today';
+            } else if (diffDays === 1) {
+                return 'Yesterday';
+            } else if (diffDays < 7) {
+                return `${diffDays} days ago`;
+            } else {
+                return date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric'
+                });
+            }
+        }
+        
+        // Format date for detailed view
+        function formatDetailedDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+        
+        // Get year for separator
+        function getYear(dateString) {
+            const date = new Date(dateString);
+            return date.getFullYear().toString();
+        }
+        
+        // Get year and month for separator
+        function getYearMonth(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long'
+            });
+        }
+        
+        // Get month key for grouping
+        function getMonthKey(dateString) {
+            const date = new Date(dateString);
+            return `${date.getFullYear()}-${date.getMonth()}`;
+        }
+        
+        // Create a separator
+        function createSeparator(type, label) {
+            const separator = document.createElement('div');
+            separator.className = `separator ${type}-separator`;
+            separator.innerHTML = `
+                <div class="separator-label">${label}</div>
+            `;
+            return separator;
+        }
+        
+        // Create a timeline item for a commit
+        function createTimelineItem(commit, index) {
+            const commitDate = commit.commit.author.date;
+            const formattedDate = formatDate(commitDate);
+            const detailedDate = formatDetailedDate(commitDate);
+            const hash = commit.sha.substring(0, 7);
+            const message = commit.commit.message.split('\n')[0];
+            const fullMessage = commit.commit.message;
+            const authorName = commit.author ? commit.author.login : commit.commit.author.name;
+            const authorEmail = commit.commit.author.email;
+            const commitUrl = commit.html_url;
+            const avatarUrl = commit.author ? commit.author.avatar_url : '';
+            
+            // Count additions and deletions
+            let additions = 0;
+            let deletions = 0;
+            let filesChanged = 0;
+            
+            if (commit.stats) {
+                additions = commit.stats.additions;
+                deletions = commit.stats.deletions;
+            }
+            
+            if (commit.files) {
+                filesChanged = commit.files.length;
+            }
+            
+            const timelineItem = document.createElement('div');
+            timelineItem.className = 'timeline-item';
+            timelineItem.style.animationDelay = `${index * 0.05}s`;
+            
+            // Avatar HTML - use network image with fallback
+            let avatarHtml = '';
+            if (avatarUrl) {
+                avatarHtml = `<img src="${avatarUrl}" alt="${authorName}" onerror="this.onerror=null; this.parentElement.innerHTML='${authorName.substring(0, 2).toUpperCase()}';">`;
+            } else {
+                avatarHtml = authorName.substring(0, 2).toUpperCase();
+            }
+            
+            timelineItem.innerHTML = `
+                <div class="timeline-marker"></div>
+                <div class="commit-card">
+                    <div class="commit-header">
+                        <span class="commit-hash">${hash}</span>
+                        <span class="commit-date" title="${detailedDate}">${formattedDate}</span>
+                    </div>
+                    <div class="commit-message" title="${fullMessage}">${message}</div>
+                    
+                    <div class="commit-details">
+                        <div class="commit-author">
+                            <div class="author-avatar">
+                                ${avatarHtml}
+                            </div>
+                            <div class="author-info">
+                                <span class="author-name">${authorName}</span>
+                                <span class="author-email">${authorEmail}</span>
+                            </div>
+                        </div>
+                        
+                        ${additions > 0 || deletions > 0 || filesChanged > 0 ? `
+                        <div class="commit-stats">
+                            ${additions > 0 ? `
+                            <div class="stat-badge">
+                                <i class="fas fa-plus" style="color: #00ff00;"></i>
+                                <span>+${additions}</span>
+                            </div>
+                            ` : ''}
+                            
+                            ${deletions > 0 ? `
+                            <div class="stat-badge">
+                                <i class="fas fa-minus" style="color: #ff4444;"></i>
+                                <span>-${deletions}</span>
+                            </div>
+                            ` : ''}
+                            
+                            ${filesChanged > 0 ? `
+                            <div class="stat-badge">
+                                <i class="fas fa-file-code"></i>
+                                <span>${filesChanged} file${filesChanged !== 1 ? 's' : ''}</span>
+                            </div>
+                            ` : ''}
+                        </div>
+                        ` : ''}
+                    </div>
+                    
+                    <a href="${commitUrl}" class="view-details-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        View on GitHub
+                    </a>
+                </div>
+            `;
+            
+            return timelineItem;
+        }
+        
+        // Render commits to timeline with year and month separators
+        function renderCommits(commits) {
+            if (commits.length === 0) {
+                timeline.innerHTML = `
+                    <div class="error-state" style="margin: 2rem auto; max-width: 500px;">
+                        <div class="error-icon">
+                            <i class="fas fa-inbox"></i>
+                        </div>
+                        <h3>No Commits Found</h3>
+                        <p>No commit history available for this repository.</p>
+                    </div>
+                `;
+                timelineContainer.style.display = 'block';
+                return;
+            }
+            
+            timelineContainer.style.display = 'block';
+            
+            // Group commits by year and month
+            const groupedCommits = {};
+            let lastYear = null;
+            let lastMonth = null;
+            
+            // First pass: group by year and month
+            commits.forEach(commit => {
+                const date = new Date(commit.commit.author.date);
+                const year = date.getFullYear().toString();
+                const monthKey = getMonthKey(commit.commit.author.date);
+                const yearMonth = getYearMonth(commit.commit.author.date);
+                
+                if (!groupedCommits[year]) {
+                    groupedCommits[year] = {};
+                }
+                
+                if (!groupedCommits[year][monthKey]) {
+                    groupedCommits[year][monthKey] = {
+                        label: yearMonth,
+                        commits: []
+                    };
+                }
+                
+                groupedCommits[year][monthKey].commits.push(commit);
+            });
+            
+            // Clear timeline
+            timeline.innerHTML = '';
+            
+            // Render commits with year and month separators
+            let commitIndex = 0;
+            
+            // Sort years in descending order
+            const sortedYears = Object.keys(groupedCommits).sort((a, b) => b - a);
+            
+            sortedYears.forEach(year => {
+                const months = groupedCommits[year];
+                
+                // Add year separator
+                timeline.appendChild(createSeparator('year', year));
+                
+                // Sort months in descending order
+                const sortedMonthKeys = Object.keys(months).sort((a, b) => {
+                    const [yearA, monthA] = a.split('-').map(Number);
+                    const [yearB, monthB] = b.split('-').map(Number);
+                    if (yearA !== yearB) return yearB - yearA;
+                    return monthB - monthA;
+                });
+                
+                sortedMonthKeys.forEach(monthKey => {
+                    const monthData = months[monthKey];
+                    
+                    // Add month separator
+                    timeline.appendChild(createSeparator('month', monthData.label));
+                    
+                    // Add commits for this month
+                    monthData.commits.forEach(commit => {
+                        const timelineItem = createTimelineItem(commit, commitIndex);
+                        timeline.appendChild(timelineItem);
+                        commitIndex++;
+                    });
+                });
+            });
+        }
+        
+        // Load more commits when scrolling near bottom
+        function handleScroll() {
+            if (isLoading || currentDisplayCount >= displayedCommits.length) return;
+            
+            const scrollTop = document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            const bodyHeight = document.documentElement.scrollHeight;
+            
+            // Load more when 200px from the bottom
+            if (scrollTop + windowHeight >= bodyHeight - 200) {
+                loadMoreCommits();
+            }
+        }
+        
+        // Load more commits from API
+        async function loadMoreCommits() {
+            if (isLoading || !hasMorePages) return;
+            
+            isLoading = true;
+            page++;
+            
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/repos/${REPO_OWNER}/${REPO_NAME}/commits?per_page=${COMMITS_PER_LOAD}&page=${page}`
+                );
+                
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+                
+                const commits = await response.json();
+                
+                if (!commits || !Array.isArray(commits)) {
+                    hasMorePages = false;
+                    return;
+                }
+                
+                if (commits.length < COMMITS_PER_LOAD) {
+                    hasMorePages = false;
+                }
+                
+                allCommits = allCommits.concat(commits);
+                displayedCommits = allCommits;
+                
+                // Update display with all commits
+                renderCommits(displayedCommits);
+                
+            } catch (error) {
+                console.error('Error loading more commits:', error);
+                hasMorePages = false;
+            } finally {
+                isLoading = false;
+            }
+        }
+        
+        // Fetch all commits to get total count
+        async function fetchTotalCommitCount() {
+            try {
+                // First, try to get the total count from the first page
+                const response = await fetch(
+                    `${API_BASE_URL}/repos/${REPO_OWNER}/${REPO_NAME}/commits?per_page=1`
+                );
+                
+                if (!response.ok) {
+                    return 0;
+                }
+                
+                // Check for Link header to get last page number
+                const linkHeader = response.headers.get('Link');
+                if (linkHeader) {
+                    const match = linkHeader.match(/page=(\d+)>; rel="last"/);
+                    if (match && match[1]) {
+                        return parseInt(match[1], 10);
+                    }
+                }
+                
+                // If no Link header, count commits from first page
+                const commits = await response.json();
+                return commits.length;
+                
+            } catch (error) {
+                console.error('Error fetching total commit count:', error);
+                return 0;
+            }
+        }
+        
+        // Load commits from GitHub API
+        async function loadCommits() {
+            // Show loading indicator
+            loadingIndicator.style.display = 'block';
+            errorContainer.style.display = 'none';
+            timelineContainer.style.display = 'none';
+            
+            try {
+                // First, get total commit count
+                const totalCount = await fetchTotalCommitCount();
+                totalCommitsCount = totalCount;
+                totalCommitsEl.textContent = totalCount;
+                
+                // GitHub API endpoint for commits
+                const apiUrl = `${API_BASE_URL}/repos/${REPO_OWNER}/${REPO_NAME}/commits?per_page=${COMMITS_PER_LOAD}&page=1`;
+                
+                const response = await fetch(apiUrl);
+                
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('Repository not found. Please check the repository name and owner.');
+                    } else if (response.status === 403) {
+                        throw new Error('GitHub API rate limit exceeded. Please try again in a few minutes.');
+                    } else {
+                        throw new Error(`GitHub API error: ${response.status}`);
+                    }
+                }
+                
+                const commits = await response.json();
+                
+                if (!commits || !Array.isArray(commits)) {
+                    throw new Error('Invalid response from GitHub API');
+                }
+                
+                allCommits = commits;
+                
+                // Check if there are more pages
+                const linkHeader = response.headers.get('Link');
+                hasMorePages = linkHeader && linkHeader.includes('rel="next"');
+                
+                // Initial display
+                displayedCommits = allCommits;
+                
+                // Render initial commits
+                renderCommits(displayedCommits);
+                
+                // Setup scroll event listener for infinite scrolling if there are more commits
+                if (hasMorePages) {
+                    window.addEventListener('scroll', handleScroll);
+                }
+                
+            } catch (error) {
+                // Show error state
+                document.getElementById('errorTitle').textContent = 'Error Loading Commits';
+                document.getElementById('errorMessage').textContent = error.message;
+                errorContainer.style.display = 'block';
+                timelineContainer.style.display = 'none';
+            } finally {
+                // Hide loading indicator
+                loadingIndicator.style.display = 'none';
+            }
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load commits immediately on page load
+            loadCommits();
+        });
+    </script>
+</body>
+</html>
