@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PLXT | Markdown Editor & Previewer</title>
+  <meta name="description" content="Markdown Editor & Previewer in PlayLimitXT(PLXT) Personal Website">
+  <meta name="keywords" content="PlayLimitXT,PLXT,Play_Limit,Personal Website,UP,Cool,Projects,logs,markdown,md,editor,previewer" />
+  <meta name="msapplication-TileImage" content="../../images/favicon.png" />
+  <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+  <meta name="copyright" content="Copyright © 2026 PLXT">
+  <meta name="revisit-after" content="3 days" >
+  <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+  <link href="css/main.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H1BZQVCCRE');
+  </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #4f46e5;
+            --primary-light: #818cf8;
+            --primary-dark: #3730a3;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 8px;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --border-color: #4b5563;
+        }
+
+        [data-theme="blue"] {
+            --primary-color: #0ea5e9;
+            --primary-light: #38bdf8;
+            --primary-dark: #0284c7;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --bg-primary: #f0f9ff;
+            --bg-secondary: #e0f2fe;
+            --bg-tertiary: #bae6fd;
+            --border-color: #7dd3fc;
+        }
+
+        [data-theme="green"] {
+            --primary-color: #10b981;
+            --primary-light: #34d399;
+            --primary-dark: #059669;
+            --text-primary: #064e3b;
+            --text-secondary: #047857;
+            --bg-primary: #ecfdf5;
+            --bg-secondary: #d1fae5;
+            --bg-tertiary: #a7f3d0;
+            --border-color: #6ee7b7;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 100%;
+        }
+
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo i {
+            font-size: 1.75rem;
+            color: var(--primary-color);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .button.secondary {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .button.secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        .theme-selector {
+            position: relative;
+        }
+
+        .theme-btn {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.5rem;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            min-width: 150px;
+            z-index: 10;
+            display: none;
+        }
+
+        .theme-dropdown.show {
+            display: block;
+        }
+
+        .theme-option {
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .theme-option:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .theme-indicator {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .theme-indicator.light {
+            background: linear-gradient(135deg, #4f46e5 50%, #f9fafb 50%);
+        }
+
+        .theme-indicator.dark {
+            background: linear-gradient(135deg, #6366f1 50%, #111827 50%);
+        }
+
+        .theme-indicator.blue {
+            background: linear-gradient(135deg, #0ea5e9 50%, #f0f9ff 50%);
+        }
+
+        .theme-indicator.green {
+            background: linear-gradient(135deg, #10b981 50%, #ecfdf5 50%);
+        }
+
+        .editor-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .resizer {
+            width: 8px;
+            background-color: var(--bg-tertiary);
+            cursor: col-resize;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .resizer:hover {
+            background-color: var(--primary-light);
+        }
+
+        .resizer:after {
+            content: "";
+            width: 2px;
+            height: 24px;
+            background-color: var(--text-secondary);
+            border-radius: 1px;
+        }
+
+        .pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .pane-header {
+            padding: 1rem 1.5rem;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pane-title {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pane-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .editor {
+            flex: 1;
+            padding: 1.5rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            border: none;
+            resize: none;
+            outline: none;
+            overflow-y: auto;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .preview {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background-color: var(--bg-primary);
+        }
+
+        .preview h1, .preview h2, .preview h3, .preview h4, .preview h5, .preview h6 {
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .preview h1 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .preview h2 {
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.3rem;
+        }
+
+        .preview h3 {
+            font-size: 1.25rem;
+        }
+
+        .preview p {
+            margin-bottom: 1rem;
+        }
+
+        .preview a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .preview a:hover {
+            text-decoration: underline;
+        }
+
+        .preview ul, .preview ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .preview blockquote {
+            border-left: 4px solid var(--primary-light);
+            padding-left: 1rem;
+            margin-left: 0;
+            margin-right: 0;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .preview code {
+            background-color: var(--bg-tertiary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        .preview pre {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
+
+        .preview pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .preview table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .preview table th, .preview table td {
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+
+        .preview table th {
+            background-color: var(--bg-secondary);
+            font-weight: 600;
+        }
+
+        .preview hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 1.5rem 0;
+        }
+
+        footer {
+            padding: 1rem 2rem;
+            text-align: center;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 1.5rem;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .word-count {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .divider {
+            color: var(--border-color);
+            margin: 0 0.5rem;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.4rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .editor-container {
+                flex-direction: column;
+            }
+            
+            .resizer {
+                width: 100%;
+                height: 8px;
+                cursor: row-resize;
+            }
+            
+            .resizer:after {
+                width: 24px;
+                height: 2px;
+            }
+            
+            .pane {
+                height: 50%;
+            }
+            
+            .theme-dropdown {
+                right: auto;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <h1>MD Editor</h1>
+            </div>
+            <div class="controls">
+                <button class="button" id="importBtn">
+                    <i class="fas fa-file-import"></i>
+                    Import
+                </button>
+                <button class="button" id="exportBtn">
+                    <i class="fas fa-file-export"></i>
+                    Export
+                </button>
+                <button class="button secondary" id="clearBtn">
+                    <i class="fas fa-trash-alt"></i>
+                    Clear
+                </button>
+                <div class="theme-selector">
+                    <button class="theme-btn" id="themeBtn">
+                        <i class="fas fa-palette"></i>
+                        Theme
+                    </button>
+                    <div class="theme-dropdown" id="themeDropdown">
+                        <div class="theme-option" data-theme="light">
+                            <span>Light</span>
+                            <div class="theme-indicator light"></div>
+                        </div>
+                        <div class="theme-option" data-theme="dark">
+                            <span>Dark</span>
+                            <div class="theme-indicator dark"></div>
+                        </div>
+                        <div class="theme-option" data-theme="blue">
+                            <span>Blue</span>
+                            <div class="theme-indicator blue"></div>
+                        </div>
+                        <div class="theme-option" data-theme="green">
+                            <span>Green</span>
+                            <div class="theme-indicator green"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="editor-container">
+            <div class="pane">
+                <div class="pane-header">
+                    <div class="pane-title">
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    </div>
+                    <div class="pane-actions">
+                        
+                        <button class="icon-btn" id="formatBtn" title="Format">
+                            <i class="fas fa-indent"></i>
+                        </button>
+                        
+                        <button class="icon-btn" id="helpBtn" title="Markdown Syntax Help">
+                            <i class="fas fa-question-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                <textarea class="editor" id="editor" placeholder="Type your Markdown here..."># Markdown Online Editor & Previewer
+
+Welcome to the modern and minimal Markdown editor!
+> by PlayLimitXT
+> Copyright © 2025 PlayLimitXT
+
+## Features
+- Real-time preview, WYSIWYG
+- Multiple theme switching (Light, Dark, Blue, Green)
+- Supports common Markdown syntax
+- Responsive design, adapts to various screen sizes
+- Import/Export functionality
+- Word and character count
+
+## Common Syntax Examples
+
+### Text Formatting
+**Bold Text** and *Italic Text* and ~~Strikethrough Text~~
+
+### Lists
+- Unordered list item 1
+- Unordered list item 2
+  - Nested list item
+- Unordered list item 3
+
+1. Ordered list item 1
+2. Ordered list item 2
+3. Ordered list item 3
+
+### Links & Images
+[Markdown Official Documentation](https://www.markdownguide.org/)
+[PlayLimitXT](../../index.html)
+
+### Blockquotes
+> This is blockquote content
+> It can have multiple lines
+
+### Code
+Inline code: `console.log("Hello World!")`
+
+Code block:
+
+```javascript
+function hello() {
+    console.log("Hello Markdown!");
+    return true;
+}
+```
+
+### Tables
+| Name | Age | Occupation |
+|------|-----|------------|
+| A | 25  | Engineer   |
+| B | 30  | Designer   |
+| C | 35  | Product Manager |
+
+### Horizontal Rule
+---
+
+Start creating!</textarea>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="pane">
+                <div class="pane-header">
+                    <div class="pane-title">
+                        <i class="fas fa-eye"></i>
+                        Preview
+                    </div>
+                    <div class="pane-actions">
+                        
+                        <button class="icon-btn" id="fullscreenBtn" title="Fullscreen Preview">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        
+                        <button class="icon-btn" id="refreshBtn" title="Refresh Preview">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="preview" id="preview"></div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="word-count">
+                <i class="fas fa-font"></i>
+                <span>Words: <span id="wordCount">0</span></span>
+                <span class="divider">|</span>
+                <span>Chars: <span id="charCount">0</span></span>
+            </div>
+            <div>
+                <span>Markdown Online Editor</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2026 PlayLimitXT</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        const editor = document.getElementById('editor');
+        const preview = document.getElementById('preview');
+        const resizer = document.getElementById('resizer');
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+        const themeBtn = document.getElementById('themeBtn');
+        const themeDropdown = document.getElementById('themeDropdown');
+        const clearBtn = document.getElementById('clearBtn');
+        const importBtn = document.getElementById('importBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const formatBtn = document.getElementById('formatBtn');
+        const helpBtn = document.getElementById('helpBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const refreshBtn = document.getElementById('refreshBtn');
+
+        marked.setOptions({
+            breaks: true,
+            gfm: true,
+            highlight: function(code, lang) {
+                return `<pre><code class="language-${lang}">${escapeHtml(code)}</code></pre>`;
+            }
+        });
+
+        function escapeHtml(html) {
+            const div = document.createElement('div');
+            div.textContent = html;
+            return div.innerHTML;
+        }
+
+        function updatePreview() {
+            const markdownText = editor.value;
+            const html = marked.parse(markdownText);
+            preview.innerHTML = html;
+            
+            updateWordCount(markdownText);
+            
+            localStorage.setItem('md-editor-content', markdownText);
+        }
+
+        function updateWordCount(text) {
+            const chars = text.length;
+            charCount.textContent = chars;
+            
+            const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+            wordCount.textContent = words;
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('md-editor-theme', theme);
+            themeDropdown.classList.remove('show');
+            
+            const themeIcons = {
+                'light': 'fa-sun',
+                'dark': 'fa-moon',
+                'blue': 'fa-tint',
+                'green': 'fa-leaf'
+            };
+            
+            const icon = themeBtn.querySelector('i');
+            icon.className = `fas ${themeIcons[theme]}`;
+        }
+
+        const savedTheme = localStorage.getItem('md-editor-theme') || 'light';
+        setTheme(savedTheme);
+
+        const savedContent = localStorage.getItem('md-editor-content');
+        if (savedContent) {
+            editor.value = savedContent;
+        }
+        updatePreview();
+
+        let isResizing = false;
+        resizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            document.body.style.cursor = 'col-resize';
+            document.body.style.userSelect = 'none';
+            
+            const startX = e.clientX;
+            const leftPane = editor.parentElement.parentElement;
+            const rightPane = preview.parentElement.parentElement;
+            const container = document.querySelector('.editor-container');
+            
+            const startLeftWidth = leftPane.offsetWidth;
+            
+            function onMouseMove(e) {
+                if (!isResizing) return;
+                
+                const dx = e.clientX - startX;
+                const containerWidth = container.offsetWidth;
+                const newLeftWidth = ((startLeftWidth + dx) / containerWidth) * 100;
+                
+                if (newLeftWidth > 20 && newLeftWidth < 80) {
+                    leftPane.style.width = `${newLeftWidth}%`;
+                    rightPane.style.width = `${100 - newLeftWidth}%`;
+                }
+            }
+            
+            function onMouseUp() {
+                isResizing = false;
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+            
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+
+        themeBtn.addEventListener('click', () => {
+            themeDropdown.classList.toggle('show');
+        });
+
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const theme = option.getAttribute('data-theme');
+                setTheme(theme);
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!themeBtn.contains(e.target) && !themeDropdown.contains(e.target)) {
+                themeDropdown.classList.remove('show');
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear all content?')) {
+                editor.value = '';
+                updatePreview();
+            }
+        });
+
+        importBtn.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.md,.markdown,.txt';
+            
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    editor.value = e.target.result;
+                    updatePreview();
+                };
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        });
+
+        exportBtn.addEventListener('click', () => {
+            const content = editor.value;
+            if (!content.trim()) {
+                alert('Editor is empty, cannot export.');
+                return;
+            }
+            
+            const blob = new Blob([content], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `markdown-${new Date().toISOString().slice(0, 10)}.md`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        formatBtn.addEventListener('click', () => {
+            alert('Formatting feature is under development...');
+        });
+
+        helpBtn.addEventListener('click', () => {
+            const helpText = `# Markdown Syntax Quick Reference
+
+## Headers
+# Header 1
+## Header 2
+### Header 3
+
+## Text Styles
+**Bold** or __Bold__
+*Italic* or _Italic_
+~~Strikethrough~~
+
+## Lists
+- Unordered list item
+- Unordered list item
+   - Nested list item
+
+1. Ordered list item
+2. Ordered list item
+   1. Nested list item
+
+## Links & Images
+[Link Text](https://example.com)
+![Image Alt](image-url.jpg)
+
+## Blockquotes
+> This is a blockquote
+> It can span multiple lines
+
+## Code
+Inline code: \`code\`
+
+Code block:
+\`\`\`javascript
+// Code example
+console.log("Hello");
+\`\`\`
+
+## Tables
+| Header 1 | Header 2 |
+|----------|----------|
+| Cell 1   | Cell 2   |
+
+## Horizontal Rule
+---
+
+## More Features
+- Task lists: [x] Completed [ ] Pending
+- Footnotes: Text[1](@ref)
+- Definition lists`;
+
+            if (confirm('Replace current content with Markdown syntax help?')) {
+                editor.value = helpText;
+                updatePreview();
+            }
+        });
+
+        let isFullscreen = false;
+        let originalState = null;
+        
+        fullscreenBtn.addEventListener('click', () => {
+            if (!isFullscreen) {
+                originalState = {
+                    editorParent: editor.parentElement.parentElement,
+                    previewParent: preview.parentElement.parentElement,
+                    editorStyle: editor.parentElement.parentElement.style.cssText,
+                    previewStyle: preview.parentElement.parentElement.style.cssText
+                };
+                
+                editor.parentElement.parentElement.style.display = 'none';
+                resizer.style.display = 'none';
+                
+                preview.parentElement.parentElement.style.width = '100%';
+                preview.parentElement.parentElement.style.height = '100%';
+                
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                isFullscreen = true;
+            } else {
+                editor.parentElement.parentElement.style.display = '';
+                resizer.style.display = '';
+                
+                editor.parentElement.parentElement.style.cssText = originalState.editorStyle;
+                preview.parentElement.parentElement.style.cssText = originalState.previewStyle;
+                
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                isFullscreen = false;
+            }
+        });
+
+        refreshBtn.addEventListener('click', () => {
+            updatePreview();
+        });
+
+        editor.addEventListener('input', updatePreview);
+
+        editor.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                updatePreview();
+                alert('Content auto-saved to local storage');
+            }
+            
+            if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+                e.preventDefault();
+                insertTextAroundSelection('**', '**');
+            }
+            
+            if ((e.ctrlKey || e.metaKey) && e.key === 'i') {
+                e.preventDefault();
+                insertTextAroundSelection('*', '*');
+            }
+        });
+
+        function insertTextAroundSelection(startText, endText = '') {
+            const start = editor.selectionStart;
+            const end = editor.selectionEnd;
+            const selectedText = editor.value.substring(start, end);
+            const newText = startText + selectedText + endText;
+            
+            editor.value = editor.value.substring(0, start) + newText + editor.value.substring(end);
+            
+            editor.selectionStart = start + startText.length;
+            editor.selectionEnd = end + startText.length;
+            editor.focus();
+            
+            updatePreview();
+        }
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
+                resizer.style.cursor = 'row-resize';
+            } else {
+                resizer.style.cursor = 'col-resize';
+            }
+        });
+
+        window.dispatchEvent(new Event('resize'));
+    </script>
+</body>
+</html>
