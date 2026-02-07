@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>PLXT | Cryptools</title>
+  <meta name="description" content="Crypto/Cipher Tools in PlayLimitXT(PLXT) Personal Website">
+  <meta name="keywords" content="PlayLimitXT,PLXT,Play_Limit,Personal Website,UP,Cool,Projects,Crypto,Cipher,Tools" />
+  <meta name="msapplication-TileImage" content="../../images/favicon.png" />
+  <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+  <meta name="copyright" content="Copyright © 2026 PLXT">
+  <meta name="revisit-after" content="7 days" >
+  <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+  <link href="css/main.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H1BZQVCCRE');
+  </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Crypto Libs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        gray: { 
+                            850: '#1f2937', 
+                            900: '#111827', 
+                            950: '#030712' 
+                        },
+                        accent: {
+                            500: '#3b82f6', // Blue
+                            600: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Minimal Reset */
+        [x-cloak] { display: none !important; }
+        body { background-color: #030712; color: #f3f4f6; }
+        
+        /* Custom Scrollbar for Webkit */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
+        
+        /* Mobile Safe Area*/
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+        
+        /* Component Classes*/
+        .input-box {
+            width: 100%;
+            background-color: #111827; /* gray-900 */
+            border: 1px solid #374151; /* gray-700 */
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            color: #e5e7eb;
+            font-family: 'JetBrains Mono', monospace;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .input-box:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 1px #3b82f6;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            border-radius: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: white;
+            background-color: #2563eb;
+            transition: background-color 0.2s;
+        }
+        .btn-primary:hover { background-color: #1d4ed8; }
+        .btn-primary:active { transform: scale(0.98); }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            border-radius: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: #e5e7eb;
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover { background-color: #374151; border-color: #4b5563; }
+    </style>
+</head>
+
+<!-- Layout -->
+<body class="h-screen w-screen flex overflow-hidden selection:bg-accent-500 selection:text-white" x-data="cryptoApp()">
+
+    <!-- Toast Notification -->
+    <div class="fixed top-5 right-5 z-50 transform transition-all duration-300"
+         :class="toast.show ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0 pointer-events-none'">
+        <div class="flex items-center gap-3 px-4 py-3 rounded-lg shadow-xl border-l-4 bg-gray-800"
+             :class="toast.type === 'error' ? 'border-red-500 text-red-400' : 'border-emerald-500 text-emerald-400'">
+            <i :class="toast.type === 'error' ? 'fa-solid fa-triangle-exclamation' : 'fa-solid fa-circle-check'"></i>
+            <span class="text-sm font-medium" x-text="toast.msg"></span>
+        </div>
+    </div>
+
+    <!-- Sidebar (Desktop Only) -->
+    <aside class="hidden md:flex flex-col w-72 bg-gray-900 border-r border-gray-800 shrink-0 z-20">
+        <div class="p-6 border-b border-gray-800 flex items-center gap-3">
+            <div class="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-blue-900/20">
+                XT
+            </div>
+            <div>
+                <h1 class="font-bold text-lg text-white tracking-tight">Cryptools - PLXT</h1>
+                <p class="text-[10px] text-gray-500 uppercase tracking-widest font-semibold">Pro Edition</p>
+            </div>
+        </div>
+        
+        <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+            <template x-for="item in navItems">
+                <button @click="activeTab = item.id"
+                        class="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium group"
+                        :class="activeTab === item.id ? 'bg-accent-600 text-white shadow-md' : 'text-gray-400 hover:bg-gray-800 hover:text-white'">
+                    <i :class="item.icon" class="w-6 text-center text-lg opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                    <span x-text="item.label"></span>
+                </button>
+            </template>
+        </nav>
+
+        <div class="p-4 border-t border-gray-800">
+            <div class="bg-gray-950 rounded p-3 text-center border border-gray-800">
+                <p class="text-[10px] text-gray-500"><i class="fa-solid fa-lock text-emerald-500 mr-1"></i> Client-side Encryption</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-full min-w-0 bg-gray-950 relative">
+        
+        <!-- Mobile Header -->
+        <header class="md:hidden h-16 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-4 shrink-0 z-30">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-lg text-white">Cryptools - PLXT</span>
+            </div>
+            <button @click="resetFields()" class="text-xs font-medium text-gray-400 border border-gray-700 px-3 py-1.5 rounded hover:text-white hover:border-gray-500 transition-colors">
+                Reset
+            </button>
+        </header>
+
+        <!-- Scrollable Container -->
+        <div class="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-8 pb-28 md:pb-8 scroll-smooth">
+            <div class="max-w-5xl mx-auto space-y-8">
+
+                <!-- 1. SYMMETRIC ENCRYPTION -->
+                <div x-show="activeTab === 'symmetric'" x-transition.opacity.duration.300ms>
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-2">
+                        <div>
+                            <h2 class="text-2xl font-bold text-white tracking-tight">Symmetric Encryption</h2>
+                            <p class="text-sm text-gray-500 mt-1">AES, DES, TripleDES, Rabbit, RC4</p>
+                        </div>
+                    </div>
+
+                    <!-- Configuration Panel -->
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 mb-6 shadow-sm">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
+                            <div class="col-span-2 md:col-span-1">
+                                <label class="text-xs font-semibold text-gray-500 uppercase mb-2 block">Algorithm</label>
+                                <div class="relative">
+                                    <select x-model="sym.algo" class="input-box appearance-none cursor-pointer bg-gray-950">
+                                        <option value="AES">AES-256</option>
+                                        <option value="DES">DES</option>
+                                        <option value="TripleDES">TripleDES</option>
+                                        <option value="Rabbit">Rabbit</option>
+                                        <option value="RC4">RC4</option>
+                                    </select>
+                                    <i class="fa-solid fa-chevron-down absolute right-3 top-3.5 text-xs text-gray-500 pointer-events-none"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-500 uppercase mb-2 block">Mode</label>
+                                <select x-model="sym.mode" class="input-box bg-gray-950">
+                                    <option value="CBC">CBC</option>
+                                    <option value="ECB">ECB</option>
+                                    <option value="CTR">CTR</option>
+                                    <option value="CFB">CFB</option>
+                                    <option value="OFB">OFB</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-500 uppercase mb-2 block">Padding</label>
+                                <select x-model="sym.padding" class="input-box bg-gray-950">
+                                    <option value="Pkcs7">Pkcs7</option>
+                                    <option value="ZeroPadding">Zero</option>
+                                    <option value="NoPadding">None</option>
+                                    <option value="Iso10126">Iso10126</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-500 uppercase mb-2 block">Key Type</label>
+                                <select x-model="sym.keyType" class="input-box bg-gray-950">
+                                    <option value="passphrase">Passphrase</option>
+                                    <option value="utf8">Key (Utf8)</option>
+                                    <option value="hex">Key (Hex)</option>
+                                    <option value="base64">Key (Base64)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Key & IV Inputs -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-semibold text-gray-500 uppercase mb-2 flex justify-between">
+                                    <span>Secret Key / Passphrase</span>
+                                    <button @click="showKey = !showKey" class="text-accent-500 hover:text-accent-400 text-[10px] font-bold">
+                                        <span x-text="showKey ? 'HIDE' : 'SHOW'"></span>
+                                    </button>
+                                </label>
+                                <input :type="showKey ? 'text' : 'password'" x-model="sym.key" placeholder="Enter secret..." class="input-box border-l-4 border-l-accent-500">
+                            </div>
+                            
+                            <!-- IV Input (Conditional) -->
+                            <div x-show="sym.mode !== 'ECB' && sym.keyType !== 'passphrase'" x-transition>
+                                <label class="text-xs font-semibold text-gray-500 uppercase mb-2 block">IV (Initialization Vector)</label>
+                                <input type="text" x-model="sym.iv" placeholder="Optional. Hex/String..." class="input-box">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input / Output Area -->
+                    <div class="grid lg:grid-cols-2 gap-6">
+                        <div class="flex flex-col h-full">
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-bold text-gray-400 uppercase">Input Text</label>
+                                <button @click="sym.input = ''" class="text-[10px] text-gray-500 hover:text-white bg-gray-800 px-2 py-1 rounded transition-colors"><i class="fa-solid fa-eraser"></i> Clear</button>
+                            </div>
+                            <textarea x-model="sym.input" rows="6" class="input-box resize-none mb-4" placeholder="Text to encrypt or decrypt..."></textarea>
+                            
+                            <div class="grid grid-cols-2 gap-3 mt-auto">
+                                <button @click="processSym('encrypt')" class="btn-primary shadow-lg shadow-blue-900/30">
+                                    <i class="fa-solid fa-lock"></i> Encrypt
+                                </button>
+                                <button @click="processSym('decrypt')" class="btn-secondary">
+                                    <i class="fa-solid fa-lock-open"></i> Decrypt
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col relative h-full">
+                            <label class="text-xs font-bold text-emerald-500 uppercase mb-2">Result Output</label>
+                            <div class="relative flex-1">
+                                <textarea readonly x-model="sym.output" class="input-box h-64 lg:h-full bg-black/30 text-emerald-400 border-dashed border-gray-700 resize-none font-mono text-sm leading-relaxed p-4" placeholder="..."></textarea>
+                                <button @click="copyToClip(sym.output)" class="absolute bottom-3 right-3 bg-gray-800 hover:bg-gray-700 text-white text-xs font-medium px-3 py-1.5 rounded-md border border-gray-600 transition-colors shadow-lg">
+                                    <i class="fa-regular fa-copy mr-1"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. HASHING -->
+                <div x-show="activeTab === 'hash'" x-transition.opacity.duration.300ms>
+                    <h2 class="text-2xl font-bold text-white mb-6">Hash Generator</h2>
+                    
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-sm">
+                        <!-- Chips -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <template x-for="algo in ['MD5', 'SHA1', 'SHA256', 'SHA512', 'RIPEMD160', 'SHA3']">
+                                <button @click="hash.algo = algo; calcHash()"
+                                        class="px-3 py-1.5 rounded-md text-xs font-bold border transition-all"
+                                        :class="hash.algo === algo ? 'bg-accent-600 text-white border-accent-600' : 'bg-gray-800 text-gray-400 border-gray-700 hover:border-gray-500'">
+                                    <span x-text="algo"></span>
+                                </button>
+                            </template>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4 bg-gray-950 p-3 rounded-lg border border-gray-800">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" x-model="hash.isHmac" @change="calcHash()" class="w-4 h-4 rounded bg-gray-800 border-gray-600 text-accent-600 focus:ring-accent-500">
+                                        <span class="text-sm font-medium text-gray-300">HMAC Mode</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" x-model="hash.upper" @change="calcHash()" class="w-4 h-4 rounded bg-gray-800 border-gray-600 text-accent-600 focus:ring-accent-500">
+                                        <span class="text-sm font-medium text-gray-300">Uppercase</span>
+                                    </label>
+                                </div>
+
+                                <div x-show="hash.isHmac" x-transition>
+                                    <input type="text" x-model="hash.key" @input="calcHash()" placeholder="Enter HMAC Secret Key..." class="input-box border-orange-500/50 focus:border-orange-500 text-orange-200">
+                                </div>
+
+                                <textarea x-model="hash.input" @input="calcHash()" rows="5" class="input-box" placeholder="Type here to hash instantly..."></textarea>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase">Hash Output</label>
+                                <div class="relative h-full">
+                                    <textarea readonly x-model="hash.output" class="input-box h-full min-h-[160px] text-orange-400 bg-gray-950 break-all" placeholder="Hash will appear here..."></textarea>
+                                    <button @click="copyToClip(hash.output)" class="absolute top-2 right-2 p-2 text-gray-500 hover:text-white bg-gray-800/50 rounded hover:bg-gray-700 transition-colors">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. RSA -->
+                <div x-show="activeTab === 'rsa'" x-transition.opacity.duration.300ms>
+                    <div class="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
+                        <h2 class="text-2xl font-bold text-white">RSA Asymmetric</h2>
+                        <div class="flex gap-3 bg-gray-900 p-1.5 rounded-lg border border-gray-800">
+                            <select x-model="rsa.size" class="bg-gray-900 text-gray-300 text-xs font-bold px-2 outline-none">
+                                <option value="512">512 bit</option>
+                                <option value="1024">1024 bit</option>
+                                <option value="2048">2048 bit</option>
+                            </select>
+                            <button @click="genRSA()" :disabled="rsa.loading" class="bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold px-4 py-2 rounded transition-colors flex items-center gap-2">
+                                <i class="fa-solid" :class="rsa.loading ? 'fa-circle-notch fa-spin' : 'fa-bolt'"></i> Generate
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-[500px]">
+                        <!-- Keys Column -->
+                        <div class="flex flex-col gap-4 h-full">
+                            <div class="flex-1 flex flex-col relative group">
+                                <label class="text-[10px] font-bold text-blue-400 uppercase mb-1">Public Key</label>
+                                <textarea x-model="rsa.pub" class="input-box flex-1 text-[10px] leading-tight resize-none" placeholder="-----BEGIN PUBLIC KEY-----"></textarea>
+                                <button @click="copyToClip(rsa.pub)" class="absolute top-8 right-2 text-gray-600 hover:text-white"><i class="fa-regular fa-copy"></i></button>
+                            </div>
+                            <div class="flex-1 flex flex-col relative group">
+                                <label class="text-[10px] font-bold text-red-400 uppercase mb-1">Private Key</label>
+                                <textarea x-model="rsa.priv" class="input-box flex-1 text-[10px] leading-tight resize-none" placeholder="-----BEGIN PRIVATE KEY-----"></textarea>
+                                <button @click="copyToClip(rsa.priv)" class="absolute top-8 right-2 text-gray-600 hover:text-white"><i class="fa-regular fa-copy"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Processing Column -->
+                        <div class="flex flex-col gap-4 h-full bg-gray-900 p-5 rounded-xl border border-gray-800">
+                            <div class="flex-1">
+                                <label class="text-xs font-bold text-gray-500 uppercase mb-2 block">Input Data</label>
+                                <textarea x-model="rsa.input" class="input-box h-full resize-none" placeholder="Message to encrypt/decrypt..."></textarea>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-3 py-2">
+                                <button @click="doRSA('encrypt')" class="btn-secondary hover:bg-gray-800 border-gray-700 text-xs">
+                                    Encrypt (Public)
+                                </button>
+                                <button @click="doRSA('decrypt')" class="btn-secondary hover:bg-gray-800 border-gray-700 text-xs">
+                                    Decrypt (Private)
+                                </button>
+                            </div>
+
+                            <div class="flex-1 relative">
+                                <label class="text-xs font-bold text-purple-400 uppercase mb-2 block">Output</label>
+                                <textarea readonly x-model="rsa.output" class="input-box h-full bg-black/40 text-purple-300 resize-none border-dashed" placeholder="Result..."></textarea>
+                                <button @click="copyToClip(rsa.output)" class="absolute bottom-2 right-2 text-xs bg-gray-800 text-white px-2 py-1 rounded border border-gray-600">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. TOOLS -->
+                <div x-show="activeTab === 'tools'" x-transition.opacity.duration.300ms>
+                    <h2 class="text-2xl font-bold text-white mb-6">Encoders & Decoders</h2>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+                        <div class="flex items-center gap-4 border-b border-gray-800 pb-4 mb-6">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="radio" value="Base64" x-model="tools.mode" class="text-accent-600 bg-gray-800 border-gray-600 focus:ring-accent-500">
+                                <span class="text-sm text-gray-300">Base64</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="radio" value="Hex" x-model="tools.mode" class="text-accent-600 bg-gray-800 border-gray-600 focus:ring-accent-500">
+                                <span class="text-sm text-gray-300">Hex</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="radio" value="URL" x-model="tools.mode" class="text-accent-600 bg-gray-800 border-gray-600 focus:ring-accent-500">
+                                <span class="text-sm text-gray-300">URL</span>
+                            </label>
+                        </div>
+
+                        <div class="grid lg:grid-cols-2 gap-8 items-start">
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase">Input / Decoded</label>
+                                <textarea x-model="tools.input" rows="8" class="input-box" placeholder="Enter plain text..."></textarea>
+                            </div>
+                            
+                            <div class="flex lg:flex-col gap-4 justify-center py-2">
+                                <button @click="runTools('enc')" class="btn-primary w-full">
+                                    Encode <i class="fa-solid fa-arrow-down lg:hidden"></i><i class="fa-solid fa-arrow-right hidden lg:inline"></i>
+                                </button>
+                                <button @click="runTools('dec')" class="btn-secondary w-full text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/10">
+                                    <i class="fa-solid fa-arrow-up lg:hidden"></i><i class="fa-solid fa-arrow-left hidden lg:inline"></i> Decode
+                                </button>
+                            </div>
+
+                            <div class="space-y-2 lg:col-span-2">
+                                <label class="text-xs font-bold text-yellow-500 uppercase">Output / Encoded</label>
+                                <textarea readonly x-model="tools.output" rows="6" class="input-box bg-gray-950 text-yellow-200" placeholder="Result..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="md:hidden fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gray-800 z-50 pb-safe">
+        <div class="flex justify-around items-center h-16">
+            <template x-for="item in navItems">
+                <button @click="activeTab = item.id" 
+                        class="flex flex-col items-center justify-center w-full h-full gap-1 transition-all active:scale-95 relative"
+                        :class="activeTab === item.id ? 'text-accent-500' : 'text-gray-500'">
+                    <i :class="item.icon" class="text-xl"></i>
+                    <span x-text="item.short" class="text-[10px] font-semibold"></span>
+                    <span x-show="activeTab === item.id" class="absolute top-0 w-12 h-0.5 bg-accent-500 rounded-b-full"></span>
+                </button>
+            </template>
+        </div>
+    </nav>
+
+    <!-- Javascript Logic -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('cryptoApp', () => ({
+                activeTab: 'symmetric',
+                showKey: false,
+                navItems: [
+                    { id: 'symmetric', label: 'Symmetric Crypto', short: 'AES', icon: 'fa-solid fa-key' },
+                    { id: 'hash', label: 'Hashing & HMAC', short: 'Hash', icon: 'fa-solid fa-fingerprint' },
+                    { id: 'rsa', label: 'RSA Asymmetric', short: 'RSA', icon: 'fa-solid fa-lock' },
+                    { id: 'tools', label: 'Encoders', short: 'Tools', icon: 'fa-solid fa-code' }
+                ],
+                
+                // State Models
+                sym: { algo: 'AES', mode: 'CBC', padding: 'Pkcs7', keyType: 'passphrase', key: '', iv: '', input: '', output: '' },
+                hash: { algo: 'MD5', isHmac: false, key: '', input: '', output: '', upper: false },
+                rsa: { size: '1024', pub: '', priv: '', input: '', output: '', loading: false },
+                tools: { mode: 'Base64', input: '', output: '' },
+                
+                toast: { show: false, msg: '', type: 'info', timer: null },
+
+                notify(msg, type = 'success') {
+                    this.toast.msg = msg;
+                    this.toast.type = type;
+                    this.toast.show = true;
+                    if(this.toast.timer) clearTimeout(this.toast.timer);
+                    this.toast.timer = setTimeout(() => this.toast.show = false, 3000);
+                },
+
+                copyToClip(text) {
+                    if(!text) return;
+                    navigator.clipboard.writeText(text).then(() => this.notify('Copied to clipboard'));
+                },
+
+                resetFields() {
+                    if(this.activeTab === 'symmetric') { this.sym.input = ''; this.sym.output = ''; }
+                    if(this.activeTab === 'hash') { this.hash.input = ''; this.hash.output = ''; }
+                    if(this.activeTab === 'rsa') { this.rsa.input = ''; this.rsa.output = ''; }
+                    if(this.activeTab === 'tools') { this.tools.input = ''; this.tools.output = ''; }
+                    this.notify('Fields cleared', 'info');
+                },
+
+                // --- Symmetric Logic ---
+                processSym(action) {
+                    if (!this.sym.input) return this.notify('Please enter input text', 'error');
+                    if (!this.sym.key) return this.notify('Key is required', 'error');
+
+                    try {
+                        const algo = CryptoJS[this.sym.algo];
+                        const opts = {
+                            mode: CryptoJS.mode[this.sym.mode],
+                            padding: CryptoJS.pad[this.sym.padding]
+                        };
+
+                        let parsedKey, parsedIV;
+
+                        // Key Parsing
+                        if (this.sym.keyType === 'passphrase') {
+                            parsedKey = this.sym.key; // String passphrase (CryptoJS derives key/salt)
+                        } else {
+                            // Raw Key Mode
+                            try {
+                                if (this.sym.keyType === 'hex') parsedKey = CryptoJS.enc.Hex.parse(this.sym.key);
+                                else if (this.sym.keyType === 'base64') parsedKey = CryptoJS.enc.Base64.parse(this.sym.key);
+                                else parsedKey = CryptoJS.enc.Utf8.parse(this.sym.key);
+                            } catch(e) { throw new Error('Invalid Key Format'); }
+
+                            // IV Parsing (Required for non-ECB in raw mode usually)
+                            if (this.sym.mode !== 'ECB') {
+                                if (this.sym.iv) {
+                                    try {
+                                        // Auto-detect hex or string for IV, simplistically assume Hex if valid, else Utf8
+                                        // For precision, let's treat IV as Hex if Key is Hex, or Utf8. 
+                                        // To be safe, let's assume Utf8 unless user inputs Hex explicitly. 
+                                        // For this demo: Try Hex, fall back to Utf8
+                                        parsedIV = CryptoJS.enc.Hex.parse(this.sym.iv); 
+                                        // If empty/error, might be issue. But CryptoJS is lenient.
+                                    } catch(e) {
+                                         parsedIV = CryptoJS.enc.Utf8.parse(this.sym.iv);
+                                    }
+                                    opts.iv = parsedIV;
+                                } else {
+                                    // Warn or auto-fill zero IV?
+                                    // Let's create a zero IV to prevent crash
+                                    opts.iv = CryptoJS.lib.WordArray.create(16); // 128-bit zero IV
+                                    this.notify('Warning: Using Zero IV', 'info');
+                                }
+                            }
+                        }
+
+                        let res;
+                        if (action === 'encrypt') {
+                            res = algo.encrypt(this.sym.input, parsedKey, opts);
+                            this.sym.output = res.toString();
+                        } else {
+                            // Decrypt
+                            res = algo.decrypt(this.sym.input, parsedKey, opts);
+                            const str = res.toString(CryptoJS.enc.Utf8);
+                            if(!str) throw new Error('Decryption Failed');
+                            this.sym.output = str;
+                        }
+                        this.notify(action === 'encrypt' ? 'Encryption Successful' : 'Decryption Successful');
+                    } catch (e) {
+                        console.error(e);
+                        this.sym.output = '';
+                        this.notify('Operation Failed. Check Key/IV/Mode.', 'error');
+                    }
+                },
+
+                // --- Hash Logic ---
+                calcHash() {
+                    if (!this.hash.input) { this.hash.output = ''; return; }
+                    try {
+                        let res;
+                        if (this.hash.isHmac) {
+                            res = CryptoJS['Hmac' + this.hash.algo](this.hash.input, this.hash.key);
+                        } else {
+                            res = CryptoJS[this.hash.algo](this.hash.input);
+                        }
+                        this.hash.output = this.hash.upper ? res.toString().toUpperCase() : res.toString();
+                    } catch (e) { this.hash.output = 'Error'; }
+                },
+
+                // --- RSA Logic ---
+                genRSA() {
+                    this.rsa.loading = true;
+                    this.notify('Generating Keys...', 'info');
+                    setTimeout(() => {
+                        const crypt = new JSEncrypt({ default_key_size: parseInt(this.rsa.size) });
+                        crypt.getKey();
+                        this.rsa.priv = crypt.getPrivateKey();
+                        this.rsa.pub = crypt.getPublicKey();
+                        this.rsa.loading = false;
+                        this.notify('Keys Generated');
+                    }, 100);
+                },
+                doRSA(action) {
+                    if (!this.rsa.input) return this.notify('Input Empty', 'error');
+                    const crypt = new JSEncrypt();
+                    try {
+                        let res = false;
+                        if (action === 'encrypt') {
+                            if(!this.rsa.pub) return this.notify('Missing Public Key', 'error');
+                            crypt.setPublicKey(this.rsa.pub);
+                            res = crypt.encrypt(this.rsa.input);
+                        } else {
+                            if(!this.rsa.priv) return this.notify('Missing Private Key', 'error');
+                            crypt.setPrivateKey(this.rsa.priv);
+                            res = crypt.decrypt(this.rsa.input);
+                        }
+                        if (res) this.rsa.output = res;
+                        else this.notify('RSA Failed', 'error');
+                    } catch (e) { this.notify('RSA Error', 'error'); }
+                },
+
+                // --- Tools Logic ---
+                runTools(action) {
+                    if (!this.tools.input) return;
+                    try {
+                        const val = this.tools.input;
+                        let res = '';
+                        if (this.tools.mode === 'Base64') {
+                            res = action === 'enc' 
+                                ? CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(val))
+                                : CryptoJS.enc.Base64.parse(val).toString(CryptoJS.enc.Utf8);
+                        } else if (this.tools.mode === 'Hex') {
+                            res = action === 'enc'
+                                ? CryptoJS.enc.Hex.stringify(CryptoJS.enc.Utf8.parse(val))
+                                : CryptoJS.enc.Hex.parse(val).toString(CryptoJS.enc.Utf8);
+                        } else {
+                            res = action === 'enc' ? encodeURIComponent(val) : decodeURIComponent(val);
+                        }
+                        this.tools.output = res;
+                    } catch (e) { this.notify('Conversion Error', 'error'); }
+                }
+            }))
+        })
+    </script>
+</body>
+</html>
