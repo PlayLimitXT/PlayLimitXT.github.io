@@ -1,100 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-       http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://PLXT.pages.dev/</loc>
+        <lastmod>2026-01-22</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
 
-<url>
- <loc>https://plxt.pages.dev/</loc>
- <priority>1.0</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>daily</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/index.html</loc>
- <priority>1.0</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>daily</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/blog.html</loc>
- <priority>0.8</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>weekly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Project/Key/index.html</loc>
- <priority>0.6</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>weekly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Link.html</loc>
- <priority>0.6</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>weekly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Project/HTML_Runner/index.html</loc>
- <priority>0.4</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>monthly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Project/AI/index.html</loc>
- <priority>0.4</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>monthly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Project/Rubik&apos;s%20Cube/index.html</loc>
- <priority>0.4</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>monthly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Project/Cube/index.html</loc>
- <priority>0.4</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>monthly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Project/Check-In-System/index.html</loc>
- <priority>0.4</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>monthly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Project/Chrome-Dinosaur/index.html</loc>
- <priority>0.4</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>monthly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Project/Original_Website/index.html</loc>
- <priority>0.4</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>monthly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Pages/Blog_Pages/2025/10/Page_0/index.html</loc>
- <priority>0.4</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>monthly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Pages/Blog_Pages/2025/09/Page_0/index.html</loc>
- <priority>0.4</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>monthly</changefreq>
-</url>
-<url>
- <loc>https://plxt.pages.dev/Pages/Blog_Pages/2024/02/Page_0/index.html</loc>
- <priority>0.4</priority>
- <lastmod>2025-10-10</lastmod>
- <changefreq>monthly</changefreq>
-</url>
+    <url>
+        <loc>https://PLXT.pages.dev/Blog.html</loc>
+        <lastmod>2026-01-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Link.html</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 
+    <url>
+        <loc>https://PLXT.pages.dev/Project/AI/index.html</loc>
+        <lastmod>2025-07-20</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Check-In-System/index.html</loc>
+        <lastmod>2024-04-24</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Chess/index.html</loc>
+        <lastmod>2025-11-28</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Chrome-Dinosaur/index.html</loc>
+        <lastmod>2024-04-27</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Crypto/index.html</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Cube/index.html</loc>
+        <lastmod>2024-03-16</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/HTML_Runner/index.html</loc>
+        <lastmod>2025-07-20</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Key/index.html</loc>
+        <lastmod>2025-10-10</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Markdown/index.html</loc>
+        <lastmod>2026-02-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Pswd_Evaluation/index.html</loc>
+        <lastmod>2025-12-29</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Rubik's Cube/index.html</loc>
+        <lastmod>2024-02-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Unicode_Fonts/index.html</loc>
+        <lastmod>2026-02-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Web_Log/index.html</loc>
+        <lastmod>2026-02-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Website_Versions/index.html</loc>
+        <lastmod>2025-11-05</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!--
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Website_Versions/Alpha1.0/index.html</loc>
+        <lastmod>2025-11-05</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/Project/Website_Versions/V1.0/index.html</loc>
+        <lastmod>2025-11-05</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    -->
+
+    <url>
+        <loc>https://PLXT.pages.dev/articles/Blog_Pages/2024/02/Page_0/index.html</loc>
+        <lastmod>2024-09-11</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/articles/Blog_Pages/2025/09/Page_0/index.html</loc>
+        <lastmod>2025-10-10</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/articles/Blog_Pages/2025/10/Page_0/index.html</loc>
+        <lastmod>2025-10-10</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://PLXT.pages.dev/articles/Blog_Pages/2025/11/Page_0/index.html</loc>
+        <lastmod>2025-11-20</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
 </urlset>
