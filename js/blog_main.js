@@ -111,6 +111,27 @@ function renderBlogContent() {
   renderTags();
 }
 
+// Helper: Generate article card HTML
+function createArticleCard(article) {
+  return `
+    <article class="blog-post hidden">
+      ${article.image ? `<img src="${article.image}" alt="${article.title}" class="blog-post-image" loading="lazy">` : ''}
+      <div class="blog-post-content">
+        <div class="blog-post-meta">
+          <span class="blog-post-date"><i class="far fa-calendar"></i> ${article.date}</span>
+          <span><i class="far fa-user"></i> ${article.author}</span>
+        </div>
+        <div class="blog-post-tags">
+          <span class="tag">${article.categoryDisplay}</span>
+        </div>
+        <h2 class="blog-post-title">${article.title}</h2>
+        <p class="blog-post-excerpt">${article.description}</p>
+        <a href="${article.link}" class="blog-post-link">Read More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </article>
+  `;
+}
+
 // Render blog posts
 function renderBlogPosts() {
   const container = document.getElementById('blog-posts-container');
@@ -120,37 +141,17 @@ function renderBlogPosts() {
     return;
   }
 
-  let html = '';
-
-  articles.forEach(article => {
-    html += `
-                    <article class="blog-post hidden">
-                        ${article.image ? `<img src="${article.image}" alt="${article.title}" class="blog-post-image">` : ''}
-                        <div class="blog-post-content">
-                            <div class="blog-post-meta">
-                                <span class="blog-post-date"><i class="far fa-calendar"></i> ${article.date}</span>
-                                <span><i class="far fa-user"></i> ${article.author}</span>
-                            </div>
-                            <div class="blog-post-tags">
-                                <span class="tag">${article.categoryDisplay}</span>
-                            </div>
-                            <h2 class="blog-post-title">${article.title}</h2>
-                            <p class="blog-post-excerpt">${article.description}</p>
-                            <a href="${article.link}" class="blog-post-link">Read More <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </article>
-                `;
-  });
+  let html = articles.map(article => createArticleCard(article)).join('');
 
   // Add pagination
   html += `
-                <div class="pagination hidden">
-                    <a href="#" class="pagination-link active">1</a>
-                    <a href="#" class="pagination-link">2</a>
-                    <a href="#" class="pagination-link">3</a>
-                    <a href="#" class="pagination-link"><i class="fas fa-chevron-right"></i></a>
-                </div>
-            `;
+    <div class="pagination hidden">
+      <a href="#" class="pagination-link active">1</a>
+      <a href="#" class="pagination-link">2</a>
+      <a href="#" class="pagination-link">3</a>
+      <a href="#" class="pagination-link"><i class="fas fa-chevron-right"></i></a>
+    </div>
+  `;
 
   container.innerHTML = html;
 
@@ -261,43 +262,19 @@ function filterByCategory(category) {
     article.categoryDisplay === category
   );
 
-  // Update the blog posts container with filtered articles
   const container = document.getElementById('blog-posts-container');
-  let html = '';
 
   if (filteredArticles.length === 0) {
-    html = '<div class="loading"><p>No articles found in this category.</p></div>';
+    container.innerHTML = '<div class="loading"><p>No articles found in this category.</p></div>';
   } else {
-    filteredArticles.forEach(article => {
-      html += `
-                        <article class="blog-post hidden">
-                            ${article.image ? `<img src="${article.image}" alt="${article.title}" class="blog-post-image">` : ''}
-                            <div class="blog-post-content">
-                                <div class="blog-post-meta">
-                                    <span class="blog-post-date"><i class="far fa-calendar"></i> ${article.date}</span>
-                                    <span><i class="far fa-user"></i> ${article.author}</span>
-                                </div>
-                                <div class="blog-post-tags">
-                                    <span class="tag">${article.categoryDisplay}</span>
-                                </div>
-                                <h2 class="blog-post-title">${article.title}</h2>
-                                <p class="blog-post-excerpt">${article.description}</p>
-                                <a href="${article.link}" class="blog-post-link">Read More <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </article>
-                    `;
-    });
+    container.innerHTML = filteredArticles.map(article => createArticleCard(article)).join('');
   }
-
-  container.innerHTML = html;
 
   // Re-initialize observer for new elements
   document.querySelectorAll('#blog-posts-container .hidden').forEach(el => observer.observe(el));
 
   // Scroll to blog section
-  document.getElementById('blog').scrollIntoView({
-    behavior: 'smooth'
-  });
+  document.getElementById('blog').scrollIntoView({ behavior: 'smooth' });
 }
 
 // Initialize the blog when the page loads
