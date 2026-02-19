@@ -83,7 +83,13 @@ section{padding:6rem 8%;position:relative}
 .project-card:hover .project-content{transform:translateY(0)}
 .project-card:hover .project-arrow{opacity:1;transform:scale(1) rotate(0)}
 .cta-section{text-align:center;padding:8rem 5%;background:radial-gradient(circle at center,#0a0a14 0,transparent 70%);position:relative}
+.cta-title{font-size:3.5rem;margin-bottom:1.5rem}
+.cta-text{color:var(--text-muted);margin-bottom:2.5rem}
+.cta-btn{font-size:1.2rem;padding:1.2rem 3rem}
 footer{border-top:1px solid var(--glass-border);padding:3rem 5%;display:flex;justify-content:space-between;align-items:center;font-size:.9rem;color:var(--text-muted);background:#020203}
+.footer-content{display:flex;align-items:center}
+.footer-logo{font-size:1.2rem}
+.footer-copyright{margin-left:15px;opacity:.5}
 .socials{display:flex;gap:1.5rem}
 .socials a{color:var(--text-main);font-size:1.2rem;transition:.3s}
 .socials a:hover{color:var(--primary);transform:translateY(-5px) rotate(10deg);text-shadow:0 0 10px var(--primary)}

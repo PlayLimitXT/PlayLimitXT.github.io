@@ -84,3 +84,71 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+
+// 5. Tech Marquee - Duplicate items for seamless loop
+const techTrack = document.getElementById('tech-track');
+if (techTrack) {
+  const techItems = techTrack.innerHTML;
+  techTrack.innerHTML += techItems;
+}
+
+// 6. Stats Counter Animation
+function animateCounter(element, target, duration = 2000) {
+  const start = 0;
+  const startTime = performance.now();
+  const isInfinity = target === '∞';
+  
+  if (isInfinity) {
+    element.textContent = '∞';
+    return;
+  }
+
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+    const current = Math.floor(start + (target - start) * easeOutQuart);
+    
+    if (target >= 1000000) {
+      element.textContent = (current / 1000000).toFixed(0) + 'M+';
+    } else if (target >= 1000) {
+      element.textContent = (current / 1000).toFixed(0) + 'K+';
+    } else {
+      element.textContent = current + '+';
+    }
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const statNums = entry.target.querySelectorAll('.stat-num');
+      statNums.forEach(stat => {
+        const text = stat.textContent;
+        let target;
+        if (text.includes('M')) {
+          target = 1000000;
+        } else if (text.includes('K')) {
+          target = parseInt(text) * 1000;
+        } else if (text === '∞') {
+          target = '∞';
+        } else {
+          target = parseInt(text);
+        }
+        animateCounter(stat, target);
+      });
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+const statsGrid = document.querySelector('.stats-grid');
+if (statsGrid) {
+  statsObserver.observe(statsGrid);
+}

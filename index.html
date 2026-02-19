@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PLXT | Official Website</title>
-    <meta name="description" content="PLXT(PlayLimitXT) Official Website">
+    <meta name="description" content="PLXT(PlayLimitXT) Official Website - Personal portfolio showcasing creative works in software development, game design, music production, and more.">
     <meta name="keywords" content="PlayLimitXT,PLXT,LimitXT,Official,Personal Website,Blog,Introduction,Services,Experiences,Solution" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="msapplication-TileImage" content="images/favicon.png" />
     <meta name="author" content="PlayLimitXT,PlayLimitXT@gmail.com">
     <meta name="copyright" content="Copyright © 2025 PlayLimitXT">
@@ -28,6 +27,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "PLXT - PlayLimitXT",
+      "url": "https://playlimitxt.github.io/",
+      "description": "Personal portfolio showcasing creative works in software development, game design, music production, and more.",
+      "author": {
+        "@type": "Person",
+        "name": "PlayLimitXT",
+        "email": "playlimitxt@gmail.com"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://playlimitxt.github.io/Link.html",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 </head>
 <body>
 
@@ -67,28 +85,7 @@
         
         <!-- Tech Marquee with Specific Content -->
         <div class="tech-marquee hidden">
-            <div class="tech-track">
-                <!-- Original Set -->
-                <div class="tech-item"><i class="fa-brands fa-cuttlefish"></i> <span>C/C++</span></div>
-                <div class="tech-item"><i class="fa-brands fa-java"></i> <span>Java</span></div>
-                <div class="tech-item"><i class="fa-brands fa-python"></i> <span>Python</span></div>
-                <div class="tech-item"><i class="fa-brands fa-html5"></i> <span>HTML</span></div>
-                <div class="tech-item"><i class="fa-brands fa-css3-alt"></i> <span>CSS</span></div>
-                <div class="tech-item"><i class="fa-brands fa-js"></i> <span>JavaScript</span></div>
-                <div class="tech-item"><i class="fa-brands fa-docker"></i> <span>Docker</span></div>
-                <div class="tech-item"><i class="fa-brands fa-github"></i> <span>Github</span></div>
-                <div class="tech-item"><i class="fa-brands fa-android"></i> <span>Android</span></div>
-                <div class="tech-item"><i class="fa-solid fa-gamepad"></i> <span>Games</span></div>
-                <div class="tech-item"><i class="fa-solid fa-terminal"></i> <span>Shell</span></div>
-                <div class="tech-item"><i class="fa-solid fa-brain"></i> <span>AI</span></div>
-                <div class="tech-item"><i class="fa-solid fa-music"></i> <span>FL Studio</span></div>
-                <div class="tech-item"><i class="fa-solid fa-palette"></i> <span>PhotoShop</span></div>
-                <div class="tech-item"><i class="fa-solid fa-film"></i> <span></span>Premiere</div>
-                <div class="tech-item"><i class="fa-solid fa-wand-magic-sparkles"></i> <span>AfterEffects</span></div>
-                <div class="tech-item"><i class="fa-brands fa-unreal-engine"></i> <span>Unreal Engine</span></div>
-                <div class="tech-item"><i class="fa-solid fa-plus"></i> <span>More</span></div>
-
-                <!-- Duplicate Set for Seamless Loop -->
+            <div class="tech-track" id="tech-track">
                 <div class="tech-item"><i class="fa-brands fa-cuttlefish"></i> <span>C/C++</span></div>
                 <div class="tech-item"><i class="fa-brands fa-java"></i> <span>Java</span></div>
                 <div class="tech-item"><i class="fa-brands fa-python"></i> <span>Python</span></div>
@@ -119,7 +116,7 @@
                 <span class="stat-label">Years Experience</span>
             </div>
             <div class="stat-item">
-                <span class="stat-num">10+</span>
+                <span class="stat-num">50+</span>
                 <span class="stat-label">Projects</span>
             </div>
             <div class="stat-item">
@@ -263,15 +260,15 @@
 
     <!-- CTA / Footer -->
     <div class="cta-section hidden">
-        <h2 class="section-title" style="font-size: 3.5rem; margin-bottom: 1.5rem;">Have an idea?</h2>
-        <p style="color: var(--text-muted); margin-bottom: 2.5rem;">Let's build something amazing together.</p>
-        <a href="mailto:playlimitxt@gmail.com" class="btn-glow" style="font-size: 1.2rem; padding: 1.2rem 3rem;">Contact Us</a>
+        <h2 class="section-title cta-title">Have an idea?</h2>
+        <p class="cta-text">Let's build something amazing together.</p>
+        <a href="mailto:playlimitxt@gmail.com" class="btn-glow cta-btn">Contact Us</a>
     </div>
 
     <footer id="contact">
-        <div>
-            <span class="logo" style="font-size: 1.2rem;"><span>PLXT</span></span>
-            <span style="margin-left: 15px; opacity: 0.5;">&copy; 2025. All rights reserved.</span>
+        <div class="footer-content">
+            <span class="logo footer-logo"><span>PLXT</span></span>
+            <span class="footer-copyright">&copy; 2025. All rights reserved.</span>
         </div>
         <div class="socials">
             <a href="#"><i class="fab fa-github"></i></a>
