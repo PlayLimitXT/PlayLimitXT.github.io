@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator | PLXT</title>
+    <meta name="description" content="Create secure passwords instantly - PlayLimitXT">
+    <meta name="keywords" content="PlayLimitXT,PLXT,Password Generator,Secure Password" />
+    <meta name="msapplication-TileImage" content="../../images/favicon.png" />
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <meta name="copyright" content="Copyright © 2026 PlayLimitXT">
+    <meta name="robots" content="index,follow" />
+    <meta name="revisit-after" content="7 days" >
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-H1BZQVCCRE');
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Password Generator</h1>
+            <p class="subtitle">Create secure passwords instantly</p>
+            
+            <div class="password-display">
+                <input type="text" id="password-output" readonly>
+                <button class="copy-btn" id="copy-btn" title="Copy to clipboard">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="strength-meter">
+                <div class="strength-bar" id="strength-bar"></div>
+                <span class="strength-text" id="strength-text">Password Strength</span>
+            </div>
+            
+            <div class="options-section">
+                <div class="option-row">
+                    <label for="length-slider">Password Length</label>
+                    <div class="length-control">
+                        <input type="range" id="length-slider" min="4" max="64" value="16">
+                        <span id="length-value">16</span>
+                    </div>
+                </div>
+                
+                <div class="checkboxes">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="uppercase" checked>
+                        <span class="checkmark"></span>
+                        Uppercase (A-Z)
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="lowercase" checked>
+                        <span class="checkmark"></span>
+                        Lowercase (a-z)
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="numbers" checked>
+                        <span class="checkmark"></span>
+                        Numbers (0-9)
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="symbols">
+                        <span class="checkmark"></span>
+                        Symbols (!@#$%...)
+                    </label>
+                </div>
+            </div>
+            
+            <button class="btn-primary" id="generate-btn">
+                <span class="btn-icon">⟳</span>
+                Generate Password
+            </button>
+            
+            <div class="history-section">
+                <h3>Recent Passwords</h3>
+                <div class="history-list" id="history-list"></div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <a href="/">← Back to Home</a>
+            <span class="copyright">Copyright © 2026 PlayLimitXT</span>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

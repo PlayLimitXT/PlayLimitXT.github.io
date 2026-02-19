@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer | PLXT</title>
+    <meta name="description" content="Count down to your special moments - PlayLimitXT">
+    <meta name="keywords" content="PlayLimitXT,PLXT,Countdown,Timer,Event" />
+    <meta name="msapplication-TileImage" content="../../images/favicon.png" />
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <meta name="copyright" content="Copyright © 2026 PlayLimitXT">
+    <meta name="robots" content="index,follow" />
+    <meta name="revisit-after" content="7 days" >
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-H1BZQVCCRE');
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Countdown Timer</h1>
+            <p class="subtitle">Count down to your special moments</p>
+            
+            <div class="countdown-display" id="countdown-display">
+                <div class="time-block">
+                    <span class="time-value" id="days">00</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-value" id="hours">00</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-value" id="minutes">00</span>
+                    <span class="time-label">Minutes</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-value" id="seconds">00</span>
+                    <span class="time-label">Seconds</span>
+                </div>
+            </div>
+            
+            <div class="event-name" id="event-name"></div>
+            
+            <div class="input-section" id="input-section">
+                <div class="input-group">
+                    <label>Event Name</label>
+                    <input type="text" id="event-input" placeholder="Enter event name...">
+                </div>
+                
+                <div class="datetime-group">
+                    <div class="input-group">
+                        <label>Date</label>
+                        <input type="date" id="date-input">
+                    </div>
+                    <div class="input-group">
+                        <label>Time</label>
+                        <input type="time" id="time-input" value="00:00">
+                    </div>
+                </div>
+                
+                <button class="btn-primary" id="start-btn">
+                    <span class="btn-icon">▶</span>
+                    Start Countdown
+                </button>
+            </div>
+            
+            <div class="controls" id="controls" style="display: none;">
+                <button class="btn-secondary" id="stop-btn">
+                    <span class="btn-icon">■</span>
+                    Stop
+                </button>
+                <button class="btn-secondary" id="reset-btn">
+                    <span class="btn-icon">↺</span>
+                    Reset
+                </button>
+            </div>
+            
+            <div class="presets">
+                <h3>Quick Presets</h3>
+                <div class="preset-buttons">
+                    <button class="preset-btn" data-preset="newyear">New Year</button>
+                    <button class="preset-btn" data-preset="christmas">Christmas</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <a href="/">← Back to Home</a>
+            <span class="copyright">Copyright © 2026 PlayLimitXT</span>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Image | PLXT</title>
+    <meta name="description" content="Convert images to Base64 and vice versa">
+    <meta name="keywords" content="PlayLimitXT,PLXT,Base64,Image,Converter">
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+            <h1><i class="fas fa-exchange-alt"></i> Base64 Image</h1>
+            <p class="subtitle">Convert images to Base64 and vice versa</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="to-base64"><i class="fas fa-image"></i> Image → Base64</button>
+            <button class="tab-btn" data-tab="to-image"><i class="fas fa-code"></i> Base64 → Image</button>
+        </div>
+
+        <!-- Image to Base64 -->
+        <div id="to-base64-tab" class="tab-content active">
+            <div class="upload-area" id="upload-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drop image here or click to upload</p>
+                <span>Supports: PNG, JPG, GIF, WebP, SVG</span>
+                <input type="file" id="file-input" accept="image/*" hidden>
+            </div>
+
+            <div id="image-preview-panel" class="panel hidden">
+                <div class="panel-header">
+                    <h2><i class="fas fa-image"></i> Image Preview</h2>
+                    <button id="clear-image" class="btn-small"><i class="fas fa-trash"></i> Clear</button>
+                </div>
+                <div class="preview-container">
+                    <img id="image-preview" alt="Preview">
+                </div>
+                <div class="image-info" id="image-info"></div>
+            </div>
+
+            <div id="base64-output-panel" class="panel hidden">
+                <div class="panel-header">
+                    <h2><i class="fas fa-code"></i> Base64 Output</h2>
+                    <div class="output-options">
+                        <label><input type="checkbox" id="include-prefix" checked> Include prefix</label>
+                    </div>
+                </div>
+                <textarea id="base64-output" readonly></textarea>
+                <div class="actions">
+                    <button id="copy-base64" class="btn btn-primary"><i class="fas fa-copy"></i> Copy</button>
+                    <button id="download-base64" class="btn btn-secondary"><i class="fas fa-download"></i> Download .txt</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Base64 to Image -->
+        <div id="to-image-tab" class="tab-content">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-paste"></i> Base64 Input</h2>
+                    <button id="paste-base64" class="btn-small"><i class="fas fa-clipboard"></i> Paste</button>
+                </div>
+                <textarea id="base64-input" placeholder="Paste your Base64 string here... (with or without data URI prefix)"></textarea>
+                <button id="convert-to-image" class="btn btn-primary"><i class="fas fa-magic"></i> Convert to Image</button>
+            </div>
+
+            <div id="decoded-image-panel" class="panel hidden">
+                <div class="panel-header">
+                    <h2><i class="fas fa-image"></i> Decoded Image</h2>
+                    <div class="image-size" id="decoded-size"></div>
+                </div>
+                <div class="decoded-preview">
+                    <img id="decoded-image" alt="Decoded">
+                </div>
+                <div class="actions">
+                    <button id="download-image" class="btn btn-primary"><i class="fas fa-download"></i> Download Image</button>
+                    <select id="download-format">
+                        <option value="png">PNG</option>
+                        <option value="jpeg">JPEG</option>
+                        <option value="webp">WebP</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2026 PlayLimitXT</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

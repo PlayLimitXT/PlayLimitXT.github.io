@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Tester | PLXT</title>
+    <meta name="description" content="Test regular expressions with real-time matching">
+    <meta name="keywords" content="PlayLimitXT,PLXT,Regex,Regular Expression,Tester">
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+            <h1><i class="fas fa-code"></i> Regex Tester</h1>
+            <p class="subtitle">Test regular expressions with real-time matching</p>
+        </header>
+
+        <div class="main-content">
+            <div class="panel regex-panel">
+                <div class="panel-header">
+                    <h2>Pattern</h2>
+                    <div class="flags">
+                        <label class="flag-btn" title="Global">
+                            <input type="checkbox" id="flag-g" checked>
+                            <span>g</span>
+                        </label>
+                        <label class="flag-btn" title="Case Insensitive">
+                            <input type="checkbox" id="flag-i">
+                            <span>i</span>
+                        </label>
+                        <label class="flag-btn" title="Multiline">
+                            <input type="checkbox" id="flag-m">
+                            <span>m</span>
+                        </label>
+                        <label class="flag-btn" title="Dot All">
+                            <input type="checkbox" id="flag-s">
+                            <span>s</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="regex-input-wrapper">
+                    <span class="delimiter">/</span>
+                    <input type="text" id="regex-input" placeholder="Enter your regex pattern..." spellcheck="false">
+                    <span class="delimiter">/</span>
+                    <span id="flags-display">g</span>
+                </div>
+                <div id="regex-error" class="error-message"></div>
+            </div>
+
+            <div class="panels-row">
+                <div class="panel text-panel">
+                    <div class="panel-header">
+                        <h2>Test String</h2>
+                        <button id="clear-btn" class="icon-btn" title="Clear">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <textarea id="test-input" placeholder="Enter text to test against your regex..." spellcheck="false"></textarea>
+                </div>
+
+                <div class="panel result-panel">
+                    <div class="panel-header">
+                        <h2>Matches</h2>
+                        <span id="match-count" class="badge">0 matches</span>
+                    </div>
+                    <div id="result-output" class="result-output">
+                        <div class="placeholder">Matches will appear here...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel groups-panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-layer-group"></i> Capture Groups</h2>
+                </div>
+                <div id="groups-output" class="groups-output">
+                    <div class="placeholder">No capture groups found...</div>
+                </div>
+            </div>
+
+            <div class="panel reference-panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-book"></i> Quick Reference</h2>
+                </div>
+                <div class="reference-grid">
+                    <div class="ref-item"><code>.</code><span>Any character</span></div>
+                    <div class="ref-item"><code>\d</code><span>Digit [0-9]</span></div>
+                    <div class="ref-item"><code>\w</code><span>Word char [a-zA-Z0-9_]</span></div>
+                    <div class="ref-item"><code>\s</code><span>Whitespace</span></div>
+                    <div class="ref-item"><code>^</code><span>Start of line</span></div>
+                    <div class="ref-item"><code>$</code><span>End of line</span></div>
+                    <div class="ref-item"><code>*</code><span>0 or more</span></div>
+                    <div class="ref-item"><code>+</code><span>1 or more</span></div>
+                    <div class="ref-item"><code>?</code><span>0 or 1</span></div>
+                    <div class="ref-item"><code>{n}</code><span>Exactly n</span></div>
+                    <div class="ref-item"><code>{n,m}</code><span>n to m times</span></div>
+                    <div class="ref-item"><code>[abc]</code><span>Character set</span></div>
+                    <div class="ref-item"><code>(...)</code><span>Capture group</span></div>
+                    <div class="ref-item"><code>(?:...)</code><span>Non-capturing</span></div>
+                    <div class="ref-item"><code>|</code><span>Or</span></div>
+                    <div class="ref-item"><code>\b</code><span>Word boundary</span></div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2026 PlayLimitXT</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

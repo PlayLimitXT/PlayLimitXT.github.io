@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Formatter | PLXT</title>
+    <meta name="description" content="Format, validate and minify JSON data">
+    <meta name="keywords" content="PlayLimitXT,PLXT,JSON,Formatter,Validator,Minify">
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+            <h1><i class="fas fa-brackets-curly"></i> JSON Formatter</h1>
+            <p class="subtitle">Format, validate and minify JSON data</p>
+        </header>
+
+        <div class="toolbar">
+            <div class="tool-group">
+                <label>Indent:</label>
+                <select id="indent-select">
+                    <option value="2" selected>2 spaces</option>
+                    <option value="4">4 spaces</option>
+                    <option value="tab">Tab</option>
+                </select>
+            </div>
+            <div class="tool-group buttons">
+                <button id="format-btn" class="btn btn-primary">
+                    <i class="fas fa-indent"></i> Format
+                </button>
+                <button id="minify-btn" class="btn btn-secondary">
+                    <i class="fas fa-compress"></i> Minify
+                </button>
+                <button id="copy-btn" class="btn btn-outline">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+                <button id="clear-btn" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Clear
+                </button>
+            </div>
+        </div>
+
+        <div class="editor-container">
+            <div class="editor-panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-code"></i> Input</h2>
+                    <div class="status" id="input-status"></div>
+                </div>
+                <textarea id="input-editor" placeholder="Paste your JSON here..." spellcheck="false"></textarea>
+            </div>
+
+            <div class="editor-panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-file-code"></i> Output</h2>
+                    <div class="status valid" id="output-status">
+                        <i class="fas fa-check-circle"></i> Valid JSON
+                    </div>
+                </div>
+                <div id="output-editor" class="output-area"></div>
+            </div>
+        </div>
+
+        <div class="info-panel" id="info-panel">
+            <div class="info-item">
+                <i class="fas fa-clock"></i>
+                <span>Size: <strong id="json-size">0 B</strong></span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-layer-group"></i>
+                <span>Depth: <strong id="json-depth">0</strong></span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-key"></i>
+                <span>Keys: <strong id="json-keys">0</strong></span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-list"></i>
+                <span>Values: <strong id="json-values">0</strong></span>
+            </div>
+        </div>
+
+        <div class="error-panel" id="error-panel">
+            <div class="error-content">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span id="error-message"></span>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2026 PlayLimitXT</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

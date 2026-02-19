@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Tester | PLXT</title>
+    <meta name="description" content="Test your keyboard keys visually">
+    <meta name="keywords" content="PlayLimitXT,PLXT,Keyboard,Tester,Key">
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+            <h1><i class="fas fa-keyboard"></i> Keyboard Tester</h1>
+            <p class="subtitle">Press any key to test your keyboard</p>
+        </header>
+
+        <div class="current-key">
+            <div class="key-display" id="key-display">
+                <span class="placeholder">Press a key...</span>
+            </div>
+            <div class="key-info" id="key-info">
+                <div class="info-item">
+                    <span class="label">Key</span>
+                    <span class="value" id="info-key">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Code</span>
+                    <span class="value" id="info-code">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">KeyCode</span>
+                    <span class="value" id="info-keycode">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Location</span>
+                    <span class="value" id="info-location">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="keyboard" id="keyboard">
+            <!-- Row 1: Function keys -->
+            <div class="keyboard-row">
+                <div class="key fn" data-code="Escape">Esc</div>
+                <div class="key fn" data-code="F1">F1</div>
+                <div class="key fn" data-code="F2">F2</div>
+                <div class="key fn" data-code="F3">F3</div>
+                <div class="key fn" data-code="F4">F4</div>
+                <div class="key fn" data-code="F5">F5</div>
+                <div class="key fn" data-code="F6">F6</div>
+                <div class="key fn" data-code="F7">F7</div>
+                <div class="key fn" data-code="F8">F8</div>
+                <div class="key fn" data-code="F9">F9</div>
+                <div class="key fn" data-code="F10">F10</div>
+                <div class="key fn" data-code="F11">F11</div>
+                <div class="key fn" data-code="F12">F12</div>
+            </div>
+
+            <!-- Row 2: Numbers -->
+            <div class="keyboard-row">
+                <div class="key" data-code="Backquote">`</div>
+                <div class="key" data-code="Digit1">1</div>
+                <div class="key" data-code="Digit2">2</div>
+                <div class="key" data-code="Digit3">3</div>
+                <div class="key" data-code="Digit4">4</div>
+                <div class="key" data-code="Digit5">5</div>
+                <div class="key" data-code="Digit6">6</div>
+                <div class="key" data-code="Digit7">7</div>
+                <div class="key" data-code="Digit8">8</div>
+                <div class="key" data-code="Digit9">9</div>
+                <div class="key" data-code="Digit0">0</div>
+                <div class="key" data-code="Minus">-</div>
+                <div class="key" data-code="Equal">=</div>
+                <div class="key wide" data-code="Backspace">Backspace</div>
+            </div>
+
+            <!-- Row 3: QWERTY -->
+            <div class="keyboard-row">
+                <div class="key wide" data-code="Tab">Tab</div>
+                <div class="key" data-code="KeyQ">Q</div>
+                <div class="key" data-code="KeyW">W</div>
+                <div class="key" data-code="KeyE">E</div>
+                <div class="key" data-code="KeyR">R</div>
+                <div class="key" data-code="KeyT">T</div>
+                <div class="key" data-code="KeyY">Y</div>
+                <div class="key" data-code="KeyU">U</div>
+                <div class="key" data-code="KeyI">I</div>
+                <div class="key" data-code="KeyO">O</div>
+                <div class="key" data-code="KeyP">P</div>
+                <div class="key" data-code="BracketLeft">[</div>
+                <div class="key" data-code="BracketRight">]</div>
+                <div class="key" data-code="Backslash">\</div>
+            </div>
+
+            <!-- Row 4: ASDF -->
+            <div class="keyboard-row">
+                <div class="key wide" data-code="CapsLock">Caps</div>
+                <div class="key" data-code="KeyA">A</div>
+                <div class="key" data-code="KeyS">S</div>
+                <div class="key" data-code="KeyD">D</div>
+                <div class="key" data-code="KeyF">F</div>
+                <div class="key" data-code="KeyG">G</div>
+                <div class="key" data-code="KeyH">H</div>
+                <div class="key" data-code="KeyJ">J</div>
+                <div class="key" data-code="KeyK">K</div>
+                <div class="key" data-code="KeyL">L</div>
+                <div class="key" data-code="Semicolon">;</div>
+                <div class="key" data-code="Quote">'</div>
+                <div class="key wide" data-code="Enter">Enter</div>
+            </div>
+
+            <!-- Row 5: ZXCV -->
+            <div class="keyboard-row">
+                <div class="key wider" data-code="ShiftLeft">Shift</div>
+                <div class="key" data-code="KeyZ">Z</div>
+                <div class="key" data-code="KeyX">X</div>
+                <div class="key" data-code="KeyC">C</div>
+                <div class="key" data-code="KeyV">V</div>
+                <div class="key" data-code="KeyB">B</div>
+                <div class="key" data-code="KeyN">N</div>
+                <div class="key" data-code="KeyM">M</div>
+                <div class="key" data-code="Comma">,</div>
+                <div class="key" data-code="Period">.</div>
+                <div class="key" data-code="Slash">/</div>
+                <div class="key wider" data-code="ShiftRight">Shift</div>
+            </div>
+
+            <!-- Row 6: Bottom -->
+            <div class="keyboard-row">
+                <div class="key wide" data-code="ControlLeft">Ctrl</div>
+                <div class="key wide" data-code="MetaLeft">Win</div>
+                <div class="key wide" data-code="AltLeft">Alt</div>
+                <div class="key space" data-code="Space">Space</div>
+                <div class="key wide" data-code="AltRight">Alt</div>
+                <div class="key wide" data-code="MetaRight">Win</div>
+                <div class="key wide" data-code="ContextMenu">Menu</div>
+                <div class="key wide" data-code="ControlRight">Ctrl</div>
+            </div>
+        </div>
+
+        <div class="stats-panel">
+            <div class="stat">
+                <span class="stat-value" id="press-count">0</span>
+                <span class="stat-label">Keys Pressed</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value" id="unique-keys">0</span>
+                <span class="stat-label">Unique Keys</span>
+            </div>
+            <button id="reset-stats" class="btn-reset"><i class="fas fa-redo"></i> Reset</button>
+        </div>
+
+        <div class="history-panel">
+            <h3><i class="fas fa-history"></i> Recent Keys</h3>
+            <div id="history-list" class="history-list"></div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2026 PlayLimitXT</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

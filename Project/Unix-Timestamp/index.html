@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unix Timestamp | PLXT</title>
+    <meta name="description" content="Convert Unix timestamps to dates and vice versa">
+    <meta name="keywords" content="PlayLimitXT,PLXT,Unix,Timestamp,Converter">
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+            <h1><i class="fas fa-clock"></i> Unix Timestamp</h1>
+            <p class="subtitle">Convert between timestamps and dates</p>
+        </header>
+
+        <div class="current-timestamp">
+            <div class="timestamp-display">
+                <span id="current-ts" class="ts-value">0</span>
+                <span class="ts-label">Current Unix Timestamp</span>
+            </div>
+            <button id="copy-current" class="btn-copy"><i class="fas fa-copy"></i></button>
+        </div>
+
+        <div class="converter-grid">
+            <div class="converter-panel">
+                <h2><i class="fas fa-arrow-right"></i> Timestamp to Date</h2>
+                <div class="input-group">
+                    <input type="text" id="ts-input" placeholder="Enter Unix timestamp...">
+                    <button id="ts-convert" class="btn-convert">Convert</button>
+                </div>
+                <div id="ts-result" class="result-box">
+                    <div class="placeholder">Enter a timestamp to convert</div>
+                </div>
+            </div>
+
+            <div class="converter-panel">
+                <h2><i class="fas fa-arrow-left"></i> Date to Timestamp</h2>
+                <div class="input-group">
+                    <input type="datetime-local" id="date-input">
+                    <button id="date-convert" class="btn-convert">Convert</button>
+                </div>
+                <div id="date-result" class="result-box">
+                    <div class="placeholder">Select a date to convert</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formats-panel">
+            <h2><i class="fas fa-code"></i> Current Time Formats</h2>
+            <div id="formats-list" class="formats-list"></div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2026 PlayLimitXT</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

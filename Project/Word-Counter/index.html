@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter | PLXT</title>
+    <meta name="description" content="Count words, characters, sentences and more">
+    <meta name="keywords" content="PlayLimitXT,PLXT,Word,Counter,Character,Statistics">
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+            <h1><i class="fas fa-calculator"></i> Word Counter</h1>
+            <p class="subtitle">Analyze your text with detailed statistics</p>
+        </header>
+
+        <div class="editor-panel">
+            <textarea id="text-input" placeholder="Start typing or paste your text here..."></textarea>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-font"></i></div>
+                <div class="stat-value" id="char-count">0</div>
+                <div class="stat-label">Characters</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-text-width"></i></div>
+                <div class="stat-value" id="char-no-space">0</div>
+                <div class="stat-label">No Spaces</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-file-word"></i></div>
+                <div class="stat-value" id="word-count">0</div>
+                <div class="stat-label">Words</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-align-left"></i></div>
+                <div class="stat-value" id="sentence-count">0</div>
+                <div class="stat-label">Sentences</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-paragraph"></i></div>
+                <div class="stat-value" id="paragraph-count">0</div>
+                <div class="stat-label">Paragraphs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-value" id="reading-time">0 min</div>
+                <div class="stat-label">Reading Time</div>
+            </div>
+        </div>
+
+        <div class="extra-stats">
+            <div class="extra-item">
+                <span class="extra-label">Speaking Time</span>
+                <span class="extra-value" id="speaking-time">0 min</span>
+            </div>
+            <div class="extra-item">
+                <span class="extra-label">Avg. Word Length</span>
+                <span class="extra-value" id="avg-word-length">0</span>
+            </div>
+            <div class="extra-item">
+                <span class="extra-label">Avg. Sentence Length</span>
+                <span class="extra-value" id="avg-sentence-length">0</span>
+            </div>
+            <div class="extra-item">
+                <span class="extra-label">Longest Word</span>
+                <span class="extra-value" id="longest-word">-</span>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="copy-btn" class="btn btn-secondary">
+                <i class="fas fa-copy"></i> Copy Text
+            </button>
+            <button id="clear-btn" class="btn btn-outline">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+        </div>
+
+        <footer>
+            <p>Copyright © 2026 PlayLimitXT</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

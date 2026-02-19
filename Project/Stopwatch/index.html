@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch | PLXT</title>
+    <meta name="description" content="Precise stopwatch with lap times">
+    <meta name="keywords" content="PlayLimitXT,PLXT,Stopwatch,Timer,Lap">
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+            <h1><i class="fas fa-stopwatch"></i> Stopwatch</h1>
+            <p class="subtitle">Precise timing with lap recording</p>
+        </header>
+
+        <div class="stopwatch-card">
+            <div class="time-display">
+                <div class="time-main">
+                    <span id="hours">00</span>
+                    <span class="separator">:</span>
+                    <span id="minutes">00</span>
+                    <span class="separator">:</span>
+                    <span id="seconds">00</span>
+                </div>
+                <div class="time-ms">
+                    <span id="milliseconds">.000</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="start-btn" class="btn btn-start">
+                    <i class="fas fa-play"></i>
+                    <span>Start</span>
+                </button>
+                <button id="lap-btn" class="btn btn-lap" disabled>
+                    <i class="fas fa-flag"></i>
+                    <span>Lap</span>
+                </button>
+                <button id="reset-btn" class="btn btn-reset" disabled>
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="laps-panel">
+            <div class="laps-header">
+                <h2><i class="fas fa-list-ol"></i> Lap Times</h2>
+                <span id="lap-count" class="badge">0 laps</span>
+            </div>
+            <div class="laps-list" id="laps-list">
+                <div class="placeholder">No laps recorded yet</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2026 PlayLimitXT</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

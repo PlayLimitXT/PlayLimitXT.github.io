@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Viewer | PLXT</title>
+    <meta name="description" content="Preview SVG files and code">
+    <meta name="keywords" content="PlayLimitXT,PLXT,SVG,Viewer,Preview">
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+            <h1><i class="fas fa-eye"></i> SVG Viewer</h1>
+            <p class="subtitle">Preview SVG files and code instantly</p>
+        </header>
+
+        <div class="main-layout">
+            <div class="input-panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-code"></i> SVG Code</h2>
+                    <div class="panel-actions">
+                        <label class="btn-small file-btn">
+                            <i class="fas fa-upload"></i> Open File
+                            <input type="file" id="file-input" accept=".svg" hidden>
+                        </label>
+                        <button id="clear-btn" class="btn-small"><i class="fas fa-trash"></i> Clear</button>
+                    </div>
+                </div>
+                <textarea id="svg-input" placeholder="Paste your SVG code here or open a file..."></textarea>
+            </div>
+
+            <div class="preview-panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-image"></i> Preview</h2>
+                    <div class="panel-actions">
+                        <button id="zoom-out" class="btn-small"><i class="fas fa-search-minus"></i></button>
+                        <span id="zoom-level">100%</span>
+                        <button id="zoom-in" class="btn-small"><i class="fas fa-search-plus"></i></button>
+                        <button id="download-btn" class="btn-small primary"><i class="fas fa-download"></i> Download</button>
+                    </div>
+                </div>
+                <div id="preview-container" class="preview-container">
+                    <div id="preview-area" class="preview-area">
+                        <div class="placeholder">
+                            <i class="fas fa-file-image"></i>
+                            <p>SVG preview will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-panel" id="info-panel">
+            <div class="info-item">
+                <i class="fas fa-expand"></i>
+                <span>Size: <strong id="svg-size">-</strong></span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-code"></i>
+                <span>Code Size: <strong id="code-size">0 B</strong></span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-shapes"></i>
+                <span>Elements: <strong id="element-count">0</strong></span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-palette"></i>
+                <span>Colors: <strong id="color-count">0</strong></span>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2026 PlayLimitXT</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

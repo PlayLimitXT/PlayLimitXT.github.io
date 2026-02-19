@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Agent Parser | PLXT</title>
+    <meta name="description" content="Parse, modify and generate User Agent strings">
+    <meta name="keywords" content="PlayLimitXT,PLXT,User Agent,UA,Parser,Generator">
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+            <h1><i class="fas fa-desktop"></i> User Agent Parser</h1>
+            <p class="subtitle">Parse, modify and generate UA strings</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="parse"><i class="fas fa-search"></i> Parse</button>
+            <button class="tab-btn" data-tab="generate"><i class="fas fa-magic"></i> Generate</button>
+        </div>
+
+        <!-- Parse Tab -->
+        <div id="parse-tab" class="tab-content active">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-code"></i> User Agent String</h2>
+                    <button id="use-my-ua" class="btn-small"><i class="fas fa-user"></i> Use Mine</button>
+                </div>
+                <textarea id="ua-input" placeholder="Paste a User Agent string to parse..."></textarea>
+                <button id="parse-btn" class="btn btn-primary"><i class="fas fa-search"></i> Parse</button>
+            </div>
+
+            <div id="parse-result" class="result-panel hidden">
+                <h2><i class="fas fa-info-circle"></i> Parsed Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Browser</span>
+                        <span class="info-value" id="browser-name">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Version</span>
+                        <span class="info-value" id="browser-version">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Engine</span>
+                        <span class="info-value" id="engine">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">OS</span>
+                        <span class="info-value" id="os">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">OS Version</span>
+                        <span class="info-value" id="os-version">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Device</span>
+                        <span class="info-value" id="device">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">CPU</span>
+                        <span class="info-value" id="cpu">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Type</span>
+                        <span class="info-value" id="device-type">-</span>
+                    </div>
+                </div>
+                <button id="copy-ua" class="btn btn-secondary"><i class="fas fa-copy"></i> Copy UA</button>
+            </div>
+        </div>
+
+        <!-- Generate Tab -->
+        <div id="generate-tab" class="tab-content">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-cog"></i> Generate Options</h2>
+                </div>
+                <div class="generate-options">
+                    <div class="option-group">
+                        <label>Browser</label>
+                        <select id="gen-browser">
+                            <option value="chrome">Chrome</option>
+                            <option value="firefox">Firefox</option>
+                            <option value="safari">Safari</option>
+                            <option value="edge">Edge</option>
+                            <option value="opera">Opera</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>OS</label>
+                        <select id="gen-os">
+                            <option value="windows">Windows 11</option>
+                            <option value="mac">macOS</option>
+                            <option value="linux">Linux</option>
+                            <option value="android">Android</option>
+                            <option value="ios">iOS</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Device Type</label>
+                        <select id="gen-device">
+                            <option value="desktop">Desktop</option>
+                            <option value="mobile">Mobile</option>
+                            <option value="tablet">Tablet</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="generate-btn" class="btn btn-primary"><i class="fas fa-magic"></i> Generate</button>
+            </div>
+
+            <div id="generated-result" class="result-panel">
+                <h2><i class="fas fa-file-code"></i> Generated User Agent</h2>
+                <div class="generated-ua" id="generated-ua">-</div>
+                <div class="result-actions">
+                    <button id="copy-generated" class="btn btn-secondary"><i class="fas fa-copy"></i> Copy</button>
+                    <button id="test-generated" class="btn btn-outline"><i class="fas fa-flask"></i> Test</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="presets-panel">
+            <h2><i class="fas fa-bookmark"></i> Quick Presets</h2>
+            <div class="presets-grid" id="presets-grid"></div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2026 PlayLimitXT</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

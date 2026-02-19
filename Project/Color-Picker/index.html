@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker | PLXT</title>
+    <meta name="description" content="Pick and convert colors with ease - PlayLimitXT">
+    <meta name="keywords" content="PlayLimitXT,PLXT,Color Picker,HEX,RGB,HSL" />
+    <meta name="msapplication-TileImage" content="../../images/favicon.png" />
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <meta name="copyright" content="Copyright © 2026 PlayLimitXT">
+    <meta name="robots" content="index,follow" />
+    <meta name="revisit-after" content="7 days" >
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-H1BZQVCCRE');
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Color Picker</h1>
+            <p class="subtitle">Pick and convert colors with ease</p>
+            
+            <div class="color-picker-wrapper">
+                <div class="color-preview" id="color-preview"></div>
+                <input type="color" id="native-picker" value="#00d9ff">
+            </div>
+            
+            <div class="color-values">
+                <div class="value-group">
+                    <label>HEX</label>
+                    <div class="value-box">
+                        <input type="text" id="hex-value" value="#00D9FF" readonly>
+                        <button class="copy-btn" data-target="hex-value">Copy</button>
+                    </div>
+                </div>
+                
+                <div class="value-group">
+                    <label>RGB</label>
+                    <div class="value-box">
+                        <input type="text" id="rgb-value" value="rgb(0, 217, 255)" readonly>
+                        <button class="copy-btn" data-target="rgb-value">Copy</button>
+                    </div>
+                </div>
+                
+                <div class="value-group">
+                    <label>HSL</label>
+                    <div class="value-box">
+                        <input type="text" id="hsl-value" value="hsl(189, 100%, 50%)" readonly>
+                        <button class="copy-btn" data-target="hsl-value">Copy</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sliders-section">
+                <h3>RGB Sliders</h3>
+                <div class="slider-group">
+                    <label>R</label>
+                    <input type="range" id="r-slider" min="0" max="255" value="0">
+                    <span id="r-value">0</span>
+                </div>
+                <div class="slider-group">
+                    <label>G</label>
+                    <input type="range" id="g-slider" min="0" max="255" value="217">
+                    <span id="g-value">217</span>
+                </div>
+                <div class="slider-group">
+                    <label>B</label>
+                    <input type="range" id="b-slider" min="0" max="255" value="255">
+                    <span id="b-value">255</span>
+                </div>
+            </div>
+            
+            <div class="palette-section">
+                <h3>Saved Colors</h3>
+                <div class="palette" id="palette">
+                    <div class="add-color-btn" id="add-color" title="Save current color">+</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <a href="/">← Back to Home</a>
+            <span class="copyright">Copyright © 2026 PlayLimitXT</span>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

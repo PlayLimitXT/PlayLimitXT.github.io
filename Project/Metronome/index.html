@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metronome | PLXT</title>
+    <meta name="description" content="Keep perfect time with adjustable BPM - PlayLimitXT">
+    <meta name="keywords" content="PlayLimitXT,PLXT,Metronome,BPM,Music" />
+    <meta name="msapplication-TileImage" content="../../images/favicon.png" />
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <meta name="copyright" content="Copyright © 2026 PlayLimitXT">
+    <meta name="robots" content="index,follow" />
+    <meta name="revisit-after" content="7 days" >
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-H1BZQVCCRE');
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Metronome</h1>
+            <p class="subtitle">Keep perfect time</p>
+            
+            <div class="metronome-display">
+                <div class="bpm-display">
+                    <span id="bpm-value">120</span>
+                    <span class="bpm-label">BPM</span>
+                </div>
+                <div class="beat-indicator" id="beat-indicator">
+                    <div class="beat-dot" data-beat="1"></div>
+                    <div class="beat-dot" data-beat="2"></div>
+                    <div class="beat-dot" data-beat="3"></div>
+                    <div class="beat-dot" data-beat="4"></div>
+                </div>
+            </div>
+            
+            <div class="tempo-slider">
+                <input type="range" id="tempo-slider" min="20" max="300" value="120">
+                <div class="tempo-marks">
+                    <span>Largo</span>
+                    <span>Adagio</span>
+                    <span>Andante</span>
+                    <span>Moderato</span>
+                    <span>Allegro</span>
+                    <span>Presto</span>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="tap-btn" id="tap-btn">TAP</button>
+                <button class="play-btn" id="play-btn">
+                    <span class="play-icon" id="play-icon">▶</span>
+                </button>
+            </div>
+            
+            <div class="settings">
+                <div class="setting-group">
+                    <label>Beats per Measure</label>
+                    <div class="beat-buttons" id="beat-buttons">
+                        <button class="beat-btn active" data-beats="2">2</button>
+                        <button class="beat-btn" data-beats="3">3</button>
+                        <button class="beat-btn active" data-beats="4">4</button>
+                        <button class="beat-btn" data-beats="6">6</button>
+                        <button class="beat-btn" data-beats="8">8</button>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <label>Sound</label>
+                    <div class="sound-buttons" id="sound-buttons">
+                        <button class="sound-btn active" data-sound="click">Click</button>
+                        <button class="sound-btn" data-sound="beep">Beep</button>
+                    </div>
+                </div>
+                
+                <div class="volume-control">
+                    <label>Volume</label>
+                    <input type="range" id="volume-slider" min="0" max="100" value="70">
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <a href="/">← Back to Home</a>
+            <span class="copyright">Copyright © 2026 PlayLimitXT</span>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

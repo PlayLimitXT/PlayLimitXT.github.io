@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction Test | PLXT</title>
+    <meta name="description" content="Test your reaction speed">
+    <meta name="keywords" content="PlayLimitXT,PLXT,Reaction,Test,Speed">
+    <meta name="author" content="PLXT,PlayLimitXT@gmail.com">
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+            <h1><i class="fas fa-bolt"></i> Reaction Test</h1>
+            <p class="subtitle">Test your reaction speed</p>
+        </header>
+
+        <div id="test-area" class="test-area waiting">
+            <div id="test-text" class="test-text">Click to Start</div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-value" id="current-time">-</div>
+                <div class="stat-label">Current (ms)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="best-time">-</div>
+                <div class="stat-label">Best (ms)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avg-time">-</div>
+                <div class="stat-label">Average (ms)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="attempts">0</div>
+                <div class="stat-label">Attempts</div>
+            </div>
+        </div>
+
+        <div class="history-panel">
+            <div class="history-header">
+                <h3><i class="fas fa-list"></i> Recent Results</h3>
+                <button id="reset-btn" class="btn-small"><i class="fas fa-redo"></i> Reset</button>
+            </div>
+            <div id="history-list" class="history-list">
+                <div class="placeholder">No attempts yet</div>
+            </div>
+        </div>
+
+        <div class="rating-guide">
+            <h3><i class="fas fa-info-circle"></i> Rating Guide</h3>
+            <div class="rating-items">
+                <div class="rating-item excellent"><span>&lt; 200ms</span> Excellent</div>
+                <div class="rating-item good"><span>200-300ms</span> Good</div>
+                <div class="rating-item average"><span>300-400ms</span> Average</div>
+                <div class="rating-item slow"><span>&gt; 400ms</span> Slow</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2026 PlayLimitXT</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
