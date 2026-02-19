@@ -5,7 +5,8 @@
     "author": "PlayLimitXT",
     "categoryDisplay": "Development",
     "image": "articles/Blog_Pages/2026/02/Page_0/resources/cover.png",
-    "link": "articles/Blog_Pages/2026/02/Page_0/index.html",
+    "link": "articles/viewer.html?p=2026/02/Page_0",
+    "mdPath": "2026/02/Page_0",
     "description": "A comprehensive collection of 32 web-based tools covering security, development, time management, games, and more."
   },
   {
@@ -14,7 +15,8 @@
     "author": "PlayLimitXT",
     "categoryDisplay": "Development",
     "image": "articles/Blog_Pages/2025/11/Page_0/resources/0.png",
-    "link": "articles/Blog_Pages/2025/11/Page_0/index.html",
+    "link": "articles/viewer.html?p=2025/11/Page_0",
+    "mdPath": "2025/11/Page_0",
     "description": "Completely redesign and restructure this website."
   },
   {
@@ -23,7 +25,8 @@
     "author": "PlayLimitXT",
     "categoryDisplay": "Statement",
     "image": "articles/Blog_Pages/2025/10/Page_0/resources/1.svg",
-    "link": "articles/Blog_Pages/2025/10/Page_0/index.html",
+    "link": "articles/viewer.html?p=2025/10/Page_0",
+    "mdPath": "2025/10/Page_0",
     "description": "Statement on the Domain Name of This Website"
   },
   {
@@ -32,7 +35,8 @@
     "author": "PlayLimitXT",
     "categoryDisplay": "Development",
     "image": "articles/Blog_Pages/2025/09/Page_0/resources/1.png",
-    "link": "articles/Blog_Pages/2025/09/Page_0/index.html",
+    "link": "articles/viewer.html?p=2025/09/Page_0",
+    "mdPath": "2025/09/Page_0",
     "description": "本网站最近的部分更新及项目展示以及相关源码"
   },
   {
@@ -41,7 +45,8 @@
     "author": "Play_Limit",
     "categoryDisplay": "Development",
     "image": "articles/Blog_Pages/2024/02/Page_0/resources/1.png",
-    "link": "articles/Blog_Pages/2024/02/Page_0/index.html",
+    "link": "articles/viewer.html?p=2024/02/Page_0",
+    "mdPath": "2024/02/Page_0",
     "description": "教程: 制作一个纯前端且安全切实可用的登录页面"
   },
   {

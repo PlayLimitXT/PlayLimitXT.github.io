@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading... - PLXT</title>
+  <meta name="description" content="PLXT Blog Article">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#030305">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="../images/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="../images/favicon.png" type="image/png">
+  
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Highlight.js (using custom cyberpunk theme in CSS) -->
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="article-viewer.css">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H1BZQVCCRE');
+  </script>
+</head>
+<body>
+  <!-- Reading Progress -->
+  <div class="reading-progress" id="reading-progress"></div>
+  
+  <!-- Background Effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-orbs"></div>
+  <div class="vignette"></div>
+  
+  <!-- Navigation -->
+  <nav class="article-nav" id="article-nav">
+    <a href="../index.html" class="nav-logo" title="Home">
+      <img src="../images/PLXT_Color.svg" alt="PLXT" width="auto" height="36">
+    </a>
+    
+    <div class="nav-links">
+      <a href="../index.html"><span>Home</span></a>
+      <a href="../Blog.html" class="active"><span>Blog</span></a>
+      <a href="../Link.html"><span>Projects</span></a>
+      <a href="../Project/Key/index.html"><span>Login</span></a>
+    </div>
+    
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="../index.html">Home</a>
+    <a href="../Blog.html">Blog</a>
+    <a href="../Link.html">Projects</a>
+    <a href="../Project/Key/index.html">Login</a>
+  </div>
+  
+  <!-- Article Container -->
+  <main class="article-container">
+    <!-- Loading State -->
+    <div class="loading-state" id="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Loading article...</p>
+    </div>
+    
+    <!-- Error State -->
+    <div class="error-state" id="error-state" style="display: none;">
+      <div class="error-icon">!</div>
+      <h2>Article Not Found</h2>
+      <p id="error-message">The requested article could not be loaded.</p>
+      <a href="../Blog.html" class="btn-back">Back to Blog</a>
+    </div>
+    
+    <!-- Article Content -->
+    <article class="article-content" id="article-content" style="display: none;">
+      <!-- Header -->
+      <header class="article-header">
+        <div class="article-meta">
+          <span class="article-category" id="article-category">Blog</span>
+          <span class="article-date" id="article-date"></span>
+          <span class="article-reading-time" id="article-reading-time"></span>
+        </div>
+        <h1 class="article-title" id="article-title">Loading...</h1>
+        <div class="article-author">
+          <div class="author-avatar" id="author-avatar">P</div>
+          <span id="article-author">PlayLimitXT</span>
+        </div>
+      </header>
+      
+      <!-- Table of Contents -->
+      <nav class="article-toc" id="article-toc">
+        <div class="toc-header">
+          <span>Table of Contents</span>
+          <button class="toc-toggle" id="toc-toggle">Collapse</button>
+        </div>
+        <div class="toc-content" id="toc-content"></div>
+      </nav>
+      
+      <!-- Markdown Content -->
+      <div class="markdown-body" id="markdown-body"></div>
+      
+      <!-- Footer -->
+      <footer class="article-footer">
+        <div class="article-tags" id="article-tags"></div>
+        <div class="article-nav-links">
+          <a href="../Blog.html">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            <span>Back to Blog</span>
+          </a>
+        </div>
+      </footer>
+    </article>
+  </main>
+  
+  <!-- Back to Top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 4l-8 8h5v8h6v-8h5z"/>
+    </svg>
+  </button>
+  
+  <!-- Font Size Controls -->
+  <div class="font-controls" id="font-controls">
+    <button class="font-btn" id="font-decrease" title="Decrease font size">A-</button>
+    <button class="font-btn" id="font-increase" title="Increase font size">A+</button>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="article-viewer.js"></script>
+</body>
+</html>

@@ -2,27 +2,40 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://plxt.pages.dev/</loc>
-        <lastmod>2026-01-22</lastmod>
+        <lastmod>2026-02-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
 
     <url>
         <loc>https://plxt.pages.dev/Blog.html</loc>
-        <lastmod>2026-01-20</lastmod>
+        <lastmod>2026-02-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://plxt.pages.dev/Link.html</loc>
-        <lastmod>2026-02-07</lastmod>
+        <lastmod>2026-02-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <url>
+        <loc>https://plxt.pages.dev/404.html</loc>
+        <lastmod>2025-11-23</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
 
+    <!-- Projects -->
     <url>
         <loc>https://plxt.pages.dev/Project/AI/index.html</loc>
         <lastmod>2025-07-20</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/Base64-Image/index.html</loc>
+        <lastmod>2026-02-18</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -45,6 +58,24 @@
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://plxt.pages.dev/Project/Clock/index.html</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/Color-Picker/index.html</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/Countdown-Timer/index.html</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://plxt.pages.dev/Project/Crypto/index.html</loc>
         <lastmod>2026-02-07</lastmod>
         <changefreq>monthly</changefreq>
@@ -63,8 +94,20 @@
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://plxt.pages.dev/Project/JSON-Formatter/index.html</loc>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://plxt.pages.dev/Project/Key/index.html</loc>
         <lastmod>2025-10-10</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/Keyboard-Tester/index.html</loc>
+        <lastmod>2026-02-18</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -75,49 +118,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://plxt.pages.dev/Project/Pswd_Evaluation/index.html</loc>
-        <lastmod>2025-12-29</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Rubik&apos;s Cube/index.html</loc>
-        <lastmod>2024-02-04</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Unicode_Fonts/index.html</loc>
-        <lastmod>2026-02-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Web_Log/index.html</loc>
-        <lastmod>2026-02-05</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Website_Versions/index.html</loc>
-        <lastmod>2025-11-05</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/QR-Generator/index.html</loc>
-        <lastmod>2026-02-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Color-Picker/index.html</loc>
-        <lastmod>2026-02-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Countdown-Timer/index.html</loc>
+        <loc>https://plxt.pages.dev/Project/Metronome/index.html</loc>
         <lastmod>2026-02-07</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
@@ -129,101 +130,14 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://plxt.pages.dev/Project/Clock/index.html</loc>
+        <loc>https://plxt.pages.dev/Project/Pswd_Evaluation/index.html</loc>
+        <lastmod>2025-12-29</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/QR-Generator/index.html</loc>
         <lastmod>2026-02-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Metronome/index.html</loc>
-        <lastmod>2026-02-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <!--
-    <url>
-        <loc>https://plxt.pages.dev/Project/Website_Versions/Alpha1.0/index.html</loc>
-        <lastmod>2025-11-05</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Website_Versions/V1.0/index.html</loc>
-        <lastmod>2025-11-05</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    -->
-
-    <url>
-        <loc>https://plxt.pages.dev/articles/Blog_Pages/2026/02/Page_0/index.html</loc>
-        <lastmod>2026-02-19</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/articles/Blog_Pages/2024/02/Page_0/index.html</loc>
-        <lastmod>2024-09-11</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/articles/Blog_Pages/2025/09/Page_0/index.html</loc>
-        <lastmod>2025-10-10</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/articles/Blog_Pages/2025/10/Page_0/index.html</loc>
-        <lastmod>2025-10-10</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/articles/Blog_Pages/2025/11/Page_0/index.html</loc>
-        <lastmod>2025-11-20</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Regex-Tester/index.html</loc>
-        <lastmod>2026-02-18</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/JSON-Formatter/index.html</loc>
-        <lastmod>2026-02-18</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Stopwatch/index.html</loc>
-        <lastmod>2026-02-18</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/UUID-Generator/index.html</loc>
-        <lastmod>2026-02-18</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Unix-Timestamp/index.html</loc>
-        <lastmod>2026-02-18</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/Word-Counter/index.html</loc>
-        <lastmod>2026-02-18</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://plxt.pages.dev/Project/SVG-Viewer/index.html</loc>
-        <lastmod>2026-02-18</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -240,21 +154,101 @@
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://plxt.pages.dev/Project/Regex-Tester/index.html</loc>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/Rubik&apos;s Cube/index.html</loc>
+        <lastmod>2024-02-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/Stopwatch/index.html</loc>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/SVG-Viewer/index.html</loc>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/Unicode_Fonts/index.html</loc>
+        <lastmod>2026-02-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/Unix-Timestamp/index.html</loc>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://plxt.pages.dev/Project/User-Agent/index.html</loc>
         <lastmod>2026-02-18</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://plxt.pages.dev/Project/Base64-Image/index.html</loc>
+        <loc>https://plxt.pages.dev/Project/UUID-Generator/index.html</loc>
         <lastmod>2026-02-18</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://plxt.pages.dev/Project/Keyboard-Tester/index.html</loc>
+        <loc>https://plxt.pages.dev/Project/Web_Log/index.html</loc>
+        <lastmod>2026-02-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/Website_Versions/index.html</loc>
+        <lastmod>2025-11-05</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/Project/Word-Counter/index.html</loc>
         <lastmod>2026-02-18</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
+    </url>
+
+    <!-- Blog Articles -->
+    <url>
+        <loc>https://plxt.pages.dev/articles/viewer.html?p=2026/02/Page_0</loc>
+        <lastmod>2026-02-19</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/articles/viewer.html?p=2025/11/Page_0</loc>
+        <lastmod>2025-11-23</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/articles/viewer.html?p=2025/10/Page_0</loc>
+        <lastmod>2025-10-10</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/articles/viewer.html?p=2025/09/Page_0</loc>
+        <lastmod>2025-09-22</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://plxt.pages.dev/articles/viewer.html?p=2024/02/Page_0</loc>
+        <lastmod>2024-02-10</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
     </url>
 </urlset>
