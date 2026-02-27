@@ -1,289 +1,319 @@
-<!doctype html>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI Chat - PLXT</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI Chat Web by Play_Limit">
-  <meta name="keywords" content="Play_Limit,PlayLimit,LimitXT,PlayLimitXT,PLXT,AI,Chat,大模型,人工智能" />
-  <meta name="msapplication-TileImage" content="../../images/favicon.png" />
-  <meta name="author" content="Play_Limit,PlayLimitXT@gmail.com">
-  <meta name="copyright" content="Copyright © 2025 Play_Limit">
-  <meta name="robots" content="index,follow" />
-  <meta name="revisit-after" content="7 days" >
-  <link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon">
-  <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H1BZQVCCRE');
-  </script>
-  <style>
-    :root{
-      --bg:#f9fafb; --card:#ffffff; --muted:#6b7280; --accent:#2563eb; --text:#111827;
-      --code-bg:#0b1220; --inline-code-bg:#f3f4f6;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue';background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-    .app{width:100%;max-width:1080px}
-    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-    header h1{margin:0;font-size:22px;font-weight:600}
-    .controls{margin-left:auto;display:flex;gap:8px;align-items:center}
-    .card{background:var(--card);border:1px solid #e5e7eb;padding:14px;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,0.05)}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat - PLXT</title>
+    <meta name="description" content="AI Chat Web Application - Support OpenAI, Claude, DeepSeek and more LLM APIs">
+    <meta name="keywords" content="PlayLimitXT,PLXT,AI,Chat,GPT,Claude,DeepSeek,LLM,AI Assistant">
+    <meta name="author" content="Play_Limit, PlayLimitXT@gmail.com">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" href="../../images/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="../../images/favicon.png" type="image/png">
 
-    .layout{display:grid;grid-template-columns:300px 1fr;gap:16px}
-    .sidebar{height:74vh;overflow:auto}
-    .conv-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-    .conv-item{padding:10px 12px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .2s}
-    .conv-item:hover{background:#f3f4f6}
-    .conv-item.active{background:#eff6ff;border-color:#93c5fd;color:#1e40af;font-weight:500}
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-H1BZQVCCRE');
+    </script>
 
-    .main{height:74vh;display:flex;flex-direction:column}
-    .messages{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:14px}
-    .msg{max-width:80%;padding:12px 14px;border-radius:12px;line-height:1.6;font-size:15px}
-    .msg.user{align-self:flex-end;background:linear-gradient(90deg,#2563eb,#3b82f6);color:#fff;border-bottom-right-radius:4px;white-space:pre-wrap}
-    .msg.assistant{align-self:flex-start;background:#f9fafb;border:1px solid #e5e7eb;border-bottom-left-radius:4px;}
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
-    /* Code block and inline code styling */
-    .code-container{position:relative}
-    .copy-btn{
-      position:absolute;top:6px;right:6px;padding:2px 6px;border:none;border-radius:4px;background:#2563eb;color:white;font-size:12px;cursor:pointer;transition:background .2s}
-      .copy-btn:hover{background:#1d4ed8}
-    .msg pre{background:var(--code-bg);padding:12px;border-radius:8px;overflow:auto;font-size:14px;margin:0}
-    .msg pre code{background:transparent;padding:0;border-radius:0;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,'Roboto Mono','Helvetica Neue',monospace}
-    .msg p code, .msg li code{background:var(--inline-code-bg);padding:2px 6px;border-radius:6px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,'Roboto Mono','Helvetica Neue',monospace;color:#e01e5a}
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    .hljs{background:transparent}
+    <!-- Highlight.js - Extended Languages -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
 
-    .composer{display:flex;gap:8px;padding-top:10px}
-    textarea{flex:1;min-height:56px;max-height:160px;padding:12px;border-radius:8px;border:1px solid #d1d5db;background:white;color:var(--text);resize:vertical;font-size:15px}
-    .btn{padding:10px 14px;border-radius:8px;border:none;background:var(--accent);color:white;cursor:pointer;font-weight:500;transition:background .2s}
-    .btn:hover{background:#1d4ed8}
-    .btn.secondary{background:#f9fafb;border:1px solid #d1d5db;color:var(--text)}
-    .btn.secondary:hover{background:#f3f4f6}
-    .small{padding:6px 10px;font-size:13px}
+    <!-- Marked.js with extensions -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked-highlight@2.1.1/lib/index.umd.min.js"></script>
 
-    .settings{display:flex;flex-direction:column;gap:10px}
-    label{font-size:13px;color:var(--muted);font-weight:500}
-    input[type=text],select,input[type=number]{padding:9px 10px;border-radius:6px;border:1px solid #d1d5db;background:white;color:var(--text);font-size:14px}
+    <!-- KaTeX for math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
-    @media (max-width:880px){.layout{grid-template-columns:1fr}} 
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js/lib/common.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js/styles/github-dark.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app">
-    <header>
-      <h1>AI Chat</h1>
-      <div class="controls">
-        <button id="newConv" class="btn small">新会话</button>
-        <button id="exportBtn" class="btn secondary small">导出</button>
-      </div>
-    </header>
+    <div class="app">
+        <!-- Header -->
+        <header>
+            <div class="header-left">
+                <button id="mobileMenuBtn" class="btn btn-icon btn-secondary">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <img src="../../images/PLXT_Color.svg" alt="PLXT Logo" class="logo-img">
+                    <h1>AI Chat</h1>
+                </div>
+                <span id="modelBadge" class="model-badge" data-i18n="notSelected">Not Selected</span>
+            </div>
+            <div class="header-actions">
+                <button id="langToggle" class="btn btn-secondary btn-sm" title="Switch Language">
+                    <i class="fa-solid fa-language"></i>
+                    <span id="langText">EN</span>
+                </button>
+                <button id="themeToggle" class="btn btn-secondary btn-sm" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button id="importBtn" class="btn btn-secondary btn-sm" title="Import">
+                    <i class="fa-solid fa-upload"></i>
+                    <span class="btn-text" data-i18n="import">Import</span>
+                </button>
+                <button id="exportBtn" class="btn btn-secondary btn-sm" title="Export">
+                    <i class="fa-solid fa-download"></i>
+                    <span class="btn-text" data-i18n="export">Export</span>
+                </button>
+            </div>
+        </header>
 
-    <div class="layout">
-      <aside class="sidebar card">
-        <div class="settings">
-          <div>
-            <label>API Key</label>
-            <input id="apiKey" type="text" placeholder="sk-..." />
-          </div>
-          <div>
-            <label>接口地址</label>
-            <input id="apiBase" type="text" placeholder="https://api.openai.com/v1" />
-          </div>
-          <div>
-            <label>模型名称</label>
-            <input id="modelInput" type="text" placeholder="gpt-4o-mini 或其他" />
-          </div>
-          <div>
-            <label>温度</label>
-            <input id="temperature" type="number" min="0" max="2" step="0.1" value="0.7" />
-          </div>
-          <div>
-            <label>系统提示</label>
-            <input id="systemPrompt" type="text" placeholder="You are a helpful assistant..." />
-          </div>
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Sidebar -->
+            <aside id="sidebar" class="sidebar">
+                <div class="sidebar-header-mobile">
+                    <span data-i18n="settings">Settings</span>
+                    <button id="closeSidebarBtn" class="btn btn-icon btn-secondary">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Settings Panel -->
+                <div class="settings-panel">
+                    <div class="sidebar-title" data-i18n="settings">Settings</div>
+
+                    <div class="settings-group">
+                        <label for="apiKey" data-i18n="apiKey">API Key</label>
+                        <div class="input-with-toggle">
+                            <input type="password" id="apiKey" class="settings-input" placeholder="sk-..." autocomplete="off">
+                            <button id="toggleApiKey" class="input-toggle-btn" type="button">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <label for="apiBase" data-i18n="apiEndpoint">API Endpoint</label>
+                        <input type="text" id="apiBase" class="settings-input" placeholder="https://api.openai.com/v1">
+                    </div>
+
+                    <div class="settings-group">
+                        <label for="modelInput" data-i18n="model">Model</label>
+                        <input type="text" id="modelInput" class="settings-input" placeholder="gpt-4o-mini">
+                    </div>
+
+                    <div class="settings-group">
+                        <label for="temperature" data-i18n="temperature">Temperature: <span id="tempValue">0.7</span></label>
+                        <input type="range" id="temperature" class="settings-range" min="0" max="2" step="0.1" value="0.7">
+                    </div>
+
+                    <div class="settings-group">
+                        <label for="maxTokens" data-i18n="maxTokens">Max Tokens</label>
+                        <input type="number" id="maxTokens" class="settings-input" placeholder="4096" min="1" max="128000">
+                    </div>
+
+                    <div class="settings-group">
+                        <label for="systemPrompt" data-i18n="systemPrompt">System Prompt</label>
+                        <textarea id="systemPrompt" class="settings-textarea" rows="3" placeholder="You are a helpful assistant..."></textarea>
+                    </div>
+
+                    <!-- Advanced Settings Toggle -->
+                    <div class="advanced-toggle">
+                        <button id="advancedToggle" class="btn btn-secondary btn-sm" type="button">
+                            <i class="fa-solid fa-cog"></i>
+                            <span data-i18n="advanced">Advanced</span>
+                            <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                        </button>
+                    </div>
+
+                    <div id="advancedSettings" class="advanced-settings">
+                        <div class="settings-group">
+                            <label for="topP" data-i18n="topP">Top P</label>
+                            <input type="number" id="topP" class="settings-input" placeholder="1" min="0" max="1" step="0.1">
+                        </div>
+                        <div class="settings-group">
+                            <label for="frequencyPenalty" data-i18n="frequencyPenalty">Frequency Penalty</label>
+                            <input type="number" id="frequencyPenalty" class="settings-input" placeholder="0" min="-2" max="2" step="0.1">
+                        </div>
+                        <div class="settings-group">
+                            <label for="presencePenalty" data-i18n="presencePenalty">Presence Penalty</label>
+                            <input type="number" id="presencePenalty" class="settings-input" placeholder="0" min="-2" max="2" step="0.1">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conversation List -->
+                <div class="conv-section">
+                    <div class="conv-header">
+                        <span class="sidebar-title" style="margin: 0;" data-i18n="conversations">Conversations</span>
+                        <button id="newConvBtn" class="btn btn-primary btn-sm">
+                            <i class="fa-solid fa-plus"></i>
+                            <span data-i18n="new">New</span>
+                        </button>
+                    </div>
+                    <div id="convList" class="conv-list"></div>
+                </div>
+            </aside>
+
+            <!-- Main Chat Area -->
+            <main class="chat-main">
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div class="chat-title">
+                        <h2 id="chatTitle" data-i18n="untitledConversation">Untitled Conversation</h2>
+                        <span id="messageCount" class="message-count"></span>
+                    </div>
+                    <div class="chat-actions">
+                        <button id="searchBtn" class="btn btn-secondary btn-sm" title="Search">
+                            <i class="fa-solid fa-search"></i>
+                        </button>
+                        <button id="copyAllBtn" class="btn btn-secondary btn-sm" title="Copy All">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                        <button id="exportMarkdownBtn" class="btn btn-secondary btn-sm" title="Export as Markdown">
+                            <i class="fa-solid fa-file-code"></i>
+                        </button>
+                        <button id="renameConvBtn" class="btn btn-secondary btn-sm" title="Rename">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button id="clearBtn" class="btn btn-secondary btn-sm" title="Clear">
+                            <i class="fa-solid fa-eraser"></i>
+                        </button>
+                        <button id="deleteConvBtn" class="btn btn-danger btn-sm" title="Delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search Bar (Hidden by default) -->
+                <div id="searchBar" class="search-bar" style="display: none;">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search in conversation...">
+                    <span id="searchResults" class="search-results"></span>
+                    <button id="closeSearchBtn" class="btn btn-icon btn-secondary btn-sm">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Messages Container -->
+                <div id="messagesContainer" class="messages-container">
+                    <!-- Empty State -->
+                    <div id="emptyState" class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <div class="empty-title" data-i18n="startNewChat">Start a New Chat</div>
+                        <div class="empty-desc" data-i18n="emptyDesc">
+                            Enter your API Key and model in the sidebar, then type your question to begin.
+                        </div>
+                        <div class="shortcuts-hint">
+                            <div class="shortcut-item">
+                                <kbd>Enter</kbd>
+                                <span data-i18n="send">Send</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>Shift + Enter</kbd>
+                                <span data-i18n="newLine">New Line</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>Ctrl + N</kbd>
+                                <span data-i18n="newChat">New Chat</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <button id="clearInputBtn" class="quick-action-btn" title="Clear Input">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                        <button id="pasteBtn" class="quick-action-btn" title="Paste">
+                            <i class="fa-solid fa-paste"></i>
+                        </button>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="input-container">
+                            <textarea 
+                                id="inputTextarea" 
+                                class="input-textarea" 
+                                data-i18n-placeholder="inputPlaceholder"
+                                placeholder="Type your message... (Shift+Enter for new line)"
+                                rows="1"
+                            ></textarea>
+                        </div>
+                        <div class="input-actions">
+                            <button id="sendBtn" class="btn btn-primary">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span data-i18n="send">Send</span>
+                            </button>
+                            <button id="stopBtn" class="btn btn-danger" style="display: none;">
+                                <i class="fa-solid fa-stop"></i>
+                                <span data-i18n="stop">Stop</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div class="status-left">
+                        <div class="status-item">
+                            <span id="statusDot" class="status-dot"></span>
+                            <span id="statusText" data-i18n="ready">Ready</span>
+                        </div>
+                        <div class="status-item token-count" id="tokenCount" style="display: none;">
+                            <i class="fa-solid fa-coins"></i>
+                            <span id="tokenValue">0</span> tokens
+                        </div>
+                    </div>
+                    <div class="status-right">
+                        <span data-i18n="shortcutsHint">Ctrl+Enter to send | Ctrl+N new chat</span>
+                    </div>
+                </div>
+            </main>
         </div>
-
-        <hr style="margin:14px 0;border:none;border-top:1px solid #e5e7eb" />
-        <div class="conv-list" id="convList"></div>
-      </aside>
-
-      <main class="main card">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-          <div class="meta">会话: <strong id="convTitle">未命名</strong></div>
-          <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
-            <button id="copyAll" class="btn secondary small">复制全部</button>
-            <button id="clearConv" class="btn secondary small">清空</button>
-          </div>
-        </div>
-
-        <div class="messages" id="messages"></div>
-
-        <div class="composer">
-          <textarea id="input" placeholder="输入问题，Shift+Enter 换行，Enter 发送"></textarea>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <button id="sendBtn" class="btn">发送</button>
-            <button id="stopBtn" class="btn secondary">停止</button>
-          </div>
-        </div>
-      </main>
     </div>
-  </div>
 
-  <script>
-    marked.setOptions({gfm: true, breaks: true, langPrefix: 'language-'});
+    <!-- Modal -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal">
+            <h3 id="modalTitle" class="modal-title">Confirm</h3>
+            <div id="modalBody" class="modal-body"></div>
+            <div class="modal-actions">
+                <button id="modalCancel" class="btn btn-secondary" data-i18n="cancel">Cancel</button>
+                <button id="modalConfirm" class="btn btn-primary" data-i18n="confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
 
-    const STORAGE_KEY = 'ai-chat-demo-v6';
-    let state = {conversations: [], current: null, settings: {model:'', temperature:0.7, systemPrompt:''}};
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
 
-    const apiKeyEl = document.getElementById('apiKey');
-    const apiBaseEl = document.getElementById('apiBase');
-    const modelEl = document.getElementById('modelInput');
-    const tempEl = document.getElementById('temperature');
-    const sysEl = document.getElementById('systemPrompt');
-    const convListEl = document.getElementById('convList');
-    const messagesEl = document.getElementById('messages');
-    const inputEl = document.getElementById('input');
-    const sendBtn = document.getElementById('sendBtn');
-    const stopBtn = document.getElementById('stopBtn');
-    const newConvBtn = document.getElementById('newConv');
-    const exportBtn = document.getElementById('exportBtn');
-    const copyAllBtn = document.getElementById('copyAll');
-    const clearConvBtn = document.getElementById('clearConv');
-    const convTitleEl = document.getElementById('convTitle');
-
-    function load(){
-      try{const j=localStorage.getItem(STORAGE_KEY); if(j) state=JSON.parse(j);}catch(e){}
-      if(!state.conversations || state.conversations.length===0){state.conversations=[{id:Date.now().toString(), title:'新会话', messages:[]}]}
-      if(!state.current) state.current=state.conversations[0].id;
-      apiKeyEl.value = state.apiKey||'';
-      apiBaseEl.value = state.apiBase||'';
-      modelEl.value = state.settings.model||'';
-      tempEl.value = state.settings.temperature||0.7;
-      sysEl.value = state.settings.systemPrompt||'';
-      renderConvList(); renderMessages();
-    }
-
-    function save(){
-      state.apiKey = apiKeyEl.value.trim();
-      state.apiBase = apiBaseEl.value.trim();
-      state.settings.model = modelEl.value;
-      state.settings.temperature = Number(tempEl.value);
-      state.settings.systemPrompt = sysEl.value;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    }
-
-    function renderConvList(){
-      convListEl.innerHTML='';
-      state.conversations.forEach(c=>{
-        const d = document.createElement('div'); d.className='conv-item'+(c.id===state.current?' active':''); d.textContent = c.title || '未命名';
-        d.onclick = ()=>{ state.current=c.id; save(); renderConvList(); renderMessages(); }
-        convListEl.appendChild(d);
-      })
-    }
-
-    function getCurrentConversation(){ return state.conversations.find(c=>c.id===state.current); }
-
-    function renderMessages(){
-      const conv = getCurrentConversation();
-      convTitleEl.textContent = conv.title || '未命名';
-      messagesEl.innerHTML='';
-      conv.messages.forEach(m=>{
-        const el = document.createElement('div'); el.className = 'msg ' + m.role;
-        el.innerHTML = marked.parse(m.content || '');
-        // wrap each pre for copy button
-        el.querySelectorAll('pre').forEach(pre => {
-          const wrapper = document.createElement('div'); wrapper.className='code-container';
-          pre.parentNode.insertBefore(wrapper, pre);
-          wrapper.appendChild(pre);
-          const btn = document.createElement('button'); btn.className='copy-btn'; btn.textContent='复制';
-          btn.onclick = ()=>{navigator.clipboard.writeText(pre.innerText).then(()=>{btn.textContent='已复制'; setTimeout(()=>{btn.textContent='复制'},1000)})}
-          wrapper.appendChild(btn);
-        });
-        messagesEl.appendChild(el);
-      });
-      messagesEl.querySelectorAll('pre code').forEach((block) => { try{ hljs.highlightElement(block); } catch(e){} });
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-    }
-
-    function appendMessage(role, content){
-      const conv = getCurrentConversation();
-      conv.messages.push({role, content, time:Date.now()});
-      save(); renderMessages();
-    }
-
-    newConvBtn.onclick = ()=>{
-      const c = {id:Date.now().toString(), title:'会话 '+(state.conversations.length+1), messages:[]};
-      state.conversations.unshift(c); state.current=c.id; save(); renderConvList(); renderMessages();
-    }
-    exportBtn.onclick = ()=>{
-      const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
-      const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download='ai-chat-export.json'; a.click(); URL.revokeObjectURL(url);
-    }
-    copyAllBtn.onclick = ()=>{ const conv = getCurrentConversation(); navigator.clipboard.writeText(conv.messages.map(m=>`${m.role}: ${m.content}`).join('\n\n')); }
-    clearConvBtn.onclick = ()=>{ if(confirm('清空当前会话？')){ const conv = getCurrentConversation(); conv.messages=[]; save(); renderMessages(); } }
-
-    let abortController = null;
-    sendBtn.onclick = sendMessage;
-    stopBtn.onclick = ()=>{ if(abortController) { abortController.abort(); abortController=null; } }
-    inputEl.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); } })
-
-    async function sendMessage(){
-      const text = inputEl.value.trim(); if(!text) return;
-      inputEl.value=''; appendMessage('user', text);
-      const conv = getCurrentConversation();
-      const messages = [];
-      if(state.settings.systemPrompt) messages.push({role:'system', content: state.settings.systemPrompt});
-      conv.messages.forEach(m=>messages.push({role:m.role, content:m.content}));
-      const apiKey = apiKeyEl.value.trim();
-      const apiBase = apiBaseEl.value.trim() || 'https://api.openai.com/v1';
-      const model = modelEl.value;
-      const temperature = Number(tempEl.value);
-      if(!apiKey||!model){ alert('请填写 API Key 和模型'); return; }
-      appendMessage('assistant', '');
-      const assistantIndex = getCurrentConversation().messages.length - 1;
-      const payload = { model, messages, temperature, stream:true };
-      abortController = new AbortController();
-      const headers = { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' };
-      try{
-        const res = await fetch((apiBase.replace(/\/$/, '') + '/chat/completions'), {method:'POST', headers, body: JSON.stringify(payload), signal: abortController.signal});
-        if(!res.ok){ const t = await res.text(); throw new Error('接口错误: '+res.status+' '+t); }
-        const reader = res.body.getReader();
-        const decoder = new TextDecoder('utf-8');
-        let done=false; let assistantText='';
-        while(!done){
-          const {value, done: d} = await reader.read();
-          done = d;
-          if(value){
-            const chunk = decoder.decode(value, {stream:true});
-            const parts = chunk.split('\n').map(s=>s.trim()).filter(Boolean);
-            for(const p of parts){
-              if(p==='data: [DONE]'||p==='[DONE]'){ done=true; break; }
-              const raw = p.replace(/^data:/,'').trim();
-              try{
-                const parsed = JSON.parse(raw);
-                const delta = parsed.choices?.[0]?.delta?.content;
-                if(delta){ assistantText += delta; getCurrentConversation().messages[assistantIndex].content = assistantText; save(); renderMessages(); }
-              }catch(e){}
-            }
-          }
-        }
-        abortController = null;
-      }catch(err){
-        getCurrentConversation().messages[assistantIndex].content = '错误: ' + (err.message||String(err)); save(); renderMessages();
-        abortController = null;
-      }
-    }
-
-    load();
-    ['apiKey','apiBase','modelInput','temperature','systemPrompt'].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change', save); });
-  </script>
+    <!-- Scripts -->
+    <script src="script.js"></script>
 </body>
 </html>
