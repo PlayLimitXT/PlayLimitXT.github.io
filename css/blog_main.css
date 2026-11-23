@@ -99,10 +99,11 @@ footer{border-top:1px solid var(--glass-border);padding:3rem 5%;display:flex;jus
 @media (max-width:1024px){.blog-container{grid-template-columns:1fr}
 .blog-sidebar{grid-row:1;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
 }
-@media (max-width:768px){nav{width:95%;padding:.8rem 1.5rem}
+@media (max-width:768px){nav{left:2.5%;width:95%;padding:.8rem 1.5rem;transform:none;background:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none}
+nav::before{content:'';position:absolute;inset:0;z-index:-1;background:rgba(10,10,15,.6);backdrop-filter:blur(15px);border:1px solid var(--glass-border);border-radius:100px;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
 .logo{font-size:1.2rem}
 .menu-toggle{display:block}
-.nav-links{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(5,5,7,.98);flex-direction:column;justify-content:center;gap:3rem;clip-path:circle(0 at 90% 5%);transition:all .6s cubic-bezier(.77,0,.175,1);pointer-events:none}
+.nav-links{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;z-index:1;background:rgba(5,5,7,.98);flex-direction:column;justify-content:center;gap:3rem;clip-path:circle(0 at 90% 5%);transition:all .6s cubic-bezier(.77,0,.175,1);pointer-events:none}
 .nav-links.active{clip-path:circle(150% at 90% 5%);pointer-events:all}
 .nav-links a{font-size:2rem;opacity:0;transform:translateY(20px);transition:.4s}
 .nav-links.active a{opacity:1;transform:translateY(0)}
