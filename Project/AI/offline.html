@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>离线模式</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #080a16;
+        color: #f2f3ff;
+        font:
+          15px/1.7 -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          'WenQuanYi Micro Hei',
+          sans-serif;
+      }
+      .box {
+        max-width: 420px;
+        padding: 32px;
+        text-align: center;
+      }
+      img {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+      }
+      h1 {
+        font-size: 1.2em;
+        margin: 18px 0 8px;
+        font-weight: 600;
+      }
+      p {
+        color: #a6adcf;
+        font-size: 0.9em;
+        margin: 0 0 18px;
+      }
+      button {
+        padding: 9px 18px;
+        border-radius: 10px;
+        border: 0;
+        cursor: pointer;
+        font-weight: 600;
+        background: linear-gradient(100deg, #22d3ee, #a855f7, #f43f5e);
+        color: #080a16;
+      }
+      small {
+        display: block;
+        margin-top: 16px;
+        color: #727aa4;
+        font-size: 0.78em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <img src="logo.svg" alt="" />
+      <h1>当前离线</h1>
+      <p>页面资源已缓存，本机保存的会话与配置不会丢失。连上网络后即可继续与模型对话。</p>
+      <button onclick="location.reload()">重新加载</button>
+      <small>若反复出现，请检查网络或清除站点缓存后重试。</small>
+    </div>
+  </body>
+</html>

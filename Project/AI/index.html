@@ -1,319 +1,590 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chat - PLXT</title>
-    <meta name="description" content="AI Chat Web Application - Support OpenAI, Claude, DeepSeek and more LLM APIs">
-    <meta name="keywords" content="PlayLimitXT,PLXT,AI,Chat,GPT,Claude,DeepSeek,LLM,AI Assistant">
-    <meta name="author" content="Play_Limit, PlayLimitXT@gmail.com">
-    <meta name="robots" content="index, follow">
-    <link rel="icon" href="../../images/favicon.png" type="image/png">
-    <link rel="shortcut icon" href="../../images/favicon.png" type="image/png">
-
-    <!-- Google Analytics -->
+<!-- Copyright © 2026 PlayLimitXT -->
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
+    <meta name="theme-color" content="#080a16" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="PLXT" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="PLXT · AI Agent" />
+    <meta
+      property="og:description"
+      content="AI Agent：分支对话、工具与检索、完整参数控制、PWA 离线可用"
+    />
+    <meta name="twitter:card" content="summary" />
+    <!-- CSP: the inline first-paint and branding script plus dynamic CDN
+     enhancement libraries are required here. An HTTP-header version with nonce
+     is documented in DEPLOY.md; the meta form cannot express frame-ancestors
+     or report-uri. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; font-src 'self' data: https:; connect-src *; media-src 'self' blob: data:; worker-src 'self' blob:; child-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+    <meta name="description" content="纯前端 AI Agent · 多模型 / 分支对话 / 工具与检索 / 完整参数控制" />
+    <meta name="color-scheme" content="light dark" />
+    <title></title>
+    <script>
+      /* ============================================================
+   Single source for brand assets (developer-facing; intentionally no UI control)
+   Change name, title or version here.
+   Replace the logo by overwriting logo.svg in this directory; it is shared by
+   the page, favicon and PWA icons. The logo carries its own colours and is
+   never tinted by theme, light/dark mode or accent settings. Also update
+   manifest.json for the installed application name.
+   ============================================================ */
+      window.PLXT_BRAND = {
+        name: 'PLXT',
+        titleZh: 'PLXT · 本地 AI 工作站',
+        titleEn: 'PLXT · Local AI Workspace',
+        logoSymbol: 'i-logo',
+        version: '3.3.0'
+      };
+      document.title = window.PLXT_BRAND.titleZh;
+    </script>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="logo.svg" />
+    <!-- Highlight themes are bundled locally: no external request on first paint; light/dark switching only swaps a local file. -->
+    <link rel="stylesheet" href="vendor/github.min.css" id="hljsTheme" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="author" content="PlayLimitXT,PlayLimitXT@gmail.com">
+    <meta name="copyright" content="Copyright © 2025 PlayLimitXT">
+    <meta name="robots" content="index,follow" />
+    <meta name="revisit-after" content="7 days" >
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1BZQVCCRE"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-H1BZQVCCRE');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-H1BZQVCCRE');
+    </script>
+  </head>
+  <body data-design="neon">
+    <a class="skip-link" href="#input">跳到输入框 · Skip to composer</a>
+    <script>
+      /* First-paint guard: apply the saved appearance before deferred scripts run to
+   avoid a flash of the wrong theme. Brand text is populated by 09-plus.js at
+   the end of the deferred sequence from window.PLXT_BRAND. */
+      (function () {
+        try {
+          var s = JSON.parse(localStorage.getItem('ai-chat-pro-v3') || '{}').settings || {};
+          var mode = s.mode || 'dark';
+          if (mode === 'auto')
+            mode = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          document.body.classList.toggle('light', mode === 'light');
+          var alias = { openai: 'ink', studio: 'prism', mono: 'slate', custom: 'bespoke' };
+          var d = alias[s.design] || s.design;
+          if (['neon', 'ink', 'prism', 'aurora', 'slate', 'bespoke'].indexOf(d) >= 0) document.body.dataset.design = d;
+          var m = document.querySelector('meta[name=theme-color]');
+          if (m)
+            m.content =
+              mode === 'light'
+                ? d === 'neon'
+                  ? '#f6f4ff'
+                  : d === 'aurora'
+                    ? '#f4f5fd'
+                    : '#ffffff'
+                : d === 'neon'
+                  ? '#080a16'
+                  : d === 'aurora'
+                    ? '#0a0c19'
+                    : d === 'prism'
+                      ? '#131314'
+                      : d === 'slate'
+                        ? '#18181b'
+                        : '#171717';
+        } catch (e) {}
+      })();
     </script>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- SVG icon set -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" /></symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="6.5" />
+          <path d="m16 16 4.5 4.5" />
+        </symbol>
+        <symbol id="i-settings" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="3" />
+          <path
+            d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.2 2.2-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-3.1v-.1A1.7 1.7 0 0 0 10.5 19.3a1.7 1.7 0 0 0-1.88.34l-.06.06-2.2-2.2.06-.06A1.7 1.7 0 0 0 6.76 15 1.7 1.7 0 0 0 5.2 13.97H5v-3.1h.1A1.7 1.7 0 0 0 6.76 9.8a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.2-2.2.06.06A1.7 1.7 0 0 0 10.5 6.06 1.7 1.7 0 0 0 11.53 4.5V4h3.1v.1a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.2 2.2-.06.06A1.7 1.7 0 0 0 19.4 9.4v.1a1.7 1.7 0 0 0 1.56 1.03H21v3.1h-.1A1.7 1.7 0 0 0 19.4 15Z"
+          />
+        </symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+        </symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24">
+          <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" />
+        </symbol>
+        <symbol id="i-panel" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="16" rx="2" />
+          <path d="M15 4v16" />
+        </symbol>
+        <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol>
+        <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7-7-1Z" /></symbol>
+        <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5" /></symbol>
+        <symbol id="i-paperclip" viewBox="0 0 24 24">
+          <path d="M20 11.5 12.3 19a4.5 4.5 0 0 1-6.4-6.4l8-8a3 3 0 0 1 4.3 4.3l-8 8a1.5 1.5 0 0 1-2.1-2.1l7.3-7.3" />
+        </symbol>
+        <symbol id="i-more" viewBox="0 0 24 24">
+          <circle cx="5" cy="12" r="1.4" />
+          <circle cx="12" cy="12" r="1.4" />
+          <circle cx="19" cy="12" r="1.4" />
+        </symbol>
+        <symbol id="i-branch" viewBox="0 0 24 24">
+          <circle cx="6" cy="5" r="2" />
+          <circle cx="6" cy="19" r="2" />
+          <circle cx="18" cy="7" r="2" />
+          <path d="M6 7v10M6 12a6 6 0 0 0 6-4h4" />
+        </symbol>
+        <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 19h16" /></symbol>
+        <symbol id="i-erase" viewBox="0 0 24 24"><path d="m4 16 8-8 8 8-4 4H8zM12 8l4-4 4 4" /></symbol>
+        <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3m-9 0 1 13h10l1-13M10 11v6m4-6v6" /></symbol>
+        <symbol id="i-compress" viewBox="0 0 24 24">
+          <path d="M4 8h16M4 8l3-3m-3 3 3 3M4 16h16m0 0-3-3m3 3-3 3" />
+        </symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" /></symbol>
+        <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 4v14m-5-5 5 5 5-5" /></symbol>
+        <symbol id="i-sliders" viewBox="0 0 24 24">
+          <path d="M4 7h10m4 0h2M4 17h4m4 0h8" />
+          <circle cx="16" cy="7" r="2" />
+          <circle cx="10" cy="17" r="2" />
+        </symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24">
+          <rect x="5" y="10" width="14" height="10" rx="2" />
+          <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+        </symbol>
+        <symbol id="i-copy" viewBox="0 0 24 24">
+          <rect x="8" y="8" width="12" height="12" rx="2" />
+          <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+        </symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+        </symbol>
+        <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5m6-5v5M6 8h12v3a6 6 0 0 1-12 0zM12 17v4" /></symbol>
+        <symbol id="i-brain" viewBox="0 0 24 24">
+          <path
+            d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8A3 3 0 0 0 8 18a3 3 0 0 0 4 2V4a2 2 0 0 0-2-2h-1Zm6 0a3 3 0 0 1 3 3 3 3 0 0 1 1 5.8A3 3 0 0 1 16 18a3 3 0 0 1-4 2"
+          />
+        </symbol>
+        <symbol id="i-image" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="16" rx="2" />
+          <circle cx="8.5" cy="9" r="1.5" />
+          <path d="m4 17 5-5 3 3 3-3 5 5" />
+        </symbol>
+        <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" /></symbol>
+        <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 3v18" /></symbol>
+        <symbol id="i-mic" viewBox="0 0 24 24">
+          <rect x="9" y="3" width="6" height="11" rx="3" />
+          <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
+        </symbol>
+        <symbol id="i-expand" viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" /></symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10m6 10V4m6 16v-7m4 7H2" /></symbol>
+        <symbol id="i-database" viewBox="0 0 24 24">
+          <ellipse cx="12" cy="5" rx="8" ry="3" />
+          <path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" />
+        </symbol>
+        <!-- Brand artwork is supplied by logo.svg via <img> and stays fixed across
+     themes. A compatibility symbol remains here for stale cached pages that
+     might reference it; it is not rendered. -->
+        <symbol id="i-logo" viewBox="0 0 24 24">
+          <path d="M5 19V5h13v3.4H8.6v3.7h8.1v3.4H8.6V19z" fill="#a855f7" />
+        </symbol>
+        <!-- Shared line-icon set replacing emoji in the interface -->
+        <symbol id="i-star" viewBox="0 0 24 24">
+          <path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" />
+        </symbol>
+        <symbol id="i-pin" viewBox="0 0 24 24"><path d="M9 4h6l-1 5 3 3v2H7v-2l3-3-1-5zM12 14v6" /></symbol>
+        <symbol id="i-fork" viewBox="0 0 24 24">
+          <circle cx="6" cy="5" r="2" />
+          <circle cx="6" cy="19" r="2" />
+          <circle cx="18" cy="7" r="2" />
+          <path d="M6 7v10M6 12a6 6 0 0 0 6-4h4" />
+        </symbol>
+        <symbol id="i-volume" viewBox="0 0 24 24">
+          <path d="M4 9v6h4l5 4V5L8 9H4zM17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11" />
+        </symbol>
+        <symbol id="i-thumb-up" viewBox="0 0 24 24">
+          <path d="M7 10v10H4V10h3zm0 0 4-7a2 2 0 0 1 2 2v3h5a2 2 0 0 1 2 2l-1.5 7a2 2 0 0 1-2 1.5H7" />
+        </symbol>
+        <symbol id="i-thumb-down" viewBox="0 0 24 24">
+          <path d="M7 14V4H4v10h3zm0 0 4 7a2 2 0 0 0 2-2v-3h5a2 2 0 0 0 2-2l-1.5-7A2 2 0 0 0 16.5 5.5H7" />
+        </symbol>
+        <symbol id="i-translate" viewBox="0 0 24 24">
+          <path d="M3 5h9M7 3v2c0 4-2 7-4 8M5 9c1 2 3 4 6 5M13 20l4-9 4 9M14.5 17h5" />
+        </symbol>
+        <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 8-4 4 4 4m8-8 4 4-4 4M14 4l-4 16" /></symbol>
+        <symbol id="i-palette" viewBox="0 0 24 24">
+          <path d="M12 3a9 9 0 0 0 0 18h1.5a2 2 0 0 0 0-4H12a2 2 0 0 1 0-4h6a3 3 0 0 0 3-3 7 7 0 0 0-9-7z" />
+          <circle cx="7.5" cy="10" r="1" />
+          <circle cx="10" cy="7" r="1" />
+          <circle cx="14" cy="7" r="1" />
+        </symbol>
+        <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2 6M20 5v6h-6" /></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></symbol>
+        <symbol id="i-info" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 11v6M12 7.5v.5" />
+        </symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24">
+          <path d="M12 3 4 6v6c0 5 3.4 8.3 8 9 4.6-.7 8-4 8-9V6z" />
+          <path d="m9 12 2 2 4-4" />
+        </symbol>
+        <symbol id="i-sparkle" viewBox="0 0 24 24">
+          <path d="M12 3c.6 4.4 2.6 6.4 7 7-4.4.6-6.4 2.6-7 7-.6-4.4-2.6-6.4-7-7 4.4-.6 6.4-2.6 7-7z" />
+        </symbol>
+        <symbol id="i-folder" viewBox="0 0 24 24">
+          <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        </symbol>
+        <symbol id="i-tag" viewBox="0 0 24 24">
+          <path d="M3 12V4h8l10 10-8 8z" />
+          <circle cx="7.5" cy="7.5" r="1.2" />
+        </symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7v5l3 2" />
+        </symbol>
+        <symbol id="i-link" viewBox="0 0 24 24">
+          <path
+            d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7L11.5 6.8M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1.5-1.5"
+          />
+        </symbol>
+        <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4" /></symbol>
+        <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5zM3 12l9 5 9-5M3 16l9 5 9-5" /></symbol>
+        <symbol id="i-chevron-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6" /></symbol>
+        <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" /></symbol>
+        <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4l11-11-4-4L4 16v4zM14 6l4 4" /></symbol>
+        <symbol id="i-user" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 21a8 8 0 0 1 16 0" />
+        </symbol>
+        <symbol id="i-archive" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="4" rx="1" />
+          <path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8M10 12h4" />
+        </symbol>
+        <symbol id="i-message" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" /></symbol>
+      </defs>
+    </svg>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Highlight.js - Extended Languages -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
-
-    <!-- Marked.js with extensions -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked-highlight@2.1.1/lib/index.umd.min.js"></script>
-
-    <!-- KaTeX for math rendering -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="app">
-        <!-- Header -->
-        <header>
-            <div class="header-left">
-                <button id="mobileMenuBtn" class="btn btn-icon btn-secondary">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="logo">
-                    <img src="../../images/PLXT_Color.svg" alt="PLXT Logo" class="logo-img">
-                    <h1>AI Chat</h1>
-                </div>
-                <span id="modelBadge" class="model-badge" data-i18n="notSelected">Not Selected</span>
-            </div>
-            <div class="header-actions">
-                <button id="langToggle" class="btn btn-secondary btn-sm" title="Switch Language">
-                    <i class="fa-solid fa-language"></i>
-                    <span id="langText">EN</span>
-                </button>
-                <button id="themeToggle" class="btn btn-secondary btn-sm" title="Toggle Theme">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-                <button id="importBtn" class="btn btn-secondary btn-sm" title="Import">
-                    <i class="fa-solid fa-upload"></i>
-                    <span class="btn-text" data-i18n="import">Import</span>
-                </button>
-                <button id="exportBtn" class="btn btn-secondary btn-sm" title="Export">
-                    <i class="fa-solid fa-download"></i>
-                    <span class="btn-text" data-i18n="export">Export</span>
-                </button>
-            </div>
-        </header>
-
-        <!-- Main Layout -->
-        <div class="main-layout">
-            <!-- Sidebar -->
-            <aside id="sidebar" class="sidebar">
-                <div class="sidebar-header-mobile">
-                    <span data-i18n="settings">Settings</span>
-                    <button id="closeSidebarBtn" class="btn btn-icon btn-secondary">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-
-                <!-- Settings Panel -->
-                <div class="settings-panel">
-                    <div class="sidebar-title" data-i18n="settings">Settings</div>
-
-                    <div class="settings-group">
-                        <label for="apiKey" data-i18n="apiKey">API Key</label>
-                        <div class="input-with-toggle">
-                            <input type="password" id="apiKey" class="settings-input" placeholder="sk-..." autocomplete="off">
-                            <button id="toggleApiKey" class="input-toggle-btn" type="button">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="settings-group">
-                        <label for="apiBase" data-i18n="apiEndpoint">API Endpoint</label>
-                        <input type="text" id="apiBase" class="settings-input" placeholder="https://api.openai.com/v1">
-                    </div>
-
-                    <div class="settings-group">
-                        <label for="modelInput" data-i18n="model">Model</label>
-                        <input type="text" id="modelInput" class="settings-input" placeholder="gpt-4o-mini">
-                    </div>
-
-                    <div class="settings-group">
-                        <label for="temperature" data-i18n="temperature">Temperature: <span id="tempValue">0.7</span></label>
-                        <input type="range" id="temperature" class="settings-range" min="0" max="2" step="0.1" value="0.7">
-                    </div>
-
-                    <div class="settings-group">
-                        <label for="maxTokens" data-i18n="maxTokens">Max Tokens</label>
-                        <input type="number" id="maxTokens" class="settings-input" placeholder="4096" min="1" max="128000">
-                    </div>
-
-                    <div class="settings-group">
-                        <label for="systemPrompt" data-i18n="systemPrompt">System Prompt</label>
-                        <textarea id="systemPrompt" class="settings-textarea" rows="3" placeholder="You are a helpful assistant..."></textarea>
-                    </div>
-
-                    <!-- Advanced Settings Toggle -->
-                    <div class="advanced-toggle">
-                        <button id="advancedToggle" class="btn btn-secondary btn-sm" type="button">
-                            <i class="fa-solid fa-cog"></i>
-                            <span data-i18n="advanced">Advanced</span>
-                            <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                        </button>
-                    </div>
-
-                    <div id="advancedSettings" class="advanced-settings">
-                        <div class="settings-group">
-                            <label for="topP" data-i18n="topP">Top P</label>
-                            <input type="number" id="topP" class="settings-input" placeholder="1" min="0" max="1" step="0.1">
-                        </div>
-                        <div class="settings-group">
-                            <label for="frequencyPenalty" data-i18n="frequencyPenalty">Frequency Penalty</label>
-                            <input type="number" id="frequencyPenalty" class="settings-input" placeholder="0" min="-2" max="2" step="0.1">
-                        </div>
-                        <div class="settings-group">
-                            <label for="presencePenalty" data-i18n="presencePenalty">Presence Penalty</label>
-                            <input type="number" id="presencePenalty" class="settings-input" placeholder="0" min="-2" max="2" step="0.1">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conversation List -->
-                <div class="conv-section">
-                    <div class="conv-header">
-                        <span class="sidebar-title" style="margin: 0;" data-i18n="conversations">Conversations</span>
-                        <button id="newConvBtn" class="btn btn-primary btn-sm">
-                            <i class="fa-solid fa-plus"></i>
-                            <span data-i18n="new">New</span>
-                        </button>
-                    </div>
-                    <div id="convList" class="conv-list"></div>
-                </div>
-            </aside>
-
-            <!-- Main Chat Area -->
-            <main class="chat-main">
-                <!-- Chat Header -->
-                <div class="chat-header">
-                    <div class="chat-title">
-                        <h2 id="chatTitle" data-i18n="untitledConversation">Untitled Conversation</h2>
-                        <span id="messageCount" class="message-count"></span>
-                    </div>
-                    <div class="chat-actions">
-                        <button id="searchBtn" class="btn btn-secondary btn-sm" title="Search">
-                            <i class="fa-solid fa-search"></i>
-                        </button>
-                        <button id="copyAllBtn" class="btn btn-secondary btn-sm" title="Copy All">
-                            <i class="fa-solid fa-copy"></i>
-                        </button>
-                        <button id="exportMarkdownBtn" class="btn btn-secondary btn-sm" title="Export as Markdown">
-                            <i class="fa-solid fa-file-code"></i>
-                        </button>
-                        <button id="renameConvBtn" class="btn btn-secondary btn-sm" title="Rename">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-                        <button id="clearBtn" class="btn btn-secondary btn-sm" title="Clear">
-                            <i class="fa-solid fa-eraser"></i>
-                        </button>
-                        <button id="deleteConvBtn" class="btn btn-danger btn-sm" title="Delete">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Search Bar (Hidden by default) -->
-                <div id="searchBar" class="search-bar" style="display: none;">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Search in conversation...">
-                    <span id="searchResults" class="search-results"></span>
-                    <button id="closeSearchBtn" class="btn btn-icon btn-secondary btn-sm">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-
-                <!-- Messages Container -->
-                <div id="messagesContainer" class="messages-container">
-                    <!-- Empty State -->
-                    <div id="emptyState" class="empty-state">
-                        <div class="empty-icon">
-                            <i class="fa-solid fa-comments"></i>
-                        </div>
-                        <div class="empty-title" data-i18n="startNewChat">Start a New Chat</div>
-                        <div class="empty-desc" data-i18n="emptyDesc">
-                            Enter your API Key and model in the sidebar, then type your question to begin.
-                        </div>
-                        <div class="shortcuts-hint">
-                            <div class="shortcut-item">
-                                <kbd>Enter</kbd>
-                                <span data-i18n="send">Send</span>
-                            </div>
-                            <div class="shortcut-item">
-                                <kbd>Shift + Enter</kbd>
-                                <span data-i18n="newLine">New Line</span>
-                            </div>
-                            <div class="shortcut-item">
-                                <kbd>Ctrl + N</kbd>
-                                <span data-i18n="newChat">New Chat</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Input Area -->
-                <div class="input-area">
-                    <!-- Quick Actions -->
-                    <div class="quick-actions">
-                        <button id="clearInputBtn" class="quick-action-btn" title="Clear Input">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                        <button id="pasteBtn" class="quick-action-btn" title="Paste">
-                            <i class="fa-solid fa-paste"></i>
-                        </button>
-                    </div>
-                    <div class="input-wrapper">
-                        <div class="input-container">
-                            <textarea 
-                                id="inputTextarea" 
-                                class="input-textarea" 
-                                data-i18n-placeholder="inputPlaceholder"
-                                placeholder="Type your message... (Shift+Enter for new line)"
-                                rows="1"
-                            ></textarea>
-                        </div>
-                        <div class="input-actions">
-                            <button id="sendBtn" class="btn btn-primary">
-                                <i class="fa-solid fa-paper-plane"></i>
-                                <span data-i18n="send">Send</span>
-                            </button>
-                            <button id="stopBtn" class="btn btn-danger" style="display: none;">
-                                <i class="fa-solid fa-stop"></i>
-                                <span data-i18n="stop">Stop</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Status Bar -->
-                <div class="status-bar">
-                    <div class="status-left">
-                        <div class="status-item">
-                            <span id="statusDot" class="status-dot"></span>
-                            <span id="statusText" data-i18n="ready">Ready</span>
-                        </div>
-                        <div class="status-item token-count" id="tokenCount" style="display: none;">
-                            <i class="fa-solid fa-coins"></i>
-                            <span id="tokenValue">0</span> tokens
-                        </div>
-                    </div>
-                    <div class="status-right">
-                        <span data-i18n="shortcutsHint">Ctrl+Enter to send | Ctrl+N new chat</span>
-                    </div>
-                </div>
-            </main>
+    <div class="app" id="app">
+      <!-- ===================== Top bar ===================== -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn mobile-only" id="btnMenu" title="会话列表" aria-label="会话列表">
+            <svg><use href="#i-menu" /></svg>
+          </button>
+          <div class="brand" id="brandBox">
+            <img class="brand-logo" src="logo.svg" alt="" width="26" height="26" aria-hidden="true" />
+            <span class="brand-name" id="brandTitle"></span>
+          </div>
         </div>
+
+        <div class="topbar-center">
+          <button class="chip chip-model" id="btnModel" title="选择模型">
+            <span class="chip-dot"></span><span id="modelLabel">未选择模型</span
+            ><svg class="chip-chev"><use href="#i-chevron" /></svg>
+          </button>
+          <button class="chip chip-assistant" id="btnAssistant" title="切换助手">
+            <span id="assistantLabel">默认助手</span><svg class="chip-chev"><use href="#i-chevron" /></svg>
+          </button>
+          <div class="ctx-wrap" id="ctxWrap" title="上下文占用估算">
+            <div class="ctx-bar"><i id="ctxFill"></i></div>
+            <span id="ctxText">0%</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button class="icon-btn" id="btnSearchGlobal" title="命令面板 (Ctrl/⌘+K)" aria-label="命令面板">
+            <svg><use href="#i-search" /></svg>
+          </button>
+          <button class="icon-btn" id="btnLang" title="切换语言">中</button>
+          <button class="icon-btn" id="btnTheme" title="外观" aria-label="外观">
+            <svg><use href="#i-moon" /></svg>
+          </button>
+          <button class="icon-btn desktop-only" id="btnInspector" title="参数面板" aria-label="参数面板">
+            <svg><use href="#i-panel" /></svg>
+          </button>
+          <button class="icon-btn" id="btnSettings" title="设置" aria-label="设置">
+            <svg><use href="#i-settings" /></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <!-- ===================== Left: conversations ===================== -->
+        <aside class="sidebar" id="sidebar">
+          <div class="sidebar-top">
+            <button class="new-chat-btn" id="btnNewChat">
+              <svg><use href="#i-plus" /></svg><span>新建对话</span>
+            </button>
+            <div class="side-search">
+              <svg><use href="#i-search" /></svg><input id="sidebarSearch" placeholder="搜索会话标题或内容" />
+            </div>
+            <div class="side-filters" id="sideFilters">
+              <button class="filter active" data-filter="all">全部</button>
+              <button class="filter" data-filter="pinned">置顶</button>
+              <button class="filter" data-filter="starred">收藏</button>
+              <button class="filter" data-filter="archived">归档</button>
+            </div>
+            <div class="side-folders" id="sideFolders"></div>
+          </div>
+          <div class="conv-list" id="convList"></div>
+          <div class="sidebar-bottom">
+            <button data-open="prompts" title="提示词库">
+              <svg><use href="#i-book" /></svg><span>提示词</span>
+            </button>
+            <button data-open="memory" title="记忆库">
+              <svg><use href="#i-brain" /></svg><span>记忆</span>
+            </button>
+            <button data-open="logs" title="请求日志">
+              <svg><use href="#i-chart" /></svg><span>日志</span>
+            </button>
+            <button data-open="backup" title="备份">
+              <svg><use href="#i-database" /></svg><span>数据</span>
+            </button>
+          </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- ===================== Centre: conversation ===================== -->
+        <main class="chat">
+          <div class="chat-head">
+            <div class="chat-head-info">
+              <h2 id="chatTitle" data-no-i18n>新对话</h2>
+              <span id="chatMeta"></span>
+            </div>
+            <div class="chat-head-actions">
+              <button class="icon-btn" id="btnSearchInChat" title="会话内搜索">
+                <svg><use href="#i-search" /></svg>
+              </button>
+              <button class="icon-btn" id="btnBranchView" title="分支树">
+                <svg><use href="#i-branch" /></svg>
+              </button>
+              <button class="icon-btn" id="btnCompress" title="压缩上下文">
+                <svg><use href="#i-compress" /></svg>
+              </button>
+              <button class="icon-btn head-secondary" id="btnExportMd" title="导出 Markdown">
+                <svg><use href="#i-download" /></svg>
+              </button>
+              <button class="icon-btn head-secondary" id="btnExportJson" title="导出 JSON">
+                <svg><use href="#i-download" /></svg>
+              </button>
+              <button class="icon-btn head-secondary" id="btnClearChat" title="清空消息">
+                <svg><use href="#i-erase" /></svg>
+              </button>
+              <button class="icon-btn head-secondary" id="btnDeleteChat" title="删除会话">
+                <svg><use href="#i-trash" /></svg>
+              </button>
+              <button class="icon-btn" id="btnMore" title="更多操作">
+                <svg><use href="#i-more" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="inline-search" id="chatSearchBar" hidden>
+            <svg><use href="#i-search" /></svg><input id="chatSearchInput" placeholder="在当前会话中搜索…" />
+            <span class="tiny" id="chatSearchCount"></span>
+            <button class="icon-btn" id="btnCloseChatSearch">
+              <svg><use href="#i-close" /></svg>
+            </button>
+          </div>
+
+          <!-- Message area: buttons sit in a non-scrolling wrapper so absolute positioning neither scrolls with content nor covers text. -->
+          <div class="messages-wrap">
+            <div class="messages" id="messages" aria-live="polite" aria-atomic="false">
+              <div class="empty-state" id="emptyState">
+                <div class="empty-logo" aria-hidden="true">
+                  <img class="brand-logo brand-logo-lg" src="logo.svg" alt="" width="54" height="54" />
+                </div>
+                <h2 id="emptyTitle">有什么可以帮忙的？</h2>
+                <p id="emptyDesc">配置好模型后即可开始。也可以从下面的示例提示词开始。</p>
+                <div class="starter-grid" id="starterPrompts"></div>
+                <div class="empty-hint" id="emptyHint"></div>
+              </div>
+            </div>
+            <button class="scroll-bottom" id="btnScrollBottom" hidden type="button" aria-label="回到最新">
+              <svg><use href="#i-arrow-down" /></svg><span>回到最新</span>
+            </button>
+          </div>
+
+          <!-- Composer -->
+          <div class="composer-wrap">
+            <div class="attachment-bar" id="attachmentBar" hidden></div>
+            <div class="reply-bar" id="replyBar" hidden>
+              <span id="replyLabel"></span
+              ><button class="icon-btn" id="btnCancelReply">
+                <svg><use href="#i-close" /></svg>
+              </button>
+            </div>
+
+            <div class="composer" id="composer">
+              <div class="composer-tools" id="composerTools">
+                <button class="tool-btn" id="btnAttach" title="附件">
+                  <svg><use href="#i-paperclip" /></svg><span>附件</span>
+                </button>
+                <input
+                  type="file"
+                  id="fileInput"
+                  multiple
+                  hidden
+                  accept="image/*,.txt,.md,.json,.jsonl,.csv,.js,.ts,.py,.html,.css,.xml,.yaml,.yml,.log,.pdf,.docx,.epub,.pptx,.xlsx"
+                />
+                <button class="tool-btn" id="btnVoice" title="语音输入">
+                  <svg><use href="#i-mic" /></svg><span>语音</span>
+                </button>
+                <button class="tool-btn tool-secondary" id="btnScreenshot" title="截图">
+                  <svg><use href="#i-image" /></svg><span>截图</span>
+                </button>
+                <span class="tool-sep"></span>
+                <button class="tool-btn toggle" id="btnWebSearch" title="联网搜索">
+                  <svg><use href="#i-globe" /></svg><span>联网</span>
+                </button>
+                <button class="tool-btn toggle" id="btnMcp" title="工具调用">
+                  <svg><use href="#i-plug" /></svg><span>工具</span>
+                </button>
+                <button class="tool-btn toggle" id="btnReasoning" title="展示思考过程">
+                  <svg><use href="#i-brain" /></svg><span>思考</span>
+                </button>
+                <span class="tool-sep tool-secondary"></span>
+                <button class="tool-btn tool-secondary" id="btnImageGen" title="文生图">
+                  <svg><use href="#i-image" /></svg><span>生图</span>
+                </button>
+                <button class="tool-btn tool-secondary" id="btnRace" title="多模型对比">
+                  <svg><use href="#i-bolt" /></svg><span>对比</span>
+                </button>
+                <button class="tool-btn tool-secondary" id="btnPromptQuick" title="提示词模板">
+                  <svg><use href="#i-book" /></svg><span>模板</span>
+                </button>
+                <button class="tool-btn tool-secondary" id="btnFullEdit" title="全屏编辑">
+                  <svg><use href="#i-expand" /></svg><span>展开</span>
+                </button>
+                <button class="tool-btn" id="btnToolsMore" title="更多工具" aria-expanded="false">
+                  <svg><use href="#i-more" /></svg><span>更多</span>
+                </button>
+              </div>
+
+              <textarea id="input" rows="1" placeholder="输入消息…  / 唤起命令"></textarea>
+
+              <div class="composer-actions">
+                <span class="tiny" id="draftInfo"></span>
+                <span class="flex-spacer"></span>
+                <button class="btn ghost" id="btnClearInput" title="清空输入">清空</button>
+                <button class="btn danger" id="btnStop" hidden>
+                  <svg><use href="#i-stop" /></svg><span>停止</span>
+                </button>
+                <button class="btn primary" id="btnSend">
+                  发送 <svg><use href="#i-send" /></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="composer-foot">
+              <span class="status-item"
+                ><i class="status-dot" id="statusDot"></i><span id="statusText">就绪</span></span
+              >
+              <span id="tokenInfo"></span>
+              <span class="foot-disclaimer">AI 生成内容请自行核对 · 数据仅保存在本机浏览器</span>
+              <span class="foot-copy"></span>
+            </div>
+          </div>
+        </main>
+
+        <!-- ===================== Right: runtime parameter Inspector ===================== -->
+        <aside class="inspector" id="inspector" hidden>
+          <div class="inspector-head">
+            <div class="inspector-title">
+              <svg><use href="#i-sliders" /></svg><span>运行设置</span>
+            </div>
+            <div class="inspector-head-actions">
+              <button class="icon-btn" id="btnInspectorSettings" title="全部设置">
+                <svg><use href="#i-settings" /></svg>
+              </button>
+              <button class="icon-btn" id="btnCloseInspector" title="收起">
+                <svg><use href="#i-close" /></svg>
+              </button>
+            </div>
+          </div>
+          <div class="inspector-tabs" id="inspectorTabs"></div>
+          <div class="inspector-body" id="inspectorBody"></div>
+        </aside>
+      </div>
+
+      <!-- Mobile bottom shortcut bar -->
+      <nav class="mobile-tabbar" id="mobileTabbar">
+        <button data-mobile="new">
+          <svg><use href="#i-plus" /></svg><span>新对话</span>
+        </button>
+        <button data-mobile="history">
+          <svg><use href="#i-menu" /></svg><span>会话</span>
+        </button>
+        <button data-mobile="inspector">
+          <svg><use href="#i-sliders" /></svg><span>参数</span>
+        </button>
+        <button data-mobile="commands">
+          <svg><use href="#i-search" /></svg><span>命令</span>
+        </button>
+      </nav>
     </div>
 
-    <!-- Modal -->
-    <div id="modalOverlay" class="modal-overlay">
-        <div class="modal">
-            <h3 id="modalTitle" class="modal-title">Confirm</h3>
-            <div id="modalBody" class="modal-body"></div>
-            <div class="modal-actions">
-                <button id="modalCancel" class="btn btn-secondary" data-i18n="cancel">Cancel</button>
-                <button id="modalConfirm" class="btn btn-primary" data-i18n="confirm">Confirm</button>
-            </div>
-        </div>
+    <!-- ===================== Overlays ===================== -->
+    <div class="popover" id="popover" hidden></div>
+    <div class="cmd-palette" id="cmdPalette" hidden>
+      <div class="cmd-input">
+        <svg><use href="#i-search" /></svg><input id="cmdInput" placeholder="搜索命令、会话、模型、提示词…" /><kbd
+          >Esc</kbd
+        >
+      </div>
+      <div class="cmd-list" id="cmdList"></div>
+      <div class="cmd-foot">↑↓ 选择 · Enter 执行 · Ctrl/⌘+K 打开</div>
     </div>
+    <div class="drawer-root" id="drawerRoot" hidden>
+      <div class="drawer-mask" id="drawerMask"></div>
+      <section class="drawer" id="drawer">
+        <div class="drawer-head">
+          <h3 id="drawerTitle">设置</h3>
+          <div class="drawer-head-actions">
+            <button class="icon-btn" id="btnDrawerExpand" title="加宽">
+              <svg><use href="#i-expand" /></svg></button
+            ><button class="icon-btn" id="btnCloseDrawer">
+              <svg><use href="#i-close" /></svg>
+            </button>
+          </div>
+        </div>
+        <div class="drawer-tabs" id="drawerTabs"></div>
+        <div class="drawer-body" id="drawerBody"></div>
+      </section>
+    </div>
+    <div class="modal-root" id="modalRoot" hidden></div>
+    <div class="toasts" id="toasts"></div>
 
-    <!-- Toast Container -->
-    <div id="toastContainer" class="toast-container"></div>
+    <!-- Core rendering libraries are bundled locally (approx. 56 KB): Markdown parsing and HTML sanitisation work fully offline. -->
+    <script>
+      window.AI_OFFLINE_VENDOR = false;
+    </script>
+    <!-- To make the optional enhancement libraries fully offline, place the files in vendor/ and set the flag above to true. -->
+    <script defer src="vendor/marked.min.js"></script>
+    <script defer src="vendor/purify.min.js"></script>
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
-</body>
+    <!-- Optional enhancement libraries (highlighting, formulas, diagrams, PDF,
+     DOCX, QR codes) are loaded on demand by AI.loadLib with a timeout and
+     graceful fallback; they never block first paint. Place the corresponding
+     files in vendor/ to enable them fully offline. -->
+    <script defer src="js/01-core.js"></script>
+    <script defer src="js/02-providers.js"></script>
+    <script defer src="js/03-tools.js"></script>
+    <script defer src="js/04-render.js"></script>
+    <script defer src="js/05-ui.js"></script>
+    <script defer src="js/06-main.js"></script>
+    <script defer src="js/07-extras.js"></script>
+    <script defer src="js/08-i18n.js"></script>
+    <script defer src="js/09-plus.js"></script>
+  </body>
 </html>
