@@ -2,6 +2,7 @@ const projects = [
   { title: "Homepage", url: "./index.html", description: "https://PlayLimitXT.github.io/\nhttps://PLXT.pages.dev/\nThese URLs are also used to replace the \"./\" in links to other projects." },
   { title: "Login Page", url: "./Project/Key/index.html", description: "./Project/Key" },
   { title: "AI Agent Web", url: "./Project/AI/index.html", description: "./Project/AI" },
+  { title: "PLXT-MathSolver", url: "./Project/PLXT-MathSolver/index.html", description: "./Project/PLXT-MathSolver" },
   { title: "HTML Runner", url: "./Project/HTML_Runner/index.html", description: "./Project/HTML_Runner" },
   { title: "Markdown", url: "./Project/Markdown/index.html", description: "./Project/Markdown" },
   { title: "Crypto", url: "./Project/Crypto/index.html", description: "./Project/Crypto" },

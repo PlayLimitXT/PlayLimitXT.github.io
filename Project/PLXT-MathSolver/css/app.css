@@ -1,0 +1,1063 @@
+/* Design system and the fixed, non-scrolling application shell. */
+:root {
+  --ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC",
+        "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  --math: KaTeX_Main, "Times New Roman", serif;
+  --ink: #16181d;
+  --ink-2: #3d434e;
+  --ink-3: #6b7280;
+  --ink-4: #9aa1ad;
+  --line: #e3e6eb;
+  --line-strong: #d2d7df;
+  --paper: #ffffff;
+  --surface: #f7f8fa;
+  --keypad: #f1f3f6;
+  --accent: #1d4ed8;
+  --accent-soft: #eaf0ff;
+  --danger: #c0392b;
+  --ok: #16734a;
+  --glass: rgba(255, 255, 255, .86);
+  --card: rgba(255, 255, 255, .88);
+  --chip: rgba(255, 255, 255, .9);
+  --tab-bg: rgba(255, 255, 255, .72);
+  --shadow: 0 8px 24px rgba(26, 38, 70, .08);
+  --plot-bg: #ffffff;
+  --plot-grid: rgba(36, 54, 84, 0.07);
+  --plot-axis: rgba(36, 54, 84, 0.32);
+  --plot-text: #8b95a5;
+  --toolbar: rgba(255, 255, 255, .34);
+  --toolbar-line: rgba(210, 215, 223, .55);
+  --toolbar-hover: rgba(20, 28, 48, .06);
+  --toolbar-active: rgba(29, 78, 216, .14);
+  --dot-ring: rgba(255, 255, 255, .75);
+}
+
+:root[data-theme="dark"] {
+  --ink: #e9edf5;
+  --ink-2: #c2cad8;
+  --ink-3: #94a0b4;
+  --ink-4: #6f7c92;
+  --line: #2c3444;
+  --line-strong: #3b465b;
+  --paper: #1b2230;
+  --surface: #161c28;
+  --keypad: #111721;
+  --accent: #7aa5ff;
+  --accent-soft: #1c2b49;
+  --danger: #ff7a7a;
+  --ok: #5ade9b;
+  --glass: rgba(17, 23, 33, .88);
+  --card: rgba(27, 34, 48, .92);
+  --chip: rgba(39, 49, 68, .9);
+  --tab-bg: rgba(32, 41, 57, .8);
+  --shadow: 0 10px 30px rgba(0, 0, 0, .38);
+  --plot-bg: #141a25;
+  --plot-grid: rgba(190, 205, 230, 0.10);
+  --plot-axis: rgba(190, 205, 230, 0.34);
+  --plot-text: #93a1b8;
+  --toolbar: rgba(255, 255, 255, .045);
+  --toolbar-line: rgba(255, 255, 255, .07);
+  --toolbar-hover: rgba(122, 165, 255, .16);
+  --toolbar-active: rgba(122, 165, 255, .26);
+  --dot-ring: rgba(17, 23, 33, .9);
+}
+
+:root[data-theme="dark"] body {
+  background:
+    radial-gradient(1100px 620px at 12% -8%, #1c2a4a 0%, transparent 62%),
+    radial-gradient(900px 560px at 100% 100%, #173238 0%, transparent 58%),
+    linear-gradient(160deg, #0d111a 0%, #111823 58%, #0f1621 100%);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--ui);
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 620px at 12% -8%, #e4ecff 0%, transparent 62%),
+    radial-gradient(900px 560px at 100% 100%, #e9f3f0 0%, transparent 58%),
+    linear-gradient(160deg, #f8fafc 0%, #eef2f8 58%, #f6f8fc 100%);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+[hidden] { display: none !important; }
+/* Shown only when scripting is disabled; the app itself never renders it. */
+.noscript {
+  position: fixed; inset: 0; z-index: 999; display: flex;
+  align-items: center; justify-content: center; padding: 24px;
+  text-align: center; line-height: 1.7; font-size: 15px;
+  color: #1d2948; background: #eef2f8;
+}
+
+
+.app {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Top bar */
+.topbar {
+  flex: none;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid rgba(210, 215, 223, .72);
+  box-shadow: 0 1px 14px rgba(29, 41, 72, .05);
+  position: relative;
+  z-index: 20;
+}
+.brand-lock { display: inline-flex; align-items: center; gap: 9px; flex: none; }
+.brand-logo { display: block; width: 104px; height: 26px; object-fit: contain; flex: none; }
+/* A single fixed grey reads on both the light glass and the dark glass.
+   Neither the name nor the wordmark is restyled for a theme. */
+.brand-name {
+  font-size: 13px; font-weight: 650; letter-spacing: .01em;
+  color: #788397; white-space: nowrap;
+}
+.top-spacer { flex: 1; }
+.lang-btn {
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 11px;
+  color: var(--ink-2);
+}
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Formula display */
+.display {
+  flex: none;
+  min-height: 112px;
+  max-height: 32dvh;
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.display-inner {
+  width: 100%;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 22px 24px 26px;
+}
+.display-math {
+  font-family: var(--math);
+  font-size: 29px;
+  line-height: 1.5;
+  color: var(--ink);
+  min-height: 44px;
+  white-space: nowrap;
+}
+.display-empty {
+  font-family: var(--ui);
+  font-size: 15px;
+  color: var(--ink-4);
+  line-height: 44px;
+}
+
+/* Scrollable result region: the only place that scrolls */
+.result {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: transparent;
+}
+.result-inner {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 20px 24px 32px;
+}
+
+.answer-card {
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(210, 215, 223, .82);
+  border-radius: 14px;
+  padding: 18px 20px 16px;
+  box-shadow: 0 8px 28px rgba(26, 38, 70, .07), 0 1px 3px rgba(26, 38, 70, .04);
+  animation: riseIn 320ms cubic-bezier(.2, .8, .25, 1) both;
+}
+.answer-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink-3);
+  margin-bottom: 10px;
+}
+.answer-math {
+  font-family: var(--math);
+  font-size: 32px;
+  line-height: 1.5;
+  overflow: visible;
+  padding-bottom: 2px;
+}
+.answer-approx {
+  margin-top: 8px;
+  font-family: var(--math);
+  font-size: 15px;
+  color: var(--ink-3);
+}
+.answer-meta {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-size: 11.5px;
+  color: var(--ink-3);
+}
+.answer-meta b { font-weight: 600; color: var(--ink-2); }
+.meta-ok { color: var(--ok); }
+
+.error-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--danger);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+.error-detail {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--math);
+  font-size: 12px;
+  color: var(--ink-4);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.action {
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  border-radius: 7px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.action:hover { border-color: var(--accent); color: var(--accent); }
+.action[aria-expanded="true"] { background: var(--accent-soft); border-color: #c7d7ff; color: var(--accent); }
+
+.method-row { margin-top: 16px; }
+.method-row label {
+  display: block; font-size: 11.5px; color: var(--ink-3);
+  font-weight: 600; margin-bottom: 6px;
+}
+.method-select {
+  width: 100%; max-width: 320px;
+  padding: 9px 11px; font-size: 13px;
+  background: var(--paper); border: 1px solid var(--line-strong);
+  border-radius: 7px;
+}
+
+/* Steps */
+.section-title {
+  margin: 20px 0 10px;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--ink-2);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.step {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1px solid rgba(210, 215, 223, .8);
+  border-radius: 11px;
+  margin-bottom: 8px;
+  box-shadow: 0 3px 14px rgba(26, 38, 70, .045);
+  animation: riseIn 280ms cubic-bezier(.2, .8, .25, 1) both;
+  animation-delay: calc(var(--i, 0) * 42ms);
+  overflow: visible;
+}
+.step-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--line);
+  font: 600 11px/20px var(--ui); text-align: center; color: var(--ink-3);
+}
+.step-rule { font-size: 12.5px; font-weight: 600; color: var(--ink-2); }
+.step-eq {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  margin-top: 9px; font-family: var(--math); font-size: 16.5px;
+  line-height: 1.6;
+  overflow: visible;
+}
+.step-eq .m-row { max-width: 100%; overflow: visible; }
+.step-arrow { color: var(--ink-4); font-size: 16px; }
+.step-toggle {
+  margin-top: 8px; border: 0; background: transparent; padding: 2px 0;
+  font-size: 11.5px; color: var(--ink-3);
+}
+.step-toggle:hover { color: var(--accent); }
+.step-detail {
+  margin-top: 9px; padding: 10px 12px;
+  background: var(--surface); border-radius: 7px;
+  font-family: var(--ui);
+}
+.kv { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 11px; color: var(--ink-3); }
+.kv b { color: var(--ink-2); font-weight: 600; }
+.verified-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); margin-right: 5px; }
+.verified-dot.no { background: #b9791d; }
+.substeps { margin-top: 9px; padding-left: 12px; border-left: 2px solid var(--line-strong); }
+.substep { font-size: 11.5px; color: var(--ink-3); padding: 3px 0; display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+.substep .m-row { font-family: var(--math); font-size: 14px; }
+
+/* Graph */
+.graph-card {
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: 9px; padding: 14px 16px 16px;
+}
+.graph-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+.chip {
+  border: 1px solid var(--line-strong); background: var(--paper);
+  font-size: 11.5px; padding: 6px 10px; border-radius: 999px; color: var(--ink-2);
+}
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: #c7d7ff; color: var(--accent); }
+.overlay-input {
+  flex: 1 1 130px; min-width: 110px; max-width: 190px;
+  padding: 6px 9px; font-size: 12px;
+  border: 1px solid var(--line-strong); border-radius: 6px; background: var(--paper);
+}
+.graph-frame { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+#plotCanvas { display: block; width: 100%; height: 280px; touch-action: none; }
+.graph-legend { display: flex; gap: 18px; margin-top: 9px; font-size: 11px; color: var(--ink-3); }
+.legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.legend-swatch { width: 14px; height: 3px; border-radius: 2px; }
+.graph-hint { margin-top: 6px; font-size: 11px; color: var(--ink-4); }
+
+/* Fixed keypad */
+.keypad {
+  flex: none;
+  background: rgba(241, 243, 246, .80);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  border-top: 1px solid rgba(210, 215, 223, .9);
+  box-shadow: 0 -8px 30px rgba(26, 38, 70, .07);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  position: relative;
+  z-index: 10;
+}
+.keypad-tabs {
+  display: flex;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.keypad-tabs::-webkit-scrollbar { display: none; }
+.keypad-tab {
+  flex: 1 0 auto;
+  border: 0; background: transparent;
+  padding: 9px 10px 8px;
+  font-size: 12px; font-weight: 600; color: var(--ink-3);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+.keypad-tab[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.keypad-grid {
+  max-width: 1020px; margin: 0 auto;
+  padding: 9px 12px 8px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+}
+.key {
+  min-height: 42px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  border-radius: 7px;
+  font-family: var(--math);
+  font-size: 17px;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 1px 2px rgba(26, 38, 70, .05);
+  transition: background 120ms ease, transform 110ms cubic-bezier(.2,.8,.25,1),
+              box-shadow 120ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.key:hover { background: var(--accent-soft); box-shadow: 0 3px 10px rgba(29, 78, 216, .12); }
+.key:active { transform: scale(.93); background: #dfe8ff; }
+.key.pressed { transform: scale(.93); background: var(--accent-soft); }
+.key.func { font-family: var(--ui); font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.key.util { background: var(--surface); font-family: var(--ui); font-size: 15px; color: var(--ink-2); }
+.key.accent-key { background: var(--accent); border-color: var(--accent); color: #fff; }
+.solve-wrap { max-width: 1020px; margin: 0 auto; padding: 0 12px 10px; }
+.solve-bar {
+  width: 100%;
+  min-height: 46px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: .02em;
+  box-shadow: 0 6px 18px rgba(29, 78, 216, .26);
+  transition: background 140ms ease, transform 110ms ease, box-shadow 140ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.solve-bar:hover { background: #1742bd; box-shadow: 0 8px 24px rgba(29, 78, 216, .34); }
+.solve-bar:active { background: #12369c; transform: scale(.99); }
+
+.toast {
+  position: fixed; left: 50%; bottom: 96px;
+  transform: translate(-50%, 8px);
+  background: #20242c; color: #fff;
+  padding: 8px 14px; border-radius: 7px;
+  font-size: 12px; opacity: 0; pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease;
+  z-index: 90;
+}
+.toast.visible { opacity: 1; transform: translate(-50%, 0); }
+
+@media (min-width: 1000px) {
+  .display-inner, .result-inner, .keypad-tabs, .keypad-grid, .solve-wrap { max-width: 860px; }
+  .result-inner { padding-top: 24px; }
+  .answer-math { font-size: 34px; }
+  #plotCanvas { height: 320px; }
+}
+
+@media (max-width: 599px) {
+  .topbar { padding: 0 10px; gap: 8px; }
+  .brand-lock { gap: 6px; }
+  .brand-logo { width: 78px; height: 20px; }
+  .brand-name { font-size: 10.5px; }
+  .display-inner { padding: 14px 16px; }
+  .display-math { font-size: 25px; }
+  .result-inner { padding: 14px 12px 24px; }
+  .answer-card { padding: 15px 14px 13px; }
+  .answer-math { font-size: 27px; }
+  .keypad-tabs { padding: 0 8px; }
+  .keypad-grid { padding: 7px 8px 6px; gap: 5px; }
+  .key { min-height: 40px; font-size: 16px; }
+  .solve-wrap { padding: 0 8px 8px; }
+  #plotCanvas { height: 240px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+
+/* Multi-intent answers */
+.intents {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 0 0 12px; margin-bottom: 2px;
+}
+.intents::-webkit-scrollbar { display: none; }
+.intent-chip {
+  flex: none; border: 1px solid var(--line-strong); background: var(--paper);
+  border-radius: 999px; padding: 7px 13px;
+  font-size: 12px; font-weight: 600; color: var(--ink-2); white-space: nowrap;
+}
+.intent-chip:hover { border-color: var(--accent); color: var(--accent); }
+.intent-chip[aria-selected="true"] {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+  box-shadow: 0 4px 14px rgba(29, 78, 216, .28);
+  animation: popIn 220ms cubic-bezier(.2,.8,.25,1) both;
+}
+.intent-chip { animation: riseIn 260ms cubic-bezier(.2,.8,.25,1) both; }
+.intent-title { font-size: 12.5px; font-weight: 650; color: var(--ink-2); margin-bottom: 2px; }
+.intent-hint { font-size: 11.5px; color: var(--ink-4); margin: 0 0 12px; }
+.notice-card {
+  background: var(--paper); border: 1px solid var(--line);
+  border-left: 3px solid var(--accent); border-radius: 8px;
+  padding: 14px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.7;
+}
+.notice-card .m-hole { margin: 0 3px; }
+
+/* Keypad show / hide */
+.keypad-toggle {
+  border: 1px solid var(--line-strong); background: var(--paper);
+  border-radius: 6px; font-size: 12px; font-weight: 600;
+  padding: 5px 10px; color: var(--ink-2); display: inline-flex;
+  align-items: center; gap: 5px;
+}
+.keypad-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.app.keypad-hidden .keypad { display: none; }
+.keypad-reopen {
+  flex: none; display: none; align-items: center; justify-content: center;
+  height: 42px; background: var(--paper); border-top: 1px solid var(--line-strong);
+  font-size: 12.5px; font-weight: 600; color: var(--accent);
+}
+.app.keypad-hidden .keypad-reopen { display: flex; }
+
+
+/* Tall formula wrapper: scrolls instead of clipping, with breathing room. */
+.m-scroll {
+  display: inline-block;
+  max-width: 100%;
+  overflow: auto;
+  overflow-y: auto;
+  padding: 10px 2px;
+  vertical-align: middle;
+  scrollbar-width: thin;
+}
+.answer-math .m-scroll, .step-eq .m-scroll, .substep .m-scroll { max-width: 100%; }
+.graph-card, .notice-card, .error-card {
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(210, 215, 223, .82);
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(26, 38, 70, .055);
+}
+.section-title { letter-spacing: .02em; }
+
+/* Long-press alternate palette (a reference hold gesture). */
+.key-pop {
+  position: fixed;
+  touch-action: none;
+  z-index: 60;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: calc(100vw - 12px);
+  padding: 6px;
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(1.5);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(20, 30, 60, .20);
+  animation: popIn 160ms cubic-bezier(.2,.8,.25,1) both;
+  transform: translate(-50%, -100%);
+}
+.key-pop button {
+  flex: 0 0 auto;
+  min-width: 42px; min-height: 38px;
+  border: 1px solid var(--line); background: var(--paper);
+  border-radius: 7px; font: 600 14px var(--math); color: var(--ink);
+}
+.key-pop button:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(9px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: translate(-50%, -100%) scale(.88); }
+  to   { opacity: 1; transform: translate(-50%, -100%) scale(1); }
+}
+.key-pop { animation-name: popIn; }
+@keyframes chipPop {
+  from { opacity: 0; transform: scale(.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.intent-chip[aria-selected="true"] { animation: chipPop 220ms cubic-bezier(.2,.8,.25,1) both; }
+
+.m-caret { box-shadow: 0 0 7px rgba(29, 78, 216, .55); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+
+/* reference keypad: separate tool strip, capsule tabs, 6x4 grid and
+   red dots marking keys with long-press alternates. */
+.keypad-tools {
+  max-width: 1020px; margin: 0 auto;
+  padding: 7px 12px 2px;
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px;
+  background: var(--toolbar);
+  border-bottom: 1px solid var(--toolbar-line);
+}
+.tool-btn {
+  position: relative;
+  min-height: 32px;
+  border: 0; border-radius: 8px;
+  background: transparent;
+  font: 500 19px/1 var(--ui);
+  color: var(--ink-2);
+  -webkit-tap-highlight-color: transparent;
+  transition: background 120ms ease, transform 110ms ease;
+}
+.tool-btn:hover { background: var(--toolbar-hover); }
+.tool-btn:active { transform: scale(.9); background: var(--toolbar-active); }
+
+.keypad-tabs {
+  border-bottom: 0;
+  padding: 4px 12px 7px;
+  gap: 8px;
+  align-items: stretch;
+}
+.keypad-tab {
+  flex: 1 0 0; min-width: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 1px;
+  padding: 5px 6px;
+  border: 1px solid rgba(210, 215, 223, .95);
+  border-bottom-width: 1px; border-bottom-color: rgba(210, 215, 223, .95);
+  border-radius: 999px;
+  background: var(--tab-bg);
+  color: #5c6472;
+  box-shadow: 0 1px 2px rgba(26, 38, 70, .04);
+  transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+.keypad-tab .tab-line {
+  font: 600 10.5px/1.22 var(--math);
+  letter-spacing: .01em; white-space: nowrap;
+}
+.keypad-tab[aria-selected="true"] {
+  background: var(--ink); border-color: var(--ink); color: var(--paper);
+  box-shadow: 0 5px 16px rgba(15, 20, 32, .24);
+  animation: chipPop 220ms cubic-bezier(.2,.8,.25,1) both;
+}
+.keypad-tab[aria-selected="true"]:hover { background: #222733; }
+
+.keypad-grid { padding: 6px 12px 7px; gap: 5px; }
+.key {
+  position: relative;
+  min-height: 48px;
+  font-size: 18px;
+  border-radius: 9px;
+}
+.key.func { font-size: 14px; }
+.key.has-alts::after, .tool-btn.has-alts::after {
+  content: '';
+  position: absolute;
+  right: 6px; bottom: 6px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #e5484d;
+  box-shadow: 0 0 0 1px var(--dot-ring);
+  pointer-events: none;
+}
+.tool-btn.has-alts::after { right: 10px; bottom: 8px; }
+.solve-wrap { padding: 0 12px 8px; }
+.solve-bar { min-height: 42px; }
+
+@media (max-height: 700px) {
+  .keypad-tools { padding-top: 4px; }
+  .tool-btn { min-height: 30px; }
+  .key { min-height: 46px; font-size: 17px; }
+  .keypad-tabs { padding-bottom: 6px; }
+}
+
+/* ------------------------------------------------------------------ *
+ * Exact-series line, LaTeX panel, graph readouts, touch hardening
+ * ------------------------------------------------------------------ */
+.answer-series {
+  margin-top: 8px; padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
+  font-family: var(--math); font-size: 19px; color: var(--ink);
+  overflow-x: auto;
+}
+.answer-note-label {
+  font-family: var(--ui); font-size: 11px; font-weight: 650;
+  color: var(--accent); letter-spacing: .02em; white-space: nowrap;
+}
+.answer-note-eq { white-space: nowrap; }
+
+/* Advanced LaTeX disclosure. Collapsed by default; never auto-focused. */
+.advanced { margin-top: 14px; }
+.advanced-toggle {
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 1px solid var(--line-strong); background: transparent;
+  border-radius: 999px; padding: 6px 13px;
+  font-size: 12px; font-weight: 600; color: var(--ink-2);
+  cursor: pointer; transition: background 140ms ease, color 140ms ease;
+}
+.advanced-toggle:hover { background: var(--accent-soft); color: var(--accent); }
+.advanced-toggle[aria-expanded="true"] { border-color: #c7d7ff; color: var(--accent); }
+.adv-caret { font-size: 10px; width: 9px; display: inline-block; }
+.advanced-panel {
+  margin-top: 10px; padding: 13px 14px 14px;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--tab-bg);
+}
+.advanced-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  margin-bottom: 7px;
+}
+.advanced-head label { font-size: 11.5px; font-weight: 650; color: var(--ink-3); }
+.latex-status { font-size: 11px; font-weight: 600; }
+.latex-status.ok { color: #16734a; }
+.latex-status.bad { color: #b23b3b; }
+.latex-input {
+  display: block; width: 100%; box-sizing: border-box;
+  min-height: 76px; resize: vertical;
+  padding: 9px 11px;
+  border: 1px solid var(--line-strong); border-radius: 7px;
+  background: var(--paper); color: var(--ink);
+  font: 13px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  -webkit-user-select: text; user-select: text;
+}
+.latex-input:focus { outline: 2px solid #c7d7ff; outline-offset: 1px; }
+.latex-preview {
+  margin-top: 8px; padding: 8px 6px;
+  min-height: 18px; overflow-x: auto;
+  border-radius: 6px; background: rgba(29, 78, 216, .035);
+  font-size: 15px;
+}
+.latex-preview .katex-display { margin: .2em 0; }
+.advanced-actions {
+  display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px;
+}
+.advanced-actions .action { padding: 7px 11px; font-size: 11.5px; }
+.advanced-hint { margin-top: 8px; font-size: 10.5px; line-height: 1.5; color: var(--ink-4); }
+
+.graph-toolbar .chip {
+  min-width: 34px; min-height: 30px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 650;
+}
+.graph-coord {
+  margin-top: 9px; padding: 7px 11px;
+  border-radius: 7px; background: var(--accent-soft);
+  color: var(--accent); font-size: 12px; font-weight: 600;
+  font-family: var(--ui);
+}
+.graph-coord b { margin-right: 6px; }
+
+/* Long-press selects nothing and never opens the OS copy / callout menu.
+   touch-action:none also lets horizontal swipes open a key's alternatives
+   instead of scrolling the page. */
+.keypad, .key-pop, .topbar, .actions, .advanced-toggle,
+.keypad-reopen, .keypad-tab, .key, .tool-btn, .solve-bar, .chip {
+  -webkit-user-select: none; -moz-user-select: none; user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.key, .tool-btn, .key-pop button { touch-action: none; }
+/* Two scrollable keypad regions must keep native panning. */
+.keypad-tabs { touch-action: pan-x; -webkit-overflow-scrolling: touch; }
+.keypad-tab { touch-action: manipulation; }
+.keypad-grid.symbol-mode { touch-action: pan-y; -webkit-overflow-scrolling: touch; }
+.keypad-grid.symbol-mode .sym-key { touch-action: pan-y; }
+.key-pop button { cursor: pointer; }
+.key-pop button:hover { background: var(--accent-soft); border-color: var(--accent); }
+
+@media (min-width: 1000px) {
+  .latex-input { min-height: 96px; font-size: 13.5px; }
+  .advanced-actions .action { padding: 9px 15px; font-size: 12.5px; }
+  .key:hover, .tool-btn:hover { box-shadow: 0 3px 12px rgba(29, 78, 216, .14); }
+  .key-pop button { min-width: 48px; min-height: 42px; }
+  .graph-coord { font-size: 13px; }
+  #plotCanvas { height: 340px; }
+}
+
+/* Swipe-selection highlight inside the alternate palette. */
+.key-pop button.active {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+  box-shadow: 0 3px 10px rgba(29, 78, 216, .28);
+}
+/* Reference pages bring more tabs; keep them legible and horizontally pannable. */
+.keypad-tab { min-width: 62px; }
+.keypad-tabs { scrollbar-width: none; }
+@media (min-width: 1000px) {
+  .keypad-tab { min-width: 74px; }
+}
+
+
+/* "abc" tool: one vertically scrollable symbol panel. */
+.keypad-grid.symbol-mode {
+  display: block;
+  max-height: 226px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  padding-right: 6px;
+}
+.symbol-group { margin-bottom: 10px; }
+.symbol-title {
+  font: 600 11px/1.4 var(--ui);
+  color: var(--ink-3);
+  letter-spacing: .04em;
+  margin: 2px 0 6px 2px;
+}
+.symbol-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+}
+.key.sym-key { min-height: 38px; font-size: 18px; }
+.tool-btn.active { background: var(--accent-soft); color: var(--accent); }
+
+/* Theme toggle in the top bar. */
+.theme-btn {
+  flex: none;
+  width: 34px; height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--chip);
+  color: var(--ink-2);
+  font: 500 17px/1 var(--ui);
+  display: grid; place-items: center;
+  transition: background 140ms ease, color 140ms ease, transform 120ms ease;
+}
+.theme-btn:hover { background: var(--accent-soft); color: var(--accent); }
+.theme-btn:active { transform: scale(.92); }
+
+:root[data-theme="dark"] .keypad,
+:root[data-theme="dark"] .topbar { background: var(--glass); }
+:root[data-theme="dark"] .keypad-tab { border-color: var(--line-strong); color: var(--ink-3); }
+:root[data-theme="dark"] .keypad-tab[aria-selected="true"] { color: var(--paper); }
+:root[data-theme="dark"] .key { background: var(--paper); color: var(--ink); border-color: var(--line-strong); }
+:root[data-theme="dark"] .key-pop button { background: var(--paper); color: var(--ink); border-color: var(--line-strong); }
+:root[data-theme="dark"] .answer-card,
+:root[data-theme="dark"] .method-card,
+:root[data-theme="dark"] .step-card,
+:root[data-theme="dark"] .advanced-panel,
+:root[data-theme="dark"] .graph-card,
+:root[data-theme="dark"] .notice-card,
+:root[data-theme="dark"] .error-card { background: var(--card); border-color: var(--line); }
+:root[data-theme="dark"] .toast { background: var(--ink); color: var(--paper); }
+:root[data-theme="dark"] .m-hole-empty { border-color: var(--ink-4); }
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb { background: #3a465c; }
+:root[data-theme="dark"] ::-webkit-scrollbar-track { background: transparent; }
+
+
+/* The tool strip must stay legible in night mode: ink, hover and red-dot
+   ring all follow theme variables. */
+:root[data-theme="dark"] .keypad-tools { background: var(--toolbar); }
+:root[data-theme="dark"] .tool-btn { color: var(--ink-2); }
+:root[data-theme="dark"] .tool-btn:hover { background: var(--toolbar-hover); }
+:root[data-theme="dark"] .tool-btn:active { background: var(--toolbar-active); }
+:root[data-theme="dark"] .tool-btn.active { color: var(--accent); }
+
+
+/* The night-mode reset of .key-pop button was declared after the active
+   rule and won by specificity, so the swipe highlight disappeared. */
+:root[data-theme="dark"] .key-pop button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0a1220;
+  box-shadow: 0 0 0 2px rgba(122, 165, 255, .38), 0 4px 14px rgba(122, 165, 255, .38);
+}
+.key-pop button.active { color: #fff; }
+:root[data-theme="dark"] .key-pop button.active { color: #0a1220; }
+
+/* Radix answers are identifiers, not mathematics: render them as text. */
+#answerMath.plain-answer {
+  font: 600 26px/1.35 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  letter-spacing: .04em;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+#answerApprox.base-note {
+  font: 500 12px/1.6 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  letter-spacing: .05em;
+  color: var(--ink-3);
+}
+
+
+/* The differential is part of the integral layout but is visually lighter
+   than the integrand; it is still a real row so the caret can enter it. */
+.m-differential { margin-left: .18em; color: var(--ink-2); font-style: italic; }
+.m-differential .m-row { font-style: italic; }
+
+
+/* ------------------------------------------------------------------ *
+ * Landscape / desktop split view.
+ * The portrait-phone shell above is intentionally untouched. This block
+ * only applies when the viewport is wider than it is tall AND large enough
+ * for two independent panes; short landscape phones keep the stacked view.
+ * Left column: formula display above the keypad.
+ * Right column: scrollable results, spanning the full working height.
+ * ------------------------------------------------------------------ */
+@media (orientation: landscape) and (min-width: 768px) {
+  .app {
+    display: grid;
+    grid-template-columns: minmax(360px, 44%) minmax(0, 1fr);
+    grid-template-rows: 48px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "top  top"
+      "disp out"
+      "keys out";
+  }
+
+  .topbar { grid-area: top; }
+
+  .display {
+    grid-area: disp;
+    max-height: none;
+    min-height: 0;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--line);
+  }
+  .display-inner { padding: 32px 28px 26px; }
+
+  .result {
+    grid-area: out;
+    min-height: 0;
+    height: 100%;
+    overflow-y: auto;
+    border-left: 1px solid var(--line-strong);
+    scrollbar-width: thin;
+  }
+  .result-inner { padding: 24px 30px 40px; }
+
+  .keypad { grid-area: keys; }
+  .keypad-reopen { grid-area: keys; }
+
+  /* Keep the keypad's own max-width centring inside the narrower column. */
+  .keypad-tools, .keypad-tabs, .keypad-grid, .solve-wrap { max-width: 720px; }
+
+  /* A collapsed keypad leaves the formula pane in place; the reopen strip
+     occupies the bottom row instead of the keypad. */
+  .app.keypad-hidden .keypad-reopen { align-self: end; }
+}
+
+/* Short landscape viewports (e.g. a phone rotated to 844x390): the two
+   panes still apply, but the keypad scrolls inside its own column so the
+   results pane never collapses to zero height. */
+@media (orientation: landscape) and (min-width: 768px) and (max-height: 560px) {
+  .app { grid-template-rows: 44px minmax(0, 1fr) minmax(0, auto); }
+  .topbar { height: 44px; }
+  .keypad { max-height: 54dvh; overflow-y: auto; overscroll-behavior: contain; }
+  .display-inner { padding: 14px 20px; }
+  .display-math { font-size: 25px; }
+  .result-inner { padding: 14px 20px 28px; }
+  .key { min-height: 38px; font-size: 16px; }
+  .keypad-tools { padding-top: 4px; }
+  .tool-btn { min-height: 28px; }
+}
+
+/* Very wide desktops: give the results more room, keep the keypad compact. */
+@media (orientation: landscape) and (min-width: 1600px) and (min-height: 700px) {
+  .app { grid-template-columns: minmax(420px, 38%) minmax(0, 1fr); }
+  .display-math { font-size: 32px; }
+  .answer-math { font-size: 36px; }
+}
+
+
+/* The accent is a light blue in dark mode; white button text loses contrast.
+   Scoped to the landscape split view only, so the portrait phone shell keeps
+   its exact original pixels. */
+@media (orientation: landscape) and (min-width: 768px) {
+  :root[data-theme="dark"] .solve-bar {
+    color: #0a1220;
+    box-shadow: 0 6px 18px rgba(122, 165, 255, .22);
+  }
+  :root[data-theme="dark"] .solve-bar:hover {
+    background: #9bb9ff;
+    box-shadow: 0 8px 24px rgba(122, 165, 255, .3);
+  }
+  :root[data-theme="dark"] .solve-bar:active { background: #6b98f5; }
+}
+
+
+/* Matrix size picker: a 5x5 grid, an operation selector and custom m x n. */
+.key-pop.matrix-picker {
+  display: block;
+  width: 248px;
+  max-width: calc(100vw - 12px);
+  padding: 9px;
+}
+.mp-title {
+  font: 600 11.5px/1.4 var(--ui);
+  color: var(--ink-3);
+  letter-spacing: .03em;
+  padding: 0 2px 7px;
+}
+.mp-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+}
+.key-pop.matrix-picker .mp-size {
+  min-width: 0; min-height: 32px;
+  font: 600 12px/1 var(--ui);
+  padding: 0 2px;
+}
+.key-pop.matrix-picker .mp-size.active {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+:root[data-theme="dark"] .key-pop.matrix-picker .mp-size.active { color: #0a1220; }
+.mp-row {
+  display: flex; align-items: center; gap: 5px;
+  margin-top: 8px;
+}
+.mp-label {
+  flex: none; font: 600 11px var(--ui); color: var(--ink-3);
+  min-width: 28px;
+}
+.mp-select {
+  flex: 1; min-width: 0;
+  border: 1px solid var(--line-strong); border-radius: 6px;
+  background: var(--paper); color: var(--ink);
+  font: 500 11.5px var(--ui); padding: 4px 5px;
+}
+.mp-num {
+  width: 38px; min-width: 0;
+  border: 1px solid var(--line-strong); border-radius: 6px;
+  background: var(--paper); color: var(--ink);
+  font: 600 12px var(--ui); text-align: center; padding: 4px 2px;
+}
+.mp-times { font: 600 12px var(--ui); color: var(--ink-3); }
+.mp-apply {
+  flex: 1; min-height: 28px;
+  border: 1px solid var(--accent); border-radius: 6px;
+  background: var(--accent-soft); color: var(--accent);
+  font: 600 11.5px var(--ui);
+}
+.mp-apply:hover { background: var(--accent); color: #fff; }
+
+.mp-shortcuts { gap: 4px; margin-top: 6px; }
+.key-pop.matrix-picker .mp-shortcut {
+  flex: 1; min-width: 0; min-height: 28px;
+  font: 600 11.5px/1 var(--math);
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  border-radius: 6px;
+}
+.key-pop.matrix-picker .mp-shortcut:hover {
+  background: var(--accent-soft); border-color: var(--accent); color: var(--accent);
+}
+
+.graph-eq-hint {
+  margin: 8px 2px 2px; font-size: 12px; line-height: 1.5;
+  color: var(--muted, #8b95a5);
+}
+
+.step-evidence {
+  margin: 8px 0 2px; padding-left: 10px;
+  border-left: 2px solid var(--accent, #1b4fd8);
+  display: grid; gap: 4px;
+}
+.step-evidence .ev-line {
+  font-size: 12.5px; line-height: 1.55;
+  color: var(--muted, #8b95a5);
+  word-break: break-word;
+}

@@ -1,0 +1,213 @@
+/* Structured math boxes. Fractions, radicals and exponents are real DOM boxes. */
+.m-row { display: inline-flex; align-items: center; white-space: nowrap; }
+.m-row-root { align-items: center; }
+.m-node { display: inline-flex; align-items: center; position: relative; border-radius: 3px; }
+.m-row-root > .m-node:hover { background: rgba(29, 78, 216, .07); }
+.m-leaf { display: inline-flex; align-items: center; }
+.m-leaf-inner { display: inline-flex; align-items: center; }
+.m-leaf-inner .katex { font-size: 1em; }
+.m-leaf-inner .katex .katex-html { line-height: 1.2; }
+.m-op { padding: 0 .14em; }
+.m-punct { padding: 0 .1em; }
+.m-text { font-family: var(--ui); font-size: .62em; font-style: normal; color: var(--ink-2); }
+
+.m-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.18em;
+  background: var(--accent);
+  vertical-align: middle;
+  margin: 0 1px;
+  flex: none;
+  animation: caret-blink 1.05s steps(2, start) infinite;
+}
+@keyframes caret-blink { to { visibility: hidden; } }
+
+.m-frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  vertical-align: middle;
+  margin: 0 .1em;
+  font-size: .94em;
+  line-height: 1.15;
+}
+.m-frac-n, .m-frac-d {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+}
+.m-frac-n { padding: .04em .24em .1em; }
+.m-frac-d { padding: .1em .24em .04em; }
+/* The bar is its own stretched flex item, so its width is the widest of
+   numerator and denominator instead of the numerator alone. */
+.m-frac-bar {
+  flex: none;
+  height: 1.2px;
+  background: currentColor;
+  align-self: stretch;
+}
+
+.m-pow { display: inline-flex; align-items: flex-start; vertical-align: middle; }
+.m-pow-base { display: inline-flex; align-items: center; }
+.m-pow-exp {
+  display: inline-flex; align-items: center;
+  font-size: .7em;
+  transform: translateY(-.42em);
+  margin-left: .04em;
+}
+
+.m-sqrt { display: inline-flex; align-items: stretch; vertical-align: middle; position: relative; margin: 0 .08em; }
+/* The hook is drawn by SVG (no glyph vinculum). Both it and the radicand
+   stretch to the same height, so the top rule meets the hook's tip. */
+.m-radical { display: inline-flex; align-items: stretch; flex: none; width: .5em; position: relative; }
+.m-radical svg { display: block; width: 100%; height: 100%; overflow: visible; }
+/* Keep a real √ glyph in the text layer (selection / screen readers) without
+   drawing its built-in vinculum a second time. */
+.m-radical-glyph {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+.m-radicand {
+  display: inline-flex; align-items: center;
+  border-top: 1.2px solid currentColor;
+  padding: .07em .12em 0;
+}
+.m-root-idx { position: absolute; left: .05em; top: -.32em; font-size: .58em; }
+
+.m-fn, .m-paren, .m-abs, .m-set, .m-big { display: inline-flex; align-items: center; }
+.m-fn-name {
+  font-family: var(--math);
+  font-style: normal;
+  font-size: .92em;
+  padding-right: .08em;
+}
+.m-bracket {
+  font-family: var(--math);
+  font-size: 1.28em;
+  line-height: 1;
+  padding: 0 .04em;
+}
+.m-abs .m-bracket { font-size: 1.18em; }
+.m-set .m-bracket { font-size: 1.3em; }
+
+.m-big { display: inline-flex; align-items: center; gap: 0; vertical-align: middle; }
+.m-big-sign {
+  font-family: var(--math);
+  font-size: 1.95em;
+  line-height: .86;
+  padding-right: .03em;
+}
+.m-big.kind-lim .m-big-sign,
+.m-big.kind-deriv .m-big-sign,
+.m-big.kind-ode .m-big-sign { font-size: 1.02em; line-height: 1.2; }
+.m-limits {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: .85em;
+  font-size: .56em;
+  line-height: 1.1;
+  padding: 0 .05em;
+}
+.m-limit { display: inline-flex; align-items: center; justify-content: center; min-height: 1em; }
+.m-limit-hi { padding-bottom: .06em; }
+.m-limit-lo { padding-top: .06em; }
+.m-big-body { display: inline-flex; align-items: center; margin-left: .16em; }
+
+.m-hole {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.1em; min-height: 1.1em; padding: 0 .12em;
+  border: 1.5px dashed #9aa1ad; border-radius: 4px;
+  color: #9aa1ad; background: rgba(154,161,173,.09);
+  font: 500 .7em var(--ui); font-style: normal;
+  vertical-align: middle;
+}
+.m-node.mk-hole.m-selected .m-hole {
+  border-color: var(--accent); color: var(--accent); background: var(--accent-soft);
+}
+
+.m-system { display: inline-flex; align-items: center; }
+.m-system-brace {
+  font-family: var(--math); font-weight: 300; line-height: .78;
+  transform: scaleX(.62); transform-origin: left center;
+  margin-right: .12em;
+}
+.m-system-rows { display: inline-flex; flex-direction: column; gap: .22em; justify-content: center; }
+.m-system-line { display: inline-flex; align-items: center; min-height: 1.15em; }
+
+.m-row-empty { display: inline-block; width: .3em; height: 1em; }
+.m-node.m-selected { background: rgba(29, 78, 216, .18); box-shadow: 0 0 0 1.5px var(--accent); }
+
+.m-matrix { display: inline-flex; align-items: center; }
+.m-matrix .m-bracket { font-size: 2.1em; font-weight: 300; }
+.m-matrix-grid {
+  display: inline-grid;
+  gap: .1em .5em;
+  padding: .14em .3em;
+  vertical-align: middle;
+}
+.m-cell { display: inline-flex; justify-content: center; align-items: center; }
+
+/* Answer and step formulas reuse the same boxes at different scales. */
+.answer-math .m-caret, .step-eq .m-caret, .substep .m-caret { display: none; }
+.answer-math .m-row, .step-eq .m-row, .substep .m-row { max-width: 100%; overflow: visible; }
+.m-hole-empty { min-width: .95em; min-height: .95em; font-size: .82em; border-radius: 3px; }
+.m-scroll .m-row-root { align-items: center; }
+
+.m-node.m-comma { margin-right: .24em; }
+
+/* Stacked big operators: lim_{x->a} and ∑_{n=1}^{N}. */
+.m-big-stack {
+  display: inline-flex; flex-direction: column; align-items: center;
+  justify-content: center; line-height: 1; vertical-align: middle;
+}
+.m-big-stack > .m-big-sign { line-height: 1.04; }
+.m-big-stack > .m-limit { font-size: .56em; line-height: 1.05; min-height: 1em; }
+.m-big.kind-lim .m-big-stack > .m-limit-lo { font-size: .62em; padding-top: .08em; }
+.m-big.kind-sum .m-big-stack > .m-limit-hi,
+.m-big.kind-series .m-big-stack > .m-limit-hi { padding-bottom: .08em; }
+.m-big.kind-sum .m-big-stack > .m-limit-lo,
+.m-big.kind-series .m-big-stack > .m-limit-lo { padding-top: .08em; }
+
+/* Stacked d/dx operator and log base subscripts. */
+.m-deriv-head { font-size: .82em; vertical-align: middle; }
+.m-big.kind-deriv .m-big-sign { line-height: 1; }
+.m-big.kind-deriv .m-big-body { margin-left: .22em; }
+.m-fn-sub {
+  display: inline-flex; align-items: flex-end;
+  font-size: .58em; line-height: 1; margin-left: .06em;
+  transform: translateY(.28em);
+}
+.m-lim-side {
+  position: absolute; top: -.16em; right: -.42em;
+  font-size: .62em; line-height: 1; color: var(--ink);
+}
+.m-big.kind-lim .m-big-sign { position: relative; }
+
+
+/* Determinant template: vertical bars instead of square brackets. */
+.m-matrix-det .m-bracket { font-size: 2.35em; font-weight: 300; }
+
+/* Compact permutation / combination: left subscript, capital letter,
+   right subscript. Both parameter rows stay fully editable. */
+.m-permcomb {
+  display: inline-flex;
+  align-items: baseline;
+  vertical-align: baseline;
+  gap: .04em;
+  font-family: var(--math);
+}
+.m-permcomb .m-pc-sub {
+  font-size: .68em;
+  line-height: 1;
+  transform: translateY(.24em);
+}
+.m-permcomb .m-pc-letter {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.04em;
+  padding: 0 .02em;
+}
