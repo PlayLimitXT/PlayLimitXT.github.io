@@ -1,5 +1,15 @@
 [
   {
+    "title": "PLXT-MathSolver Tech Blog",
+    "date": "2026.11.28",
+    "author": "PlayLimitXT",
+    "categoryDisplay": "Development",
+    "image": "articles/Blog_Pages/2026/11/Page_1/resources/architecture.png",
+    "link": "articles/viewer.html?p=2026/11/Page_1",
+    "mdPath": "2026/11/Page_1",
+    "description": "A detailed engineering write-up of a zero-dependency, fully offline structured math editor and solver: box-tree input, certified derivations, exact arithmetic, an independent 613-case oracle, and the repository discipline behind a release-ready static app."
+  },
+  {
     "title": "AI Agent Web Tech Blog",
     "date": "2026.11.24",
     "author": "PlayLimitXT",
